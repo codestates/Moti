@@ -25,7 +25,7 @@ app.use(cookieParser());
 // app.post('/signup', controllers.signup);
 app.use('/user', userRouter);
 
-app.post('/oauthgit',controllers.oauthgit);
+
 
 app.get('/',(req,res)=>{
     res.status(201).send('hello world');
