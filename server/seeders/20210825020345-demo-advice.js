@@ -12,7 +12,15 @@ module.exports = {
      * }], {});
     */
      return queryInterface.bulkInsert('RandomAdvices', [{
-      advice: '도망가는 건 너 자신이다.',
+      advice: '너 자신을 알라.',
+      createdAt: new Date(),
+      updatedAt: new Date()
+    },{
+      advice: '유튜브 볼 때가 아니다.',
+      createdAt: new Date(),
+      updatedAt: new Date()
+    },{
+      advice: 'stay hungry, stay foolish',
       createdAt: new Date(),
       updatedAt: new Date()
     }]);
