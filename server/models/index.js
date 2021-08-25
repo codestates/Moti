@@ -34,4 +34,12 @@ Object.keys(db).forEach(modelName => {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
+const { Post, emotion, user} = sequelize.models;
+
+user.hasMany(Post);
+Post.belongsTo(user);
+
+Post.belongsToMany(emotion, { through: 'Post_emotion', targetKey:'id', foreignKey: 'Post_Id'});
+emotion.belongsToMany(Post, {through: 'Post_emotion', targetKey:'id', foreignKey: 'emotion_Id'});
+
 module.exports = db;
