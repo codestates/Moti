@@ -1,3 +1,4 @@
 module.exports = {
-    signin: require('./user/signin')
+    signin: require('./user/signin'),
+    oauthgit: require('./user/oauthgit')
 }
