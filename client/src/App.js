@@ -26,11 +26,20 @@ const getAccessToken = async (authorizationCode) =>{
 function App() {
 
   useEffect(()=>{
+    const script = document.createElement('script');
+    script.src="https://apis.google.com/js/platform.js";
+    document.body.appendChild(script);
+    
+
     const url = new URL(window.location.href)
     const authorizationCode = url.searchParams.get('code')
     if (authorizationCode) {
       console.log(authorizationCode);
       getAccessToken(authorizationCode)
+    }
+
+    return () => {
+      document.body.removeChild(script);
     }
   })
   
