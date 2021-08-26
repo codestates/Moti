@@ -9,7 +9,7 @@ module.exports = {
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
      return queryInterface.changeColumn('Posts', "picture",{
-      type: Sequelize.BLOB('long'),
+      type: Sequelize.BLOB('long')
     })
   },
 
