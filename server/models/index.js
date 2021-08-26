@@ -5,8 +5,8 @@ const path = require('path');
 const Sequelize = require('sequelize');
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
-const config = require(__dirname + '/../config/config.json')[env];
-const db = {};
+const config = require(__dirname + '/../config/config.js')[env];
+const db = {}; 
 
 let sequelize;
 if (config.use_env_variable) {
@@ -33,5 +33,19 @@ Object.keys(db).forEach(modelName => {
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
+
+const { Post, emotion, user, Post_emotion} = sequelize.models;
+
+user.hasMany(Post);
+Post.belongsTo(user);
+
+Post.hasMany(Post_emotion);
+Post_emotion.belongsTo(Post);
+Post.belongsToMany(emotion, { through: 'Post_emotion', targetKey:'id', foreignKey: 'Post_Id'});
+
+emotion.hasMany(Post_emotion);
+Post_emotion.belongsTo(emotion);
+emotion.belongsToMany(Post, {through: 'Post_emotion', targetKey:'id', foreignKey: 'emotion_Id'});
+
 
 module.exports = db;
