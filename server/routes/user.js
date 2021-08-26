@@ -5,5 +5,6 @@ const controller = require('../controllers');
 router.post('/login', controller.signin);
 router.post('/signup', controller.signup);
 router.post('/oauthgit',controller.oauthgit);
+router.put('/changepassword',controller.changepassword);
 
 module.exports = router;
