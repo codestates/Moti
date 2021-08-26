@@ -3,4 +3,5 @@ module.exports = {
     oauthgit: require('./user/oauthgit'),
     signup: require('./user/signup'),
     changepassword: require('./user/changepassword'),
+    changeprofile: require('./user/changeprofile'),
 }

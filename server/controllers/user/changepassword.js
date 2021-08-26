@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 const model = require('../../models');
 const jwt = require('jsonwebtoken');
-const { generateAccessToken} = require('../tokenFunctions');
+
 
 module.exports =  (req, res) =>{
     let {nowpassword, newpassword} = req.body;
