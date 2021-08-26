@@ -5,7 +5,7 @@ const { generateAccessToken, generateRefreshToken} = require('../tokenFunctions'
 module.exports = async (req, res) => {
     try {
         //const userInfo = await user.findOne({attributes: ['email', 'password', 'profile'], where: {email: req.body.email, password: req.body.password}});
-        const userInfo = await user.findOne({attributes: ['email', 'username', 'password', 'profile'], where: {email: req.body.email}});
+        const userInfo = await user.findOne({attributes: ['id', 'email', 'username', 'password'], where: {email: req.body.email}});
         const advice = await RandomAdvice.findOne({where : {id : req.body.adviceID}});
 
         if(!userInfo){
