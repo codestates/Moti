@@ -4,4 +4,8 @@ module.exports = {
     signup: require('./user/signup'),
     changepassword: require('./user/changepassword'),
     changeprofile: require('./user/changeprofile'),
+    signout: require('./user/signout'),
+    upload: require('./post/upload'),
+    delete: require('./post/delete'),
+    allposts: require('./post/allpost')
 }
