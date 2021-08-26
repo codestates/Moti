@@ -48,6 +48,16 @@ textarea {
 }
 /* login */
 
+.hide{
+  display : none;
+}
+
+.error{
+  color:rgb(190, 79, 79);
+  font-size: small;
+  position : absolute;
+}
+
 .login {
   display: flex;
   flex-direction: column;
@@ -62,14 +72,15 @@ textarea {
 .login__tittle {
   display: flex;
   align-items: center;
-  margin-top: 150px;
-  margin-bottom: 32px;
+  margin-top: 200px;
+  margin-bottom: 100px;
 }
 
 .login__tittle__wanna-rest {
   font-size: 100px;
   color: #FFEBEB;
   font-family: Oranienbaum, sans-serif;
+  letter-spacing: 0.8rem;
   margin-right: 56px;
 }
 
@@ -77,10 +88,12 @@ textarea {
   font-size: 100px;
   color: #FFFFFF;
   font-family: Ubuntu, sans-serif;
+  letter-spacing: 0.8rem
 }
 
 .login__box {
   display: flex;
+  position: relative;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -93,74 +106,242 @@ textarea {
 .login__box__input {
   display: flex;
   flex-direction: column;
-  margin-bottom: 24px;
+  margin-bottom: 26px;
+  margin-top: 30px;
+  gap: 0.3rem;
+}
+
+.login__box__input__id{
+  position: relative;
+}
+
+.login__box__input__password{
+  position: relative;
 }
 
 .login__box__input input {
-  width: 380px;
+  width: 370px;
   height: 45px;
   background: transparent;
   border: none;
-  border-bottom: 2px solid #AD8A7E;
-  color: #AD8A7E;
+  border-bottom: 2px solid rgba(85, 66, 66, 0.35);
+  color: #667286;
   margin-bottom: 8px;
+  font-size: medium;
 }
 
-/* .login__box__input__id {
-  background-image: url('./assets/email.jpeg');
-  background-repeat: no-repeat;
-  background-size: 24px;
+.login__box__input__id__image {
+  width: 18px;
+  height: auto;
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  filter: invert(27%) sepia(4%) saturate(2403%) hue-rotate(320deg) brightness(93%) contrast(89%);
 }
 
-.login__box__input__password {
-  background-image: url('./assets/lock.png');
-  background-repeat: no-repeat;
-  background-size: 24px;
-} */
+.login__box__input__password__image {
+  width: 20px;
+  height: auto;
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  filter: invert(27%) sepia(4%) saturate(2403%) hue-rotate(320deg) brightness(93%) contrast(89%);
+}
 
 .login__box__btn {
   display: flex;
-  margin-bottom: 64px;
+  margin-bottom: 55px;
+  gap: 1rem;
 }
 
 .login__box__btn button {
-  width: 186px;
-  height:40px;
-  border: 2px solid rgba(46, 31, 26, 0.6);
+  width: 175px;
+  height:47px;
+  border: 2px solid rgba(158, 129, 119, 0.6);
   border-radius: 8px;
   cursor: pointer;
 }
 
 .login__box__btn__sign-in {
   background-color: rgba(255, 255, 255, 0.5);
+  transition: all 0.3s ease-in-out;
   color: #95685A;
   margin-right: 8px;
+  font-size: medium
+}
+
+.login__box__btn__sign-in:hover{
+  transition: all 0.3s ease-in-out;
+  background-color: rgb(255, 255, 255);
+}
+
+.login__box__btn__sign-in-disabled {
+  /* 미완 */
+  background-color: black;
 }
 
 .login__box__btn__sign-up {
   background-color: rgba(154, 93, 73, 0.6);
   color: #FFFFFF;
+  font-size:medium
+}
+
+.login__box__btn__sign-up:hover{
+  transition: all 0.3s ease-in-out;
+  background-color: rgb(154, 93, 73);
+}
+
+.login__box__error {
+  position:absolute;
+  top: 250px;
 }
 
 .login__box__social {
   display: flex;
   align-items: center;
+  transition: translateY(10%);
 }
 
 .login__box__social__text {
   font-family: Orienta, sans-serif;
   font-size: 18px;
-  color: #959595;
+  color: rgba(65, 45, 38, 0.6);
   margin-right: 8px;
 }
 
 .login__box__social__btn {
-  background-image: url('./assets/github.png');
-  background-repeat: no-repeat;
-  background-size: cover;
+  background: transparent;
   width: 32px;
   height: 35px;
   cursor: pointer;
 }
 
-/*  버튼 클릭시 투명도 조절으로 애니메이션 */
+/*  sign up */
+
+.signup {
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-image: url('assets/login-background.jpeg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.signup__box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255,255,255,0.35);
+  border-radius: 10px;
+  width: 526px;
+  height:600px;
+}
+
+.signup__box__tittle {
+  font-size: 36px;
+  margin-top: 30px;
+  margin-bottom: 60px;
+  color: #95685A;
+}
+
+.signup__box__input {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 26px;
+  gap: 0.3rem;
+}
+
+.signup__box__input__email{
+  position: relative;
+}
+
+.signup__box__input__user-name{
+  position: relative;
+}
+
+.signup__box__input__password{
+  position: relative;
+}
+
+.signup__box__input__password-check{
+  position: relative;
+}
+
+
+.signup__box__input input {
+  width: 370px;
+  height: 45px;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid rgba(85, 66, 66, 0.35);
+  color: #667286;
+  margin-bottom: 25px;
+  font-size: medium;
+}
+
+
+.signup__box__input__email__image {
+  width: 18px;
+  height: auto;
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  filter: invert(27%) sepia(4%) saturate(2403%) hue-rotate(320deg) brightness(93%) contrast(89%);
+}
+
+.signup__box__input__user-name__image {
+  width: 23px;
+  height: auto;
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  filter: invert(27%) sepia(4%) saturate(2403%) hue-rotate(320deg) brightness(93%) contrast(89%);
+}
+
+.signup__box__input__password__image {
+  width: 20px;
+  height: auto;
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  filter: invert(27%) sepia(4%) saturate(2403%) hue-rotate(320deg) brightness(93%) contrast(89%);
+}
+
+.signup__box__input__password-check__image {
+  width: 20px;
+  height: auto;
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  filter: invert(27%) sepia(4%) saturate(2403%) hue-rotate(320deg) brightness(93%) contrast(89%);
+}
+
+.signup__box__input__email__error{
+  top: 48px;
+}
+
+.signup__box__input__password__error{
+  top: 48px;
+}
+
+.signup__box__input__password-check__error{
+  top: 48px;
+}
+
+.signup__box__btn {
+  width: 370px;
+  height: 47px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 2px solid rgba(158,129,119,0.6);
+  background-color: rgba(255,255,255,0.5);
+  color: #95685A;
+  transition: all 0.3s ease-in-out;
+  font-size: medium;
+}
+
+.signup__box__btn:hover{
+  transition:all 0.3s ease-in-out;
+}
