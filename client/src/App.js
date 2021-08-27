@@ -26,10 +26,6 @@ const getAccessToken = async (authorizationCode) =>{
 function App() {
 
   useEffect(()=>{
-    const script = document.createElement('script');
-    script.src="https://apis.google.com/js/platform.js";
-    document.body.appendChild(script);
-    
 
     const url = new URL(window.location.href)
     const authorizationCode = url.searchParams.get('code')
@@ -37,32 +33,9 @@ function App() {
       console.log(authorizationCode);
       getAccessToken(authorizationCode)
     }
-
-    return () => {
-      document.body.removeChild(script);
-    }
   })
   
   return (
-    // <div className="App">
-      
-    //   <button onClick={socialLoginHandler}>oauth_test</button>
-    //   <div class="g-signin2" data-onsuccess="onSignIn"></div>
-    //   <header className="App-header">
-    //     <img src={logo} className="App-logo" alt="logo" />
-    //     <p>
-    //       Edit <code>src/App.js</code> and save to reload.
-    //     </p>
-    //     <a
-    //       className="App-link"
-    //       href="https://reactjs.org"
-    //       target="_blank"
-    //       rel="noopener noreferrer"
-    //     >
-    //       Learn React
-    //     </a>
-    //   </header>
-    // </div>
     <Router>
       <Switch>
         <Route exact path='/'>

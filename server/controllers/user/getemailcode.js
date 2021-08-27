@@ -52,7 +52,7 @@ module.exports = async (req,res) =>{
             if(err){
                 throw err;
             }else{
-                 res.json({
+                 res.status(200).json({
                      data:{emailcode : hash},
                      message: 'email 전송완료'
                  })
