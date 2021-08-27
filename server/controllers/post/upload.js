@@ -1,6 +1,6 @@
 const { Post, emotion, Post_emotion } = require('../../models')
 const fs = require('fs');
-const { isAuthorized } = require('../tokenFunctions')
+const { isAuthorized, remakeToken } = require('../tokenFunctions')
 
 module.exports =  async (req, res) => {
     const authorization = req.headers['authorization'];
@@ -16,8 +16,17 @@ module.exports =  async (req, res) => {
         }
 
         let {emotionstate, content} = req.body;
-        const token = authorization.split(' ')[1];
-        const userInfo = isAuthorized(token);
+        //const token = authorization.split(' ')[1];
+        let token = authorization.split(' ')[1];
+        //const userInfo = isAuthorized(token);
+        let userInfo;
+
+        if(!isAuthorized(token)){
+            token = remakeToken(req);
+            userInfo = isAuthorized(token);
+        }else{
+            userInfo = isAuthorized(token);
+        }
 
         //Post, emotion, join table 데이터 insert하기
         let PostResult = await Post.create({

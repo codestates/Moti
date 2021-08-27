@@ -1,13 +1,14 @@
 const { Post, emotion, Post_emotion } = require('../../models');
-const { isAuthorized } = require('../tokenFunctions');
+const { isAuthorized} = require('../tokenFunctions');
 
 module.exports = (req, res) => {
         const authorization = req.headers['authorization'];
         if(!authorization){
             res.status(401).json({message : '유효한 회원이 아닙니다.'})
         }else{
-            const token = authorization.split(' ')[1];
+            let token = authorization.split(' ')[1];
             const userId = isAuthorized(token);
+
             const num = userId.id;
             const arr = [];
             let obj = {};

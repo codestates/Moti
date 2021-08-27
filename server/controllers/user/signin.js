@@ -16,8 +16,9 @@ module.exports = async (req, res) => {
             if(!isMatch){
                 return res.status(404).json({message : 'user Not found'});
             }else{
+                delete userInfo.dataValues.password //추가해봄.
                 const access_token = generateAccessToken(userInfo.dataValues);
-                const refresh_token = generateRefreshToken();
+                const refresh_token = generateRefreshToken(userInfo.dataValues);
 
                 res.cookie('RefreshToken', refresh_token, {httpOnly: true, sameSite: 'none', secure: true});
                 res.json({data : {
