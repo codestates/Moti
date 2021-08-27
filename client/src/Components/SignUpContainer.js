@@ -1,6 +1,8 @@
 import axios from 'axios';
 import React, {useState} from 'react';
 
+const serverurl = 'http://localhost:80';
+
 export default function SignUpContainer () {
     const [signupInfo, setSignupInfo] = useState({
         email:'',
@@ -17,15 +19,16 @@ export default function SignUpContainer () {
         somethingMissed:false
     })
 
+    const [signupError, setSignupError] = useState(false);
+
     const handleInputValue = (key) => (e) => {
         setSignupInfo({ ...signupInfo, [key]:e.target.value})
     }
 
     const validationCheck = (key) => (e) => {
+        setErrorVisible({...errorVisible,somethingMissed:false})
         let value = e.target.value;
-        console.log(key)
-        console.log(value)
-        let regEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/
+        let regEmail = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
         let regPassword = /^[a-zA-Z0-9]{8,20}$/
         if(key==='email'){
             if(regEmail.test(value)){
@@ -54,21 +57,20 @@ export default function SignUpContainer () {
     }
 
     const onSubmitHandler = (e) => {
-        if(signupInfo.email.length>0 && signupInfo.userName.length>0 && signupInfo.password.length>0 && signupInfo.passwordCheck>0){
+        if(signupInfo.email && signupInfo.userName && signupInfo.password && signupInfo.passwordCheck){
             setErrorVisible({...errorVisible,somethingMissed:false})
             if(errorVisible.email===false && errorVisible.password===false && errorVisible.passwordCheck===false){
                 axios
-                    .post('http://moti.log/user/signup',{
+                    .post(serverurl+'/user/signup',{
                         email:signupInfo.email,
                         username:signupInfo.userName,
                         password:signupInfo.password
                     })
                     .then( res => {
-                        console.log(res)
-                        if(!!(res.id)){
-                            //!회원가입 성공 코드 작성.
-                            document.location.href='/'
-                        }
+                        document.location.href='/'
+                    })
+                    .catch( error=> {
+                        setSignupError(true);
                     })
             }
         }else{
@@ -93,6 +95,7 @@ export default function SignUpContainer () {
                     />
                     <img 
                         src="https://img.icons8.com/ios/24/000000/new-post.png"
+                        alt='email'
                         className = 'signup__box__input__email__image'
                     />
                     <div className={errorVisible.email ?  'signup__box__input__email__error error': 'signup__box__input__email__error error hide'}>
@@ -110,6 +113,7 @@ export default function SignUpContainer () {
                     >
                     <img 
                         src="https://img.icons8.com/ios/24/000000/user--v1.png"
+                        alt='user'
                         className='signup__box__input__user-name__image'
                     />
                 </div>
@@ -124,6 +128,7 @@ export default function SignUpContainer () {
                     >
                     <img 
                         src="https://img.icons8.com/ios/50/000000/lock--v1.png"
+                        alt='password'
                         className = 'signup__box__input__password__image'
                     />
                     <div className={errorVisible.password ?  'signup__box__input__password__error error': 'signup__box__input__password__error error hide'}>
@@ -141,6 +146,7 @@ export default function SignUpContainer () {
                     >
                     <img 
                         src="https://img.icons8.com/ios/50/000000/lock--v1.png"
+                        alt='password check'
                         className = 'signup__box__input__password-check__image'
                     />
                     <div className={errorVisible.passwordCheck ?  'signup__box__input__password-check__error error': 'signup__box__input__password-check__error error hide'}>
@@ -154,6 +160,9 @@ export default function SignUpContainer () {
                 </button>
                 <div className={errorVisible.somethingMissed? 'signup__box__btn-area__error error':'signup__box__btn-area__error error hide'}>
                     모든 항목을 입력해주세요.
+                </div>
+                <div className={signupError? 'signup__box__btn-area__error error':'signup__box__btn-area__error error hide'}>
+                    이미 존재하는 이메일입니다.
                 </div>
             </div>
         </div>
