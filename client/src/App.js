@@ -12,19 +12,6 @@ import axios from 'axios';
 
 function App() {
 
-<<<<<<< HEAD
-  useEffect(()=>{
-
-    const url = new URL(window.location.href)
-    const authorizationCode = url.searchParams.get('code')
-    if (authorizationCode) {
-      console.log(authorizationCode);
-      getAccessToken(authorizationCode)
-    }
-  })
-  
-=======
->>>>>>> d5e5240b3e4d6c9d861d72ad31c255701ff63754
   return (
     <Router>
       <Switch>
