@@ -38,12 +38,13 @@ export default function LoginContainer () {
             })
             .catch()
 
-            //미완 내용 추가 필요
+            //!미완 내용 추가 필요
 
             
     }
 
     const socialLoginHandler = () =>{
+        //!소셜로그인 성공하면 authorizationCode 저장하고 mypage로 이동해야함
         window.location.assign(GITHUB_LOGIN_URL);
     }
 
@@ -101,10 +102,10 @@ export default function LoginContainer () {
                     Sign-In
                 </button>
                 <Link to='/signup'>
-                    <button className='login__box__btn__sign-up'>Sign-Up</button>
+                    <button className='login__box__btn__sign-up' onClick={loginRequestHandler}>Sign-Up</button>
                 </Link>
             </div>
-            <div className='login__box__error error'>
+            <div className={errorVisible? 'login__box__error error' : 'login__box__error error hide'}>
                 아이디 또는 비밀번호가 잘못 입력 되었습니다.
             </div>
             <div className='login__box__social'>

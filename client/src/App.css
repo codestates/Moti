@@ -46,6 +46,7 @@ input,
 textarea {
   font-family: 'Orienta', sans-serif;
 }
+
 /* login */
 
 .hide{
@@ -175,11 +176,6 @@ textarea {
   background-color: rgb(255, 255, 255);
 }
 
-.login__box__btn__sign-in-disabled {
-  /* 미완 */
-  background-color: black;
-}
-
 .login__box__btn__sign-up {
   background-color: rgba(154, 93, 73, 0.6);
   color: #FFFFFF;
@@ -269,7 +265,6 @@ textarea {
   position: relative;
 }
 
-
 .signup__box__input input {
   width: 370px;
   height: 45px;
@@ -280,7 +275,6 @@ textarea {
   margin-bottom: 25px;
   font-size: medium;
 }
-
 
 .signup__box__input__email__image {
   width: 18px;
@@ -330,7 +324,11 @@ textarea {
   top: 48px;
 }
 
-.signup__box__btn {
+.signup__box__btn-area{
+  position: relative;
+}
+
+.signup__box__btn-area__btn {
   width: 370px;
   height: 47px;
   border-radius: 8px;
@@ -342,6 +340,13 @@ textarea {
   font-size: medium;
 }
 
-.signup__box__btn:hover{
+.signup__box__btn-area__error{
+  position: absolute;
+  top: 50px;
+  left:120px;
+}
+
+.signup__box__btn-area__btn:hover{
   transition:all 0.3s ease-in-out;
+  background-color: rgb(255, 255, 255);
 }

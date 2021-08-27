@@ -1,7 +1,7 @@
 body {
     width: 100vw;
     padding: 0;
-    margin: 0; /* App.css에 추가, 혜린님께 말할것*/
+    margin: 0; 
 }
 .p{
   font-family: 'Orienta', sans-serif;
@@ -90,6 +90,7 @@ body {
   width:22%;
   justify-content: center;
   margin: 3.9rem 0;
+  padding-right: 2rem;
   border-right: 2px solid #C4C4C4;
 } 
 .sidebar__box{
@@ -112,8 +113,8 @@ body {
     gap: 1.5rem;
 }
 .sidebar__box__user__picbox{
-    width: 6.75rem;
-    height: 6.75rem;
+    width: 8rem;
+    height: 8rem;
     border-radius: 100%;
     overflow: hidden;
 }
@@ -142,6 +143,7 @@ body {
     top: 22rem;
 }
 /* 명언들 flex되는게 해야함*/
+/* 좀 더 왼쪽으로?*/
 .sidebar__box__proverb__title{
     font-size: 15px;
     font-weight: bold;
@@ -163,12 +165,67 @@ body {
 }
 .post{
  flex: 3;
+ width: 100%;
  display: flex;
- justify-content: center;
+ flex-direction: column;
+ align-items: center;
  border-right: 2px solid #C4C4C4;
- margin: 3rem 0;/*임시로*/
+ margin: 3rem 1rem;
+ padding: 0 1rem;
+ 
 }
+/* search emotion */
+.searchemotion{
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 2.3rem;
+}
+.searchemotion__box{
+    width:13rem;
+    height: 1.8rem;
+    border-radius: 0.3rem;
+    background-color: white;
+    border: 1px solid #AD8A7E;
+    font-family: 'Ubuntu',sans-serif;
+}
+.searchemotion__box > option{
+   color: #a5a5a5;
+}
+/*option 에 대한 css 사용방법 연구
+https://webdir.tistory.com/432  플러그인 등등*/
+.searchemotion__box__title{
+    color: #a5a5a5;
+}
+ /* .select-selected{
+    color: #a5a5a5;
+}  */
+/* .select-selected::after{
+}
+*/ 
 
+/* sendpost */
+.sendpost{
+ width: 100%;
+ display: flex;
+}
+.sendpost__circlebox{
+    width: 2.8rem;
+    height: 2.8rem;
+    border-radius: 100%;
+    overflow: hidden;
+}
+.sendpost__circlebox__img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background-color: #E5E5E5;
+
+}
+/* .sendpost__box{
+    width:52rem;
+    height: 7.4rem;
+} */
 /* Footer */ 
 .footer{
     height: 302px;

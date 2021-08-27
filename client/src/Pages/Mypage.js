@@ -6,7 +6,7 @@ import Post from '../Components/Post';
 import '../Components/mypage.css';
 
 function Mypage(props) {
-    //임시로 props / 구조분해해서 가져갈 부분만 가져가도 됨
+    //임시로 props / 구조분해해서 가져갈 부분만 가져가도
     return (
        <div className="mypage"> 
         <Header props={props}/>
