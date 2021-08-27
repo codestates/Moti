@@ -6,7 +6,6 @@ function Footer() {
            <div className="footer__container">
                <ul className="footer__container__Linkbox">
                   <li className="footer__container__Linkbox_item">
-                      --------------------여기는 footer---------------------------
                      Link
                   </li>
                   <li className="footer__container__Linkbox_item">

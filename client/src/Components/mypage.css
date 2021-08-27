@@ -1,19 +1,37 @@
 body {
     width: 100vw;
     padding: 0;
-    margin: 0;
+    margin: 0; /* App.css에 추가, 혜린님께 말할것*/
 }
-/*따로 전체적으로 잡아서 flex, 가운데정렬하는 좋을까*/
+.p{
+  font-family: 'Orienta', sans-serif;
+}
+.mypage{
+   height: 3065px;
+}
+.mypage__container{
+    width:100%;
+    max-width: 1600px;
+    top:3.2rem;
+    height: 2710px;
+    display: flex;
+    justify-content: center;
+    margin: 0 2rem;
+ }
+
+/*Header*/ 
+
 .header{
     background-color: #ffecec;
     width: 100%;
     height: 3.2rem;
     display: flex;
+    justify-content: center;
     top: 0;
     z-index: 999;
-    max-width: 2000px;
     border-bottom: 2px solid #C4C4C4;
 }
+
 .header__container{
     display: flex;
     width: 100%;
@@ -22,36 +40,137 @@ body {
     align-items: center;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
+    max-width: 1600px;
 }
+
 .header__container__logo{
     display: flex;
 }
+
 .header__container__menu{
     display: flex;
-    width: 9rem;
+    width: 9.5rem;
     justify-content: space-between;
     align-items: center;
     
 }
+
 .header__container__menu__item{
     display: flex;
     
 }
+
 .header__container__menu__item__profilebox{
     width: 27px;
     height: 27px;
     border-radius: 70%;
     overflow: hidden;
 }
+
 .header__container__menu__item__profilebox__profile{
     width: 100%;
     height: 100%;
     object-fit: cover;
     background-color: rgb(80, 80, 80);
 }
+
 .header__container__menu__item__setting{
     width: 36px;
     height: 36px;
     color: #616B7C; 
 }
 
+/*Sidebar*/ 
+
+/*고민: 전체페이지에 전부 max-width값 설정해야 하는데, body말고 그냥 여러개 선택해야 할까 (body는 로그인 로그아웃 페이지에 영향?)*/
+
+.sidebar{
+  display: flex;
+  flex: 1;
+  width:22%;
+  justify-content: center;
+  margin: 3.9rem 0;
+  border-right: 2px solid #C4C4C4;
+} 
+.sidebar__box{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin: 0 1rem;
+    padding-right: 1.4rem;
+    width: 100%;
+    height: 20.2rem;
+    gap: 2rem;
+}
+.sidebar__box__user{
+    display: flex;
+    flex-direction: column;
+    width: 56%;
+    margin-top: 0.5rem;
+    border-bottom: 1px solid #C4C4C4;
+    align-items: center;
+    gap: 1.5rem;
+}
+.sidebar__box__user__picbox{
+    width: 6.75rem;
+    height: 6.75rem;
+    border-radius: 100%;
+    overflow: hidden;
+}
+.sidebar__box__user__picbox__pic{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background-color: #C4C4C4;
+}
+.sidebar__box__user__text{
+    color: #353E4E;
+    font-size: 18px;
+    padding-bottom: 1rem;
+}
+
+.sidebar__box__user__text > span{
+    font-size: 24px;
+}
+.sidebar__box__proverb{
+    width: 16rem;
+    font-family: 'ABeeZee',sans-serif;
+    display: flex;
+    flex-direction: column;
+    gap:0.5rem;
+    position: fixed;
+    top: 22rem;
+}
+/* 명언들 flex되는게 해야함*/
+.sidebar__box__proverb__title{
+    font-size: 15px;
+    font-weight: bold;
+    color: #A9897F;
+}
+.sidebar__box__proverb__content{
+    width:100%;
+    display: flex;
+    flex-flow: column wrap;
+    flex-direction: column;
+    text-align: center;
+    color: #696969;
+    line-height: 3rem;
+    font-size: 18px;
+}
+.sidebar__box__proverb__content > p {
+    line-height: 1.5rem;
+    font-size: 16px;
+}
+.post{
+ flex: 3;
+ display: flex;
+ justify-content: center;
+ border-right: 2px solid #C4C4C4;
+ margin: 3rem 0;/*임시로*/
+}
+
+/* Footer */ 
+.footer{
+    height: 302px;
+    background-color: #A38777;
+}

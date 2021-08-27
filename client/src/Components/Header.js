@@ -8,7 +8,7 @@ function Header() {
        <div className="header"> 
          <div className="header__container">
             <Link to='/mypage' className="header__container__logo">
-                <img src={moti} />
+                <img src={moti} alt={moti}/>
             </Link>
                 {/* <div className="haeder__icon">
                       <i className={click? "fas fa-times" : "fas fa-bars"}/>
@@ -17,7 +17,7 @@ function Header() {
                  <ul className="header__container__menu">
                     <li className="header__container__menu__item">
                        <Link to='/dashboard'>
-                       <img src={search}/>
+                       <img src={search} alt={search}/>
                        </Link>
                     </li>
                     <li className="header__container__menu__item">
@@ -26,8 +26,7 @@ function Header() {
                         </Link>
                     </li>
                     <li className="header__container__menu__item">
-                       {/* <img src="https://img.icons8.com/ios-filled/50/000000/settings.png" className="header__container__menu__item__setting"/> */}
-                       <img src="https://img.icons8.com/material/50/000000/settings--v5.png" className="header__container__menu__item__setting"/>
+                       <img src="https://img.icons8.com/material/50/000000/616B7C/settings--v5.png" className="header__container__menu__item__setting"/>
                     </li>
                 </ul>
           </div>

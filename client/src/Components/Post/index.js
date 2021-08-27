@@ -2,7 +2,7 @@ import React from "react";
 
 function Post() {
  return(
-     <div>
+     <div className="post">
          -------------------------여기는 post------------------------
      </div>
  )
