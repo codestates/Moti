@@ -12,7 +12,25 @@ module.exports = (req, res) => {
             const arr = [];
             let obj = {};
 
+            // Post.findAll({
+            //    attributes : ['content', 'picture'],
+            //    include : [
+            //        {
+            //            model : Post_emotion,
+            //            required : true
+            //        }
+            //    ]
+            // })
+            // .then((result) => {
+            //     console.log(result);
+            // })
+
             Post.findAll({
+<<<<<<< HEAD
+                attributes : ['content','picture'],
+            }).then((result)=>{
+                for(let i =0; i<result.length; i++) console.log(result[i].dataValues)
+=======
                 attributes : ['content', 'picture', 'createdAt'],
                 include : [{
                     model: Post_emotion,
@@ -39,7 +57,9 @@ module.exports = (req, res) => {
                 }
                //console.log(arr);
                 res.status(200).json({AllPosts : arr});
+>>>>>>> d5e5240b3e4d6c9d861d72ad31c255701ff63754
             })
+            res.send('hi')
         }
     
 }
