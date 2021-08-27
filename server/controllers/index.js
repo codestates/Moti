@@ -7,5 +7,7 @@ module.exports = {
     signout: require('./user/signout'),
     upload: require('./post/upload'),
     delete: require('./post/delete'),
-    allposts: require('./post/allpost')
+    allposts: require('./post/allpost'),
+    getemailcode: require('./user/getemailcode'),
+    emailveri: require('./user/emailveri')
 }

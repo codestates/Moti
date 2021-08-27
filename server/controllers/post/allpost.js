@@ -11,18 +11,25 @@ module.exports = (req, res) => {
             const userId = isAuthorized(token);
             const num = userId.id;
 
+            // Post.findAll({
+            //    attributes : ['content', 'picture'],
+            //    include : [
+            //        {
+            //            model : Post_emotion,
+            //            required : true
+            //        }
+            //    ]
+            // })
+            // .then((result) => {
+            //     console.log(result);
+            // })
+
             Post.findAll({
-               attributes : ['content', 'picture'],
-               include : [
-                   {
-                       model : Post_emotion,
-                       required : true
-                   }
-               ]
+                attributes : ['content','picture'],
+            }).then((result)=>{
+                for(let i =0; i<result.length; i++) console.log(result[i].dataValues)
             })
-            .then((result) => {
-                console.log(result);
-            })
+            res.send('hi')
         }
     
 }
