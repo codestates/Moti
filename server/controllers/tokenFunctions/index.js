@@ -20,5 +20,6 @@ module.exports = {
             }
         })
         return data;
-    }
+    },
+    remakeToken: require('./remakeToken')
 }

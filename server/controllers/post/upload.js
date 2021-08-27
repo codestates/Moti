@@ -7,7 +7,14 @@ module.exports =  async (req, res) => {
     if(!authorization){
         res.status(401).json({message : '유효한 회원이 아닙니다.'});
     }else{
-        let image = fs.readFileSync(req.file.path); //blob형태로 변환, 안 되면 고쳐야 됨. 진짜 사진이 출력 되는지는 프론트 엔드랑 같이 봐야 할 듯
+        //let image = fs.readFileSync(req.file.path); //blob형태로 변환, 안 되면 고쳐야 됨. 진짜 사진이 출력 되는지는 프론트 엔드랑 같이 봐야 할 듯
+
+        if(req.file === undefined){
+            image = null
+        }else{
+            image = fs.readFileSync(req.file.path);
+        }
+
         let {emotionstate, content} = req.body;
         const token = authorization.split(' ')[1];
         const userInfo = isAuthorized(token);
