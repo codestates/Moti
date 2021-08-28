@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import moti from '../assets/moti.svg';
 import search from '../assets/search.svg';
+import './Modal/modal.css'
 
 import Modal from './Modal/Modal'
 
@@ -23,6 +24,8 @@ function Header() {
     const logoutHandler = ()=>{
         console.log('logout')
         //서버에 로그아웃 요청, 개인정보 수정(로그아웃 상태로)
+        //로그아웃 후 localStorage의 userInfo 삭제 필요
+        //local.storage.removeItem('userInfo')
     }
 
     return (
