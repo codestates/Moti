@@ -5,14 +5,16 @@ import Footer from '../Components/Footer';
 import Post from '../Components/Post';
 import '../Components/mypage.css';
 
-function Mypage(props) {
-    //임시로 props / 구조분해해서 가져갈 부분만 가져가도
+function Mypage({loginHandler, userInfo}) {
+    // 구조분해해서 가져갈 부분만 가져가도
+    // const { id, accessToken, username, profile, RandomAdvice} = userInfo
+
     return (
        <div className="mypage"> 
-        <Header props={props}/>
+        <Header loginHandler={loginHandler} userInfo={userInfo}/>
             <div className="mypage__container">
-             <Sidebar props={props}/>
-             <Post props={props}/>
+             <Sidebar userInfo={userInfo}/>
+             <Post userInfo={userInfo}/> 
             </div>
         <Footer />
        </div>
