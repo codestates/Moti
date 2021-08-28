@@ -31,7 +31,7 @@ module.exports =  async (req, res) => {
         //Post, emotion, join table 데이터 insert하기
         let PostResult = await Post.create({
             content : content,
-            picture : image,
+            //picture : image,
             user_Id : userInfo.id
         });
 
@@ -47,3 +47,4 @@ module.exports =  async (req, res) => {
         res.status(200).json({message : '업로드 성공'})
     }
 }
+//image는 optional이라 입력 안받은 경우도 생각

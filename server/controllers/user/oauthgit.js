@@ -4,7 +4,7 @@ const clientID = process.env.GITHUB_CLIENT_ID;
 const clientSecret = process.env.GITHUB_CLIENT_SECRET;
 const axios = require('axios');
 
-module.exports = (req,res)=>{
+module.exports = async (req,res)=>{
 
     console.log(req.body.authorizationCode);
     console.log(clientID);

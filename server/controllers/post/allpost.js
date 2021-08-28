@@ -13,6 +13,7 @@ module.exports = (req, res) => {
             const arr = [];
             let obj = {};
 
+
             Post.findAll({
                 attributes : ['content', 'picture', 'createdAt'],
                 include : [{
@@ -41,6 +42,7 @@ module.exports = (req, res) => {
                //console.log(arr);
                 res.status(200).json({AllPosts : arr});
             })
+            res.send('hi')
         }
     
 }
