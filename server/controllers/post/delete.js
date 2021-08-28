@@ -1,4 +1,5 @@
 const { Post } = require('../../models');
+const { remakeToken, isAuthorized } = require('../tokenFunctions/index');
 
 module.exports = (req, res) => {
     try {
@@ -6,6 +7,12 @@ module.exports = (req, res) => {
         if(!authorization){
             res.status(400).json({message : '유효한 회원이 아닙니다.'})
         }else{
+            const token = authorization.split(' ')[1];
+            if(!isAuthorized(token)){
+                const newToken = remakeToken(req);
+                res.set('accessToken', newToken); //헤더 설정
+            }
+
             const post_id = req.body.post_id;
             Post.destroy({
                 where : {

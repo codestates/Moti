@@ -24,6 +24,7 @@ module.exports =  async (req, res) => {
         if(!isAuthorized(token)){
             token = remakeToken(req);
             userInfo = isAuthorized(token);
+            res.set('accessToken', token); //헤더 설정
         }else{
             userInfo = isAuthorized(token);
         }

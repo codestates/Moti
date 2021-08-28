@@ -23,7 +23,7 @@ module.exports = {
     },
     remakeToken: (req) => {
         let refresh_token = req.cookies.RefreshToken;
-        console.log(refresh_token);
+        //console.log(refresh_token);
 
         let data = verify(refresh_token, process.env.REFRESH_SECRET, (err, decoded) => {
             if(err){
@@ -32,7 +32,8 @@ module.exports = {
                 return decoded;
             }
         });
-        //엑세스 토큰 다시 만들고 어떻게 보내야 될지 모르겠음.
-        return this.generateAccessToken(data);
+        
+        const access_token = sign(data, process.env.ACCESS_SECRET);
+        return access_token;
     }
 }
