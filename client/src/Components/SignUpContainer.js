@@ -22,6 +22,7 @@ export default function SignUpContainer () {
     const [signupError, setSignupError] = useState(false);
 
     const handleInputValue = (key) => (e) => {
+        setSignupError(false);
         setSignupInfo({ ...signupInfo, [key]:e.target.value})
     }
 
