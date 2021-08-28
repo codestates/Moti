@@ -20,14 +20,13 @@ module.exports =  async (req, res) => {
         let token = authorization.split(' ')[1];
         //const userInfo = isAuthorized(token);
         let userInfo;
-
-        if(!isAuthorized(token)){
+        console.log(isAuthorized(token));
+        if(isAuthorized(token) === 'jwt expired'){
             token = remakeToken(req);
-            userInfo = isAuthorized(token);
             res.set('accessToken', token); //헤더 설정
-        }else{
-            userInfo = isAuthorized(token);
         }
+
+        userInfo = isAuthorized(token);
 
         //Post, emotion, join table 데이터 insert하기
         let PostResult = await Post.create({

@@ -9,14 +9,12 @@ module.exports = (req, res) => {
             let token = authorization.split(' ')[1];
             let userInfo = isAuthorized(token); 
 
-            if(!isAuthorized(token)){
+            if(isAuthorized(token) === 'jwt expired'){
                 token = remakeToken(req);
-                userInfo = isAuthorized(token);
                 res.set('accessToken', token); //헤더 설정 
-            }else{
-                userInfo = isAuthorized(token);
             }
 
+            userInfo = isAuthorized(token);
 
             const num = userInfo.id;
             const arr = [];

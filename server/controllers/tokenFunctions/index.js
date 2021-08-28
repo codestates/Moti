@@ -14,7 +14,7 @@ module.exports = {
     isAuthorized: (token) => {
         const data = verify(token, process.env.ACCESS_SECRET, (err, decoded) => {
             if(err){
-                return null;
+                return err.message;
             }else{
                 return decoded;
             }
