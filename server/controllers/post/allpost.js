@@ -1,17 +1,24 @@
 const { Post, emotion, Post_emotion } = require('../../models');
-const { isAuthorized } = require('../tokenFunctions');
+const { isAuthorized, remakeToken} = require('../tokenFunctions');
 
 module.exports = (req, res) => {
         const authorization = req.headers['authorization'];
         if(!authorization){
             res.status(401).json({message : '유효한 회원이 아닙니다.'})
         }else{
-            const token = authorization.split(' ')[1];
-            const userId = isAuthorized(token);
-            const num = userId.id;
+            let token = authorization.split(' ')[1];
+            let userInfo = isAuthorized(token); 
+
+            if(isAuthorized(token) === 'jwt expired'){
+                token = remakeToken(req);
+                res.set('accessToken', token); //헤더 설정 
+            }
+
+            userInfo = isAuthorized(token);
+
+            const num = userInfo.id;
             const arr = [];
             let obj = {};
-
 
             Post.findAll({
                 attributes : ['content', 'picture', 'createdAt'],
@@ -41,7 +48,6 @@ module.exports = (req, res) => {
                //console.log(arr);
                 res.status(200).json({AllPosts : arr});
             })
-            res.send('hi')
         }
     
 }
