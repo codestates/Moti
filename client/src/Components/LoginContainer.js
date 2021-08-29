@@ -1,7 +1,6 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-import { Link , useHistory} from 'react-router-dom';
-import Buffer from 'buffer'
+import { Link, useHistory } from 'react-router-dom';
 
 
 const serverurl = 'http://localhost:80'; // 배포환경시 수정필요
@@ -9,7 +8,7 @@ const GITHUB_LOGIN_URL = `https://github.com/login/oauth/authorize?client_id=0ed
 //배포환경에서 실행한다면 github 콜백주소 변경해줘야함
 // 소셜로그인 기능 확인 후 일단 mypage로 콜백
 
-export default function LoginContainer ({ loginHandler, userInfo }) {
+export default function LoginContainer ({ loginHandler }) {
 
     const history = useHistory();
 
@@ -21,6 +20,7 @@ export default function LoginContainer ({ loginHandler, userInfo }) {
     const [somethingMissed, setSomethingMissed] = useState(false);
     const [errorVisible, setErrorVisible] = useState(false)
 
+    const history = useHistory();
     const handleInputValue = (key) => (e) => {
         setLoginInfo({ ...loginInfo, [key]:e.target.value})
     }
@@ -38,15 +38,16 @@ export default function LoginContainer ({ loginHandler, userInfo }) {
                 .then( res => {
                     let accessToken = res.data.data.accessToken;
                     let advice = res.data.data.RandomAdvice;
+                    let author = res.data.data.author;
                     let username = res.data.data.username;
                     let profile = res.data.data.profile
-
-                    loginHandler(accessToken, advice, username, profile);
                     
-                    history.push('/mypage')
+                    loginHandler(accessToken, advice, author, username, profile);
+                
+                    history.push("/mypage")
                 })
                 .catch( err => {
-                    console.log('err')
+                    console.error(err)
                     setErrorVisible(true)
                 })
         }else{

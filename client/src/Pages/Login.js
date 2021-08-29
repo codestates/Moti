@@ -4,10 +4,7 @@ import LoginContainer from '../Components/LoginContainer'
 
 
 function Login ({ loginHandler, userInfo }) {
-    const history = useHistory();
-    if(userInfo.isLogin){
-        history.push('/mypage')
-    }
+  
     return (
         <div className='login'>
             <div className='login__tittle'>
@@ -18,7 +15,7 @@ function Login ({ loginHandler, userInfo }) {
                     Moti
                 </h1>
             </div>
-            <LoginContainer loginHandler={loginHandler} userInfo={userInfo}/>
+            <LoginContainer loginHandler={loginHandler}/>
         </div>
     );
 }
