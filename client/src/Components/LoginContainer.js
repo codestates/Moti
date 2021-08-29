@@ -43,8 +43,8 @@ export default function LoginContainer ({ loginHandler, userInfo }) {
                     // let text = profile.toString("ascii");
                     // let profile = Blob.arrayBuffer(res.data.data.profile.data)
                     // console.log(text)
-                    
-                    console.log(profile)
+
+                    // console.log(profile)
 
                     // loginHandler(accessToken, advice, username, profile);
                     // document.location.href='/mypage'
