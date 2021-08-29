@@ -17,7 +17,6 @@ function Header() {
     }
 
     const modalHandler = (key) => (e) => {
-        console.log(key)
         setModalState(key);
     }
 

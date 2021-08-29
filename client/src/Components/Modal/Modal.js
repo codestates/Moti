@@ -4,12 +4,14 @@ import EditProfile from "./EditProfile";
 
 export default function Modal ({ modalState, modalHandler }) {
     return(
-        <div className='header__setting-modal'>
-            {modalState==='profile'? 
-                <EditProfile  modalState={modalState} modalHandler={modalHandler}/>
-                : 
-                <EditPassword  modalState={modalState} modalHandler={modalHandler}/>
-            }
+        <div className='header__modal-container'>
+            <div className='modal'>
+                {modalState==='profile'? 
+                    <EditProfile  modalState={modalState} modalHandler={modalHandler}/>
+                    : 
+                    <EditPassword  modalState={modalState} modalHandler={modalHandler}/>
+                }
+            </div>
         </div>
     )
 }

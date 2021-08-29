@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import Buffer from 'buffer'
 
 const serverurl = 'http://localhost:80'; // 배포환경시 수정필요
 const GITHUB_LOGIN_URL = `https://github.com/login/oauth/authorize?client_id=0eda0c23f9078b24bbe1`;
@@ -8,7 +9,7 @@ const GITHUB_LOGIN_URL = `https://github.com/login/oauth/authorize?client_id=0ed
 // 소셜로그인 기능 확인 후 일단 mypage로 콜백
 
 export default function LoginContainer ({ loginHandler, userInfo }) {
-    
+
     const [loginInfo, setLoginInfo] = useState({
         email: '',
         password: ''
@@ -23,8 +24,9 @@ export default function LoginContainer ({ loginHandler, userInfo }) {
 
     const loginRequestHandler = () => {
         let randomNum = Math.floor(Math.random()*10);
-        if(loginInfo.email && loginInfo.password){
+        if(!!(loginInfo.email) && !!(loginInfo.password)){
             setSomethingMissed(false)
+            console.log('login request')
             axios
                 .post(serverurl+'/user/login', {
                     adviceID: randomNum,
@@ -32,11 +34,19 @@ export default function LoginContainer ({ loginHandler, userInfo }) {
                     password:loginInfo.password
                 })
                 .then( res => {
+                    console.log(res)
                     let accessToken = res.data.data.accessToken;
                     let advice = res.data.data.RandomAdvice;
                     let username = res.data.data.username;
-                    let profile = res.data.data.profile;
-                    loginHandler(accessToken, advice, username, profile);
+                    // let profile = res.data.data.profile
+                    // let profile = new Buffer(res.data.data.profile.data,"base64")
+                    // let text = profile.toString("ascii");
+                    // let profile = Blob.arrayBuffer(res.data.data.profile.data)
+                    // console.log(text)
+
+                    // console.log(profile)
+
+                    // loginHandler(accessToken, advice, username, profile);
                     // document.location.href='/mypage'
                 })
                 .catch( err => {
