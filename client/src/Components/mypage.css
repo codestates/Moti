@@ -226,7 +226,7 @@ body {
     font-family: 'Ubuntu',sans-serif;
 }
 .searchemotion__box > option{
-   color: #a5a5a5;
+   color: #757575;
 }
 /*option 에 대한 css 사용방법 연구
 https://webdir.tistory.com/432  플러그인 등등*/
@@ -242,12 +242,19 @@ https://webdir.tistory.com/432  플러그인 등등*/
 
 /* sendpost */
 .sendpost{
+ height: 14.6rem;   
  width: 100%;
  display: flex;
+ flex-direction: row;
+ justify-content: center;
+ margin: 2rem;
+ /* padding: 0 3rem; */
+ gap: 3rem;
 }
 .sendpost__circlebox{
-    width: 2.8rem;
-    height: 2.8rem;
+    transform: translateY(70%);
+    width: 3rem;
+    height: 3rem;
     border-radius: 100%;
     overflow: hidden;
 }
@@ -256,12 +263,96 @@ https://webdir.tistory.com/432  플러그인 등등*/
     height: 100%;
     object-fit: cover;
     background-color: #E5E5E5;
-
 }
-/* .sendpost__box{
-    width:52rem;
+.sendpost__box{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    
+}
+.sendpost__box__textbox{
+    display: flex;
+    border-color: #C4C4C4;
+    width:55rem;
     height: 7.4rem;
+    font-family: "Cormorant Garamond",Georgia, serif;
+    font-size: 18px;
+    color: #696969;
+}
+.sendpost__box__below{
+    display: flex;
+    justify-content: space-between;
+}
+.sendpost__box__below__leftbox{
+    flex:6;
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   gap:1rem;
+   
+}
+.sendpost__box__below__leftbox > p,
+.sendpost__box__below__leftbox > label{
+    color: #95685A;
+    font-weight: bold;
+}
+.sendpost__box__below__leftbox > select{
+    border-color:#95685A;
+    background-color: white;
+    border-radius: 0.3rem;
+    height: 50px;
+    width: 70px;
+    background-image: url('../assets/smile.png');
+    background-repeat: no-repeat;
+   
+}
+
+/* .sendpost__box__below__leftbox > select > option {
+    background-image: url('../assets/smile.png');
+    background-repeat: no-repeat;
+    color: #95685A;
+    
 } */
+
+.sendpost__box__below__btn{
+    display: flex;
+    justify-content: center;
+    border-radius: 0.3rem;
+    width:5.5rem;
+    height: 2.8rem;
+    background-color: rgba(154, 93, 73, 0.6);
+    transition: all 0.3s ease-in-out;
+    color: #FFFFFF;
+    font-size: 24px;
+    font-family: 'Cormorant Garamond',Georgia, serif;
+} 
+.sendpost__box__below__btn:hover{
+  transition: all 0.3s ease-in-out;
+  background-color: rgb(154, 93, 73);
+  cursor: pointer;
+}
+  
+#upload{
+    /* display: none; */
+    opacity: 0;
+    position: absolute;
+    overflow: hidden;
+    width: 27px;
+    height: 27px; 
+}
+
+#upload,
+#upload:focus,
+#upload:hover,
+.sendpost__box__below__leftbox > img,
+.sendpost__box__below__leftbox > img:hover{
+    cursor: pointer;
+}
+/*해결할것: 마우스 포인터 되는 부분(img)에는 업로드창 안뜨고 포인터 안되는 부분(버튼이 존재하는)에서 뜸 
+이미지 업로드 된것 미리 보기*/
+
+
+
 /* Footer */ 
 .footer{
     height: 302px;

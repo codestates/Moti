@@ -1,13 +1,15 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import Buffer from 'buffer'
 
 const serverurl = 'http://localhost:80'; // 배포환경시 수정필요
+const GITHUB_LOGIN_URL = `https://github.com/login/oauth/authorize?client_id=0eda0c23f9078b24bbe1`;
+//배포환경에서 실행한다면 github 콜백주소 변경해줘야함
+// 소셜로그인 기능 확인 후 일단 mypage로 콜백
 
-export default function LoginContainer () {
-    const GITHUB_LOGIN_URL = `https://github.com/login/oauth/authorize?client_id=0eda0c23f9078b24bbe1`;
-    //배포환경에서 실행한다면 github 콜백주소 변경해줘야함
-    
+export default function LoginContainer ({ loginHandler, userInfo }) {
+
     const [loginInfo, setLoginInfo] = useState({
         email: '',
         password: ''
@@ -22,8 +24,9 @@ export default function LoginContainer () {
 
     const loginRequestHandler = () => {
         let randomNum = Math.floor(Math.random()*10);
-        if(loginInfo.email && loginInfo.password){
+        if(!!(loginInfo.email) && !!(loginInfo.password)){
             setSomethingMissed(false)
+            console.log('login request')
             axios
                 .post(serverurl+'/user/login', {
                     adviceID: randomNum,
@@ -32,9 +35,19 @@ export default function LoginContainer () {
                 })
                 .then( res => {
                     console.log(res)
+                    let accessToken = res.data.data.accessToken;
+                    let advice = res.data.data.RandomAdvice;
+                    let username = res.data.data.username;
+                    // let profile = res.data.data.profile
+                    // let profile = new Buffer(res.data.data.profile.data,"base64")
+                    // let text = profile.toString("ascii");
+                    // let profile = Blob.arrayBuffer(res.data.data.profile.data)
+                    // console.log(text)
+
+                    // console.log(profile)
+
+                    // loginHandler(accessToken, advice, username, profile);
                     // document.location.href='/mypage'
-                    // 로그인 성공 후 res오면 정보 app.js에 올려보낼 것.
-                    
                 })
                 .catch( err => {
                     console.log('err')
@@ -46,13 +59,13 @@ export default function LoginContainer () {
     }
 
     const socialLoginHandler = () =>{
-        //!소셜로그인 성공하면 authorizationCode 저장하고 mypage로 이동해야함
         window.location.assign(GITHUB_LOGIN_URL);
     }
 
     const getAccessToken = async (authorizationCode) =>{
         const url = serverurl+'/oauthgit';
         let resp = await axios.post(url, { authorizationCode: authorizationCode })
+        console.log('이건 언제뜸 getaccesstoken')
         console.log(resp);
     }
 
@@ -60,7 +73,9 @@ export default function LoginContainer () {
         const url = new URL(window.location.href);
         const authorizationCode = url.searchParams.get('code');
         if (authorizationCode) {
+            console.log('소셜로그인')
             console.log(authorizationCode);
+            //! authorizationCode, username, profile userInfo에 저장.
             getAccessToken(authorizationCode)
         };
     })

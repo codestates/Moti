@@ -1,4 +1,4 @@
-import React from 'react';
+import React , {useState, useEffect} from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import Login from './Pages/Login';
@@ -12,17 +12,56 @@ import axios from 'axios';
 
 function App() {
 
+  const [userInfo, setUserInfo] = useState({
+    isLogin : false,
+    accessToken : "",
+    advice : "",
+    username : "",
+    profile : ""
+  })
+
+  // if(!!(window.localStorage.userInfo)){
+  //   setUserInfo(JSON.parse(window.localStorage.getItem('userInfo')));
+  // }
+
+  // useEffect( () => {
+  //   let tmp = `{"isLogin":${userInfo.isLogin},"accessToken":"${userInfo.accessToken}","advice":"${userInfo.advice}","username":"${userInfo.username}","profile":"${userInfo.profile}"}`;
+
+  //   window.localStorage.setItem('userInfo',tmp);
+  // }, [userInfo])
+
+  const loginHandler = (accessToken, advice, username, profile) => {
+    setUserInfo({
+      isLogin : true,
+      accessToken : accessToken,
+      advice : advice,
+      username : username,
+      profile : profile
+    })
+    console.log('로그인정보변경')
+  }
+  
+  const logoutHandler = () => {
+    setUserInfo({
+      isLogin : false,
+      accessToken : '',
+      advice : '',
+      username : '',
+      profile : ''
+    })
+  }
+
   return (
     <Router>
       <Switch>
         <Route exact path='/'>
-          <Login />
+          <Login loginHandler={loginHandler} userInfo={userInfo}/>
         </Route>
         <Route path='/signup'>
           <SignUp />
         </Route>
         <Route path='/mypage'> {/*수정 필요? 로그인하면 유저의 마이페이지로 가는 라우팅 id*/}
-          <Mypage />
+          <Mypage loginHandler={loginHandler} userInfo={userInfo} />
         </Route>
         <Route path='/dashboard'>
           <Dashboard />
