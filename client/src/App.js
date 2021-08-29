@@ -16,6 +16,7 @@ function App() {
     isLogin : false,
     accessToken : "",
     advice : "",
+    author : "",
     username : "",
     profile : ""
   })
@@ -30,11 +31,12 @@ function App() {
   //   window.localStorage.setItem('userInfo',tmp);
   // }, [userInfo])
 
-  const loginHandler = (accessToken, advice, username, profile) => {
+  const loginHandler = (accessToken, advice, author, username, profile) => {
     setUserInfo({
       isLogin : true,
       accessToken : accessToken,
       advice : advice,
+      author : author,
       username : username,
       profile : profile
     })
@@ -46,6 +48,7 @@ function App() {
       isLogin : false,
       accessToken : '',
       advice : '',
+      author : '',
       username : '',
       profile : ''
     })
