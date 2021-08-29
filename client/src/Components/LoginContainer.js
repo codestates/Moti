@@ -53,7 +53,7 @@ export default function LoginContainer ({ loginHandler, userInfo }) {
     }
 
     const getAccessToken = async (authorizationCode) =>{
-        const url = serverurl+'/oauthgit';
+        const url = serverurl+'/user/oauthgit';
         let resp = await axios.post(url, { authorizationCode: authorizationCode })
         console.log('이건 언제뜸 getaccesstoken')
         console.log(resp);
