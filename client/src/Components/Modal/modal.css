@@ -1,3 +1,261 @@
-.header__setting-modal {
-    background-color: yellow;
+body {
+    width: 100vw;
+    padding: 0;
+    margin: 0; 
+}
+.p{
+  font-family: 'Orienta', sans-serif;
+}
+.mypage{
+   height: 3065px;
+}
+.mypage__container{
+    width:100%;
+    max-width: 1600px;
+    top:3.2rem;
+    height: 2710px;
+    display: flex;
+    justify-content: center;
+    margin: 0 2rem;
+ }
+
+ .hide{
+    display : none;
+}
+
+/*  modal */
+
+.header__modal-container {
+    position:fixed;
+    left:0;
+    right:0;
+    top:0;
+    bottom:0;
+    /* background 색상 임시 */
+    background:#8a8a8ab3;
+}
+
+.modal {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 50%;
+    left: 50%;
+    width: 526px;
+    height: 600px;
+    border-radius: 10px;
+    transform: translate(-50%, -50%);
+    background: #ffecec;
+    max-height: 100vh;
+}
+
+/*  edit password */
+
+.header__setting-modal__password {
+    display: flex;
+    flex-direction: column;
+}
+
+.header__setting-modal__password input {
+    width: 370px;
+    height: 45px;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid rgba(105,105,105,0.7);
+    margin-bottom: 25px;
+    color: #667286;
+    font-size: medium;
+}
+
+.header__setting-modal__password__tittle {
+    font-size: 30px;
+    margin-bottom: 50px;
+}
+
+.modal-sub-form{
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.modal-sub-tittle{
+    font-size: medium;
+    margin-bottom: 3px;
+}
+
+.header__setting-modal__password__input__new-password__error{
+    position: absolute;
+    top: 5rem;
+}
+
+.header__setting-modal__password__input__new-password-check__error{
+    position: absolute;
+    top:5rem;
+}
+
+.header__setting-modal__password__btn {
+    display: flex;
+    margin-bottom: 0.5rem;
+}
+
+.header__setting-modal__password__btn__change {
+    margin-right: 10px;
+}
+
+.header__setting-modal__password__btn button{
+    width: 180px;
+    height: 47px;
+    border-radius: 8px;
+    cursor: pointer;
+    border: 2px solid rgba(105,105,105,0.7);
+    color: #667286;
+    transition: all 0.3s ease-in-out;
+    font-size: medium;
+}
+
+.header__setting-modal__password__btn button:hover{
+    transition: all 0.3s ease-in-out;
+    border: 2px solid rgba(105,105,105,1);
+}
+
+.header__setting-modal__password__error {
+    display: flex;
+    justify-content: center;
+    margin-top: 3px;
+}
+
+.header__setting-modal__password__error__success{
+    font-size: small;
+    position : absolute;
+}
+
+/*  edit profile */
+
+.header__setting-modal__profile {
+    display: flex;
+    flex-direction: column;
+}
+
+.header__setting-modal__profile__tittle {
+    font-size: 30px;
+    margin-bottom: 50px;
+}
+
+.header__setting-modal__profile__edit-image {
+    display: flex;
+    margin-bottom: 1rem;
+}
+
+.header__setting-modal__profile__edit-image__text {
+    margin-right: 2rem;
+    width: 85px;
+}
+
+.header__setting-modal__profile__edit-image__input {
+    display: flex;
+    flex-direction: column;
+}
+
+.header__setting-modal__profile__edit-image__input__image{
+    width: 7rem;
+    height: 7rem;
+    border-radius: 100%;
+    background-color: rgba(105,105,105,0.7);
+    margin-bottom: 1rem;
+}
+
+.header__setting-modal__profile__edit-image__input__btn {
+    display: flex;
+}
+
+.header__setting-modal__profile__edit-image__input__btn__insert__label{
+    display: block;
+    cursor: pointer;
+    padding: 2px;
+    text-align: center;
+    width: 110px;
+    border: 1.5px solid rgba(105,105,105,0.7);
+    border-radius: 6px;
+    font-size: 15px;
+    margin-right: 0.5rem;
+}
+
+.header__setting-modal__profile__edit-image__input__btn__insert__label:hover{
+    transition: all 0.3s ease-in-out;
+    border: 1.5px solid rgba(105,105,105,1);
+}
+
+.header__setting-modal__profile__edit-image__input__btn__insert__input{
+    display: none;
+}
+
+.header__setting-modal__profile__edit-image__input__btn__delete{
+    padding: 2px;
+    text-align: center;
+    width: 110px;
+    border: 1.5px solid rgba(105,105,105,0.7);
+    border-radius: 6px;
+    font-size: 15px;
+}
+
+.header__setting-modal__profile__edit-image__input__btn__delete:hover{
+    transition: all 0.3s ease-in-out;
+    border: 1.5px solid rgba(105,105,105,1);
+}
+
+.header__setting-modal__profile__edit-username {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.header__setting-modal__profile__edit-username__text {
+    margin-right: 2rem;
+    width: 85px;
+    margin-bottom: 1rem;
+}
+
+.header__setting-modal__profile__edit-username__input{
+    width : 230px;
+    height: 45px;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid rgba(105,105,105,0.7);
+    margin-bottom: 1rem;
+    color: #667286;
+    font-size: medium;
+}
+
+.header__setting-modal__profile__btn{
+    margin-bottom: 0.5rem;
+}
+
+.header__setting-modal__profile__btn button{
+    width: 180px;
+    height: 47px;
+    border-radius: 8px;
+    border: 2px solid rgba(105,105,105,0.7);
+    color: #667286;
+    transition: all 0.3s eade-in-out;
+    font-size: medium;
+}
+
+.header__setting-modal__profile__btn__submit {
+    margin-right: 0.5rem;
+}
+
+.header__setting-modal__profile__btn button:hover{
+    transition: all 0.3s ease-in-out;
+    border: 2px solid rgba(105,105,105,1);
+}
+
+.header__setting-modal__profile__error{
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.header__setting-modal__profile__error__success{
+    font-size: small;
+    position : absolute;
 }
