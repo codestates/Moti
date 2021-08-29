@@ -13,41 +13,41 @@ import axios from 'axios';
 function App() {
 
   const [userInfo, setUserInfo] = useState({
-    "isLogin" : false,
-    "accessToken" : "",
-    "advice" : "",
-    "username" : "",
-    "profile" : ""
+    isLogin : false,
+    accessToken : "",
+    advice : "",
+    username : "",
+    profile : ""
   })
 
   // if(!!(window.localStorage.userInfo)){
   //   setUserInfo(JSON.parse(window.localStorage.getItem('userInfo')));
   // }
 
-  useEffect( () => {
-    let tmp = `{"isLogin":${userInfo.isLogin},"accessToken":"${userInfo.accessToken}","advice":"${userInfo.advice}","username":"${userInfo.username}","profile":"${userInfo.profile}"}`;
+  // useEffect( () => {
+  //   let tmp = `{"isLogin":${userInfo.isLogin},"accessToken":"${userInfo.accessToken}","advice":"${userInfo.advice}","username":"${userInfo.username}","profile":"${userInfo.profile}"}`;
 
-    window.localStorage.setItem('userInfo',tmp);
-  }, [userInfo])
+  //   window.localStorage.setItem('userInfo',tmp);
+  // }, [userInfo])
 
   const loginHandler = (accessToken, advice, username, profile) => {
     setUserInfo({
-      ...userInfo,
-      "isLogin" : true,
-      "accessToken" : accessToken,
-      "advice" : advice,
-      "username" : username,
-      "profile" : profile
+      isLogin : true,
+      accessToken : accessToken,
+      advice : advice,
+      username : username,
+      profile : profile
     })
+    console.log('로그인정보변경')
   }
   
   const logoutHandler = () => {
     setUserInfo({
-      "isLogin" : false,
-      "accessToken" : '',
-      "advice" : '',
-      "username" : '',
-      "profile" : ''
+      isLogin : false,
+      accessToken : '',
+      advice : '',
+      username : '',
+      profile : ''
     })
   }
 

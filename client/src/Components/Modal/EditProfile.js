@@ -25,6 +25,7 @@ export default function EditProfile ({ modalState, modalHandler }) {
                 imageFile : file,
                 previewUrl : reader.result
             })
+            console.log(reader.result)
         }
         reader.readAsDataURL(file);
         console.log(file)
