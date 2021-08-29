@@ -14,7 +14,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   RandomAdvice.init({
-    advice: DataTypes.STRING
+    advice: DataTypes.STRING,
+    author: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'RandomAdvice',

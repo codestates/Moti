@@ -21,13 +21,14 @@ module.exports = async (req, res) => {
                 delete userInfo.dataValues.profile
                 const access_token = generateAccessToken(userInfo.dataValues);
                 const refresh_token = generateRefreshToken(userInfo.dataValues);
-
+                console.log(advice.dataValues);
                 res.cookie('RefreshToken', refresh_token, {httpOnly: true, sameSite: 'none', secure: true});
                 res.json({data : {
                     accessToken : access_token, 
                     username : userInfo.dataValues.username,
                     profile : userProfile,
-                    RandomAdvice : advice.dataValues.advice
+                    RandomAdvice : advice.dataValues.advice,
+                    author : advice.dataValues.author
                 }, message : 'login ok'});
             }
         })

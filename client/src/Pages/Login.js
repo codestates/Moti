@@ -3,9 +3,7 @@ import LoginContainer from '../Components/LoginContainer'
 
 
 function Login ({ loginHandler, userInfo }) {
-    if(userInfo.isLogin){
-        document.location.href='/mypage'
-    }
+  
     return (
         <div className='login'>
             <div className='login__tittle'>
@@ -16,7 +14,7 @@ function Login ({ loginHandler, userInfo }) {
                     Moti
                 </h1>
             </div>
-            <LoginContainer loginHandler={loginHandler} userInfo={userInfo}/>
+            <LoginContainer loginHandler={loginHandler}/>
         </div>
     );
 }
