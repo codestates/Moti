@@ -1,22 +1,28 @@
 import React, {useState} from "react"
 import axios from 'axios'
 
+const defaultImage = require('../../assets/bros_blank.jpg')
+
 export default function EditProfile ({loginHandler, userInfo, modalState, modalHandler }) {
-    // current Input으로 기존의 userInfo 받아와야할 것 받아오기
-    // 현재 유저 정보를 currenInput에 담지 않고 이미지만 렌더링되도록 할 수 있지 않을까
+    const currentProfileImage = 'data:image/png;base64, '+Buffer(userInfo.profile,'binary').toString('base64');
     const [currentInput, setCurrentInput] = useState({
         imageFile:'',
         previewUrl:'',
         username:''
     })
 
-    const [submitError, setSubmitError] = useState(false)
+    const [submitError, setSubmitError] = useState(false);
+    const [submitSuccess, setSubmitSuccess] = useState(false);
 
     const handleInputValue = (key) => (e) => {
+        setSubmitError(false);
+        setSubmitSuccess(false);
         setCurrentInput({ ...currentInput, [key]:e.target.value})
     }
 
     const imageFileHandler = (key) => (e) => {
+        setSubmitError(false);
+        setSubmitSuccess(false);
         e.preventDefault();
         let reader = new FileReader();
         let file = e.target.files[0];
@@ -25,19 +31,31 @@ export default function EditProfile ({loginHandler, userInfo, modalState, modalH
                 imageFile : file,
                 previewUrl : reader.result
             })
-            console.log(reader.result)
         }
         reader.readAsDataURL(file);
-        console.log(file)
-
     }
 
     const deleteImage = () => {
-        // 이미지 삭제시 currentInput에 첨부한 이미지 삭제 혹은 currenInput 기본이미지로 변경
+        setSubmitError(false);
+        setSubmitSuccess(false);
+        if(!!(currentInput.imageFile)){
+            setCurrentInput({
+                ...currentInput,
+                imageFile:'',
+                previewUrl:''
+            })
+        }else{
+            setCurrentInput({
+                ...currentInput,
+                imageFile: defaultImage,
+                previewUrl: 'bros_blank.jpg'
+            })
+        }
     }
 
     const onSubmitHandler = (e) => {
-        // app.js의 userinfo 변경, 서버에 patch
+        // put 성공시 setSubmitSuccess(true);, userinfo 변경(이미지 변경시 이미지만, 프로필 변경시 프로필만), currentInput 초기화
+        // put 실패시 setSubmitError(true);
     }
 
     return(
@@ -52,7 +70,7 @@ export default function EditProfile ({loginHandler, userInfo, modalState, modalH
                 <div className='header__setting-modal__profile__edit-image__input'>
                     <img 
                         className='header__setting-modal__profile__edit-image__input__image' 
-                        src={currentInput.previewUrl}
+                        src={!!(currentInput.imageFile)? currentInput.previewUrl : currentProfileImage}
                     />
                     <div className='header__setting-modal__profile__edit-image__input__btn'>
                         <div className='header__setting-modal__profile__edit-image__input__btn__insert'>
@@ -72,6 +90,7 @@ export default function EditProfile ({loginHandler, userInfo, modalState, modalH
                         </div>
                         <button 
                             className='header__setting-modal__profile__edit-image__input__btn__delete'
+                            onClick={deleteImage}
                         >
                             이미지 삭제
                         </button>
@@ -106,7 +125,7 @@ export default function EditProfile ({loginHandler, userInfo, modalState, modalH
                     페이지가 만료되었습니다. 다시 로그인해주세요.
                 </div>
                 <div
-                    className='header__setting-modal__profile__error__success'
+                    className={submitSuccess? 'header__setting-modal__profile__error__success' : 'header__setting-modal__profile__error__success hide'}
                 >
                     개인 정보가 변경되었습니다.
                 </div>
