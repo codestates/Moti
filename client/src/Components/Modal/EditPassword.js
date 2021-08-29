@@ -1,10 +1,7 @@
 import React, { useState } from "react";
 import axios from 'axios';
 
-const serverurl = 'http://localhost:80';
-
 export default function EditPassword ({loginHandler, userInfo, modalState, modalHandler }) {
-    console.log(userInfo)
     const [currentInput, setCurrentInput] = useState({
         currentPassword: '',
         newPassword: '',
@@ -54,18 +51,18 @@ export default function EditPassword ({loginHandler, userInfo, modalState, modal
             let tmpAccessToken = 'Bearer ' + userInfo.accessToken;
             if(!(errorVisible.currentPassword) && !(errorVisible.newPassword) && !(errorVisible.newPasswordCheck)){
                 axios
-                    .patch(serverurl+'/user/changepassword',{
+                    .put(process.env.REACT_APP_URL+'/user/changepassword',{
                         nowpassword: currentInput.currentPassword,
                         newpassword: currentInput.newPassword
                     },
                     {
                         headers:{
-                            Autorization:tmpAccessToken
+                            authorization:tmpAccessToken
                         }
                     })
                     .then((res)=>{
-                        console.log(res)
                         setEditSuccess(true)
+                        setErrorVisible({...errorVisible, somethingMissed:false})
                     })
                     .catch( error => {
                         console.log(error)
@@ -138,7 +135,6 @@ export default function EditPassword ({loginHandler, userInfo, modalState, modal
                 <button className='header__setting-modal__password__btn__cancel'
                     onClick={modalHandler('none')}
                 >
-                    {/* modalstate none으로 */}
                     취소
                 </button>
             </div>

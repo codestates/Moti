@@ -1,11 +1,10 @@
 import axios from 'axios';
 import React, {useState} from 'react';
 
-const serverurl = 'http://localhost:80';
-
 export default function SignUpContainer () {
     const [signupInfo, setSignupInfo] = useState({
         email:'',
+        emailCode:'',
         userName:'',
         password:'',
         passwordCheck:''
@@ -13,6 +12,7 @@ export default function SignUpContainer () {
 
     const [errorVisible, setErrorVisible] = useState({
         email:false,
+        emailCode:false,
         userName:false,
         password:false,
         passwordCheck:false,
@@ -20,9 +20,15 @@ export default function SignUpContainer () {
     })
 
     const [signupError, setSignupError] = useState(false);
+    const [sendEmail, setSendEmail] = useState(false)
+    const [emailCheckSuccess, setEmailCheckSuccess] = useState(false);
+    const [emailCheckCode, setEmailCheckCode] = useState('');
 
     const handleInputValue = (key) => (e) => {
         setSignupError(false);
+        if(key==='email'){
+            setEmailCheckSuccess(false);
+        }
         setSignupInfo({ ...signupInfo, [key]:e.target.value})
     }
 
@@ -57,12 +63,51 @@ export default function SignUpContainer () {
         }
     }
 
+    const mailAuthorization = () => {
+        if(!(errorVisible.email) && !!(signupInfo.email)){
+            axios
+                .get(process.env.REACT_APP_URL+'/user/getemailcode',{
+                    email:signupInfo.email
+                })
+                .then( res => {
+                    setEmailCheckCode(res.data.data.emailcode);
+                    setSendEmail(true);
+                })
+                .catch( error => {
+                    console.log(error)
+                })
+        }
+    }
+
+    const mailAuthorizationCheck = () => {
+        //setEmailCheckSuccess(true)
+        //실패시 setErrorVisible({...errorVisible, emailCheck(true)})
+        axios
+            .post(process.env.REACT_APP_URL+'/user/emailveri',{
+                emailcode:emailCheckCode
+            },{
+                params:{
+                    code: signupInfo.emailCode
+                }
+            })
+            .then( res => {
+                console.log(res);
+                setErrorVisible({...errorVisible, emailCheck:false})
+                setEmailCheckSuccess(true);
+            })
+            .catch( error => {
+                console.log(error);
+                setErrorVisible({...errorVisible, emailCheck:true})
+            })
+
+    }
+
     const onSubmitHandler = (e) => {
-        if(signupInfo.email && signupInfo.userName && signupInfo.password && signupInfo.passwordCheck){
+        if(signupInfo.email && signupInfo.emailCode && signupInfo.userName && signupInfo.password && signupInfo.passwordCheck){
             setErrorVisible({...errorVisible,somethingMissed:false})
-            if(errorVisible.email===false && errorVisible.password===false && errorVisible.passwordCheck===false){
+            if(!!(emailCheckSuccess) && errorVisible.email===false && errorVisible.emailCode===false && errorVisible.password===false && errorVisible.passwordCheck===false){
                 axios
-                    .post(serverurl+'/user/signup',{
+                    .post(process.env.REACT_APP_URL+'/user/signup',{
                         email:signupInfo.email,
                         username:signupInfo.userName,
                         password:signupInfo.password
@@ -85,24 +130,60 @@ export default function SignUpContainer () {
                 sign up
             </div>
             <div className='signup__box__input'>
-                <div className='signup__box__input__email'>
-                    <input
-                        name='email'
-                        className ='signup__box__input__email__input' 
-                        type="email" 
-                        placeholder='E-mail' 
-                        onChange={handleInputValue('email')}
-                        onBlur={validationCheck('email')}
-                    />
-                    <img 
-                        src="https://img.icons8.com/ios/24/000000/new-post.png"
-                        alt='email'
-                        className = 'signup__box__input__email__image'
-                    />
-                    <div className={errorVisible.email ?  'signup__box__input__email__error error': 'signup__box__input__email__error error hide'}>
-                        이메일 형식으로 입력해야합니다.
+                    <div className='signup__box__input__email'>
+                        <input
+                            name='email'
+                            className ='signup__box__input__email__input' 
+                            type="email" 
+                            placeholder='E-mail' 
+                            onChange={handleInputValue('email')}
+                            onBlur={validationCheck('email')}
+                        />
+                        <img 
+                            src="https://img.icons8.com/ios/24/000000/new-post.png"
+                            alt='email'
+                            className = 'signup__box__input__email__image'
+                        />
+                        <div className={errorVisible.email ?  'signup__box__input__email__error error': 'signup__box__input__email__error error hide'}>
+                            이메일 형식으로 입력해야합니다.
+                        </div>
+                        <div className={sendEmail ?  'signup__box__input__email__send': 'signup__box__input__email__send hide'}>
+                            이메일로 인증코드가 발송되었습니다.
+                        </div>
+                        <button
+                            className='signup__box__input__email-box__mail-authorization'
+                            onClick={mailAuthorization}
+                        >
+                            메일 인증
+                        </button>
                     </div>
-                </div>
+                    <div className='signup__box__input__email'>
+                        <input
+                            name='emailCode'
+                            className ='signup__box__input__email__input' 
+                            type="text" 
+                            placeholder='E-mail code' 
+                            onChange={handleInputValue('emailCode')}
+                        />
+                        <img 
+                            src="https://img.icons8.com/ios/24/000000/new-post.png"
+                            alt='email'
+                            className = 'signup__box__input__email__image'
+                        />
+                        <div className={errorVisible.emailCheck ?  'signup__box__input__email__error error': 'signup__box__input__email__error error hide'}>
+                            이메일 인증에 실패했습니다.
+                        </div>
+                        <div className={emailCheckSuccess ?  'signup__box__input__email__send': 'signup__box__input__email__send hide'}>
+                            이메일로 인증에 성공했습니다.
+                        </div>
+                        <button
+                            className='signup__box__input__email-box__mail-authorization'
+                            onClick={mailAuthorizationCheck}
+                        >
+                            확인
+                        </button>
+                    </div>
+
                 <div className='signup__box__input__user-name'>
                     <input
                         name='userName'

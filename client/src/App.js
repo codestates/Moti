@@ -1,5 +1,5 @@
 import React , {useState, useEffect} from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, useHistory, withRouter } from 'react-router-dom';
 
 import Login from './Pages/Login';
 import SignUp from './Pages/SignUp';
@@ -13,7 +13,7 @@ import axios from 'axios';
 axios.defaults.withCredentials = true;
 
 function App() {
-
+  const history = useHistory();
   const [userInfo, setUserInfo] = useState({
     isLogin : false,
     accessToken : "",
@@ -22,6 +22,7 @@ function App() {
     username : "",
     profile : ""
   })
+  console.log(userInfo)
 
   // if(!!(window.localStorage.userInfo)){
   //   setUserInfo(JSON.parse(window.localStorage.getItem('userInfo')));
@@ -53,7 +54,7 @@ function App() {
       author : '',
       username : '',
       profile : ''
-    })
+    });
   }
 
   const accessTokenHandler = (newAccessToken) => {
@@ -86,4 +87,4 @@ function App() {
   );
 }
 
-export default App;
+export default withRouter(App);
