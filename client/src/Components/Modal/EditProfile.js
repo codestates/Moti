@@ -1,7 +1,7 @@
 import React, {useState} from "react"
 import axios from 'axios'
 
-export default function EditProfile ({ modalState, modalHandler }) {
+export default function EditProfile ({loginHandler, userInfo, modalState, modalHandler }) {
     // current Input으로 기존의 userInfo 받아와야할 것 받아오기
     // 현재 유저 정보를 currenInput에 담지 않고 이미지만 렌더링되도록 할 수 있지 않을까
     const [currentInput, setCurrentInput] = useState({
@@ -55,13 +55,21 @@ export default function EditProfile ({ modalState, modalHandler }) {
                         src={currentInput.previewUrl}
                     />
                     <div className='header__setting-modal__profile__edit-image__input__btn'>
-                        <input
-                            className='header__setting-modal__profile__edit-image__input__btn__insert'
-                            type='file'
-                            accept='image/jpg, image/png, image/jpeg'
-                            name='profileImage'
-                            onChange={imageFileHandler('imageFile')}
-                        />
+                        <div className='header__setting-modal__profile__edit-image__input__btn__insert'>
+                            <label 
+                                className='header__setting-modal__profile__edit-image__input__btn__insert__label'   
+                            >
+                                이미지 업로드
+                                <input
+                                className='header__setting-modal__profile__edit-image__input__btn__insert__input'
+                                type='file'
+                                accept='image/jpg, image/png, image/jpeg'
+                                name='profileImage'
+                                onChange={imageFileHandler('imageFile')}
+                            />
+                            </label>
+                        
+                        </div>
                         <button 
                             className='header__setting-modal__profile__edit-image__input__btn__delete'
                         >
@@ -80,22 +88,27 @@ export default function EditProfile ({ modalState, modalHandler }) {
                 />
             </div>
             <div className='header__setting-modal__profile__btn'>
-                <div className='header__setting-modal__profile__btn__btn'>
-                    <button
-                        className='header__setting-modal__profile__btn__btn__submit'
-                        onClick={onSubmitHandler}
-                    >
-                        적용
-                    </button>
-                    <button
-                        className='header__setting-modal__profile__btn__btn__cancel'
-                        onClick={modalHandler('none')}
-                    >
-                        취소
-                    </button>
-                </div>
-                <div className={submitError? 'header__setting-modal__profile__btn__error' : 'header__setting-modal__profile__btn__error hide'}>
+                <button
+                    className='header__setting-modal__profile__btn__submit'
+                    onClick={onSubmitHandler}
+                >
+                    적용
+                </button>
+                <button
+                    className='header__setting-modal__profile__btn__cancel'
+                    onClick={modalHandler('none')}
+                >
+                    취소
+                </button>
+            </div>
+            <div className='header__setting-modal__profile__error'>
+                <div className={submitError? 'header__setting-modal__profile__error__error' : 'header__setting-modal__profile__error__error hide'}>
                     페이지가 만료되었습니다. 다시 로그인해주세요.
+                </div>
+                <div
+                    className='header__setting-modal__profile__error__success'
+                >
+                    개인 정보가 변경되었습니다.
                 </div>
             </div>
         </div>

@@ -6,7 +6,7 @@ import './Modal/modal.css'
 
 import Modal from './Modal/Modal'
 
-function Header() {
+function Header({loginHandler, userInfo}) {
     const [dropdownVisible, setDropdownVisible] = useState(false);
     const [modalState, setModalState] = useState('none');
     // modal state는 none, profile, password로 분기.
@@ -72,7 +72,7 @@ function Header() {
                     </li>
                 </ul>
           </div>
-          {modalState!=='none'? <Modal modalState={modalState} modalHandler={modalHandler}/> : null}
+          {modalState!=='none'? <Modal modalState={modalState} modalHandler={modalHandler} loginHandler={loginHandler} userInfo={userInfo}/> : null}
        </div>
     )
 

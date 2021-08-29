@@ -3,9 +3,8 @@ import axios from 'axios';
 
 const serverurl = 'http://localhost:80';
 
-export default function EditPassword ({ modalState, modalHandler }) {
-    console.log(modalState);
-    console.log(modalHandler);
+export default function EditPassword ({loginHandler, userInfo, modalState, modalHandler }) {
+    console.log(userInfo)
     const [currentInput, setCurrentInput] = useState({
         currentPassword: '',
         newPassword: '',
@@ -20,9 +19,11 @@ export default function EditPassword ({ modalState, modalHandler }) {
     })
 
     const [editError, setEditError] = useState(false);
+    const [editSuccess, setEditSuccess] = useState(false);
 
     const handleInputValue = (key) => (e) => {
         setEditError(false)
+        setEditSuccess(false)
         setCurrentInput({ ...currentInput, [key]:e.target.value})
     }
 
@@ -50,19 +51,24 @@ export default function EditPassword ({ modalState, modalHandler }) {
     const onSubmitHandler = (e) => {
         if(!!(currentInput.currentPassword) && !!(currentInput.newPassword) && !!(currentInput.newPasswordCheck)){
             setErrorVisible({...errorVisible, somethingMissed:false});
+            let tmpAccessToken = 'Bearer ' + userInfo.accessToken;
             if(!(errorVisible.currentPassword) && !(errorVisible.newPassword) && !(errorVisible.newPasswordCheck)){
                 axios
-                    .patch(serverurl+'/changepassword',{
+                    .patch(serverurl+'/user/changepassword',{
                         nowpassword: currentInput.currentPassword,
                         newpassword: currentInput.newPassword
                     },
                     {
                         headers:{
-                            // !authorization 내려와서 추가
-                            Autorization:''
+                            Autorization:tmpAccessToken
                         }
                     })
+                    .then((res)=>{
+                        console.log(res)
+                        setEditSuccess(true)
+                    })
                     .catch( error => {
+                        console.log(error)
                         setEditError(true);
                     })
             }
@@ -77,8 +83,8 @@ export default function EditPassword ({ modalState, modalHandler }) {
                 비밀번호 변경
             </div>
             <div className='header__setting-modal__password__input'>
-                <div className='header__setting-modal__password__input__current-password'>
-                    <div className='header__setting-modal__password__input__current-password__text'>
+                <div className='header__setting-modal__password__input__current-password modal-sub-form'>
+                    <div className='header__setting-modal__password__input__current-password__text modal-sub-tittle'>
                         현재 비밀번호
                     </div>
                     <input
@@ -92,8 +98,8 @@ export default function EditPassword ({ modalState, modalHandler }) {
 
                     </div>
                 </div>
-                <div className='header__setting-modal__password__input__new-password'>
-                    <div className='header__setting-modal__password__input__new-password__text'>
+                <div className='header__setting-modal__password__input__new-password modal-sub-form'>
+                    <div className='header__setting-modal__password__input__new-password__text modal-sub-tittle'>
                         새 비밀번호
                     </div>
                     <input
@@ -107,8 +113,8 @@ export default function EditPassword ({ modalState, modalHandler }) {
                         비밀번호는 숫자와 영문자 조합으로 8~20자리를 사용해야 합니다.
                     </div>
                 </div>
-                <div className='header__setting-modal__password__input__new-password-check'>
-                    <div className='header__setting-modal__password__input__new-password-check__text'>
+                <div className='header__setting-modal__password__input__new-password-check modal-sub-form'>
+                    <div className='header__setting-modal__password__input__new-password-check__text modal-sub-tittle'>
                         비밀번호 확인
                     </div>
                     <input
@@ -142,6 +148,11 @@ export default function EditPassword ({ modalState, modalHandler }) {
                 </div>
                 <div className={editError? 'header__setting-modal__password__error__fail error' : 'header__setting-modal__password__error__fail error hide'}>
                     현재 비밀번호가 일치하지 않습니다.
+                </div>
+                <div
+                    className={editSuccess? 'header__setting-modal__password__error__success' : 'header__setting-modal__password__error__success hide'}
+                >
+                    비밀번호가 변경되었습니다.
                 </div>
             </div>
         </div>

@@ -1,10 +1,12 @@
 import  React , {useEffect} from "react";
+import { useHistory } from "react-router-dom";
 import LoginContainer from '../Components/LoginContainer'
 
 
 function Login ({ loginHandler, userInfo }) {
+    const history = useHistory();
     if(userInfo.isLogin){
-        document.location.href='/mypage'
+        history.push('/mypage')
     }
     return (
         <div className='login'>
