@@ -20,7 +20,6 @@ export default function LoginContainer ({ loginHandler }) {
     const [somethingMissed, setSomethingMissed] = useState(false);
     const [errorVisible, setErrorVisible] = useState(false)
 
-    const history = useHistory();
     const handleInputValue = (key) => (e) => {
         setLoginInfo({ ...loginInfo, [key]:e.target.value})
     }
