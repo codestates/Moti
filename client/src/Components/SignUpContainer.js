@@ -73,6 +73,7 @@ export default function SignUpContainer () {
                     email:signupInfo.email
                 })
                 .then( res => {
+                    console.log(res)
                     setEmailCheckCode(res.data.data.emailcode);
                     setSendEmail(true);
                 })

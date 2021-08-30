@@ -14,7 +14,7 @@ module.exports =  async (req, res) => {
         }else{
             image = fs.readFileSync(req.file.path);
         }
-
+        console.log(req.body);
         let {emotionstate, content} = req.body;
         //const token = authorization.split(' ')[1];
         let token = authorization.split(' ')[1];

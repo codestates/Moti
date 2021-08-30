@@ -7,14 +7,15 @@ import { useHistory } from 'react-router-dom';
 
 import Modal from './Modal/Modal'
 
-function Header({loginHandler, userInfo, logoutHandler}) {
+function Header({loginHandler, logoutHandler}) {
+    const userInfo = JSON.parse(window.localStorage.getItem("userInfo"));
     const history = useHistory();
-    if(!(userInfo.isLogin)){
+
+    if(userInfo.isLogin === false){
         history.push('/')
     }
     const [dropdownVisible, setDropdownVisible] = useState(false);
     const [modalState, setModalState] = useState('none');
-    // modal state는 none, profile, password로 분기.
 
     const dropdownHandler = () => {
         console.log(dropdownVisible)
@@ -25,6 +26,7 @@ function Header({loginHandler, userInfo, logoutHandler}) {
         setModalState(key);
     }
 
+    let image = 'data:image/png;base64, '+ Buffer(userInfo.profile, 'binary').toString('base64');
     return (
        <div className="header"> 
          <div className="header__container">
@@ -43,7 +45,7 @@ function Header({loginHandler, userInfo, logoutHandler}) {
                     </li>
                     <li className="header__container__menu__item">
                         <Link to='/mypage' className="header__container__menu__item__profilebox">
-                          <img src={'data:image/png;base64, '+ Buffer(userInfo.profile, 'binary').toString('base64')} alt="profile" className="header__container__menu__item__profilebox__profile" />
+                          <img src={typeof(userInfo.profile)==='string'? userInfo.profile :'data:image/png;base64, '+ Buffer(userInfo.profile, 'binary').toString('base64')} alt="profile" className="header__container__menu__item__profilebox__profile" />
                         </Link>
                     </li>
                     <li className="header__container__menu__item header__container__menu__item__setting-box">

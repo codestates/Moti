@@ -2,18 +2,25 @@ body {
     width: 100vw;
     padding: 0;
     margin: 0; 
+
 }
 .p{
   font-family: 'Orienta', sans-serif;
 }
 .mypage{
-   height: 3065px;
+   /* height: 3065px; */
+   min-height: 100%;
+   position: relative;
 }
 .mypage__container{
+    
     width:100%;
     max-width: 1600px;
     top:3.2rem;
-    height: 2710px;
+    min-height: 100%;
+    height: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
     display: flex;
     justify-content: center;
     margin: 0 2rem;
@@ -176,7 +183,7 @@ body {
     flex-direction: column;
     gap:0.5rem;
     position: fixed;
-    top: 22rem;
+    top: 25rem;
 }
 /* 명언들 flex되는게 해야함*/
 /* 좀 더 왼쪽으로?*/
@@ -199,6 +206,7 @@ body {
     line-height: 1.5rem;
     font-size: 16px;
 }
+/*###############################################플렉스 수정 post */
 .post{
  flex: 3;
  width: 100%;
@@ -209,6 +217,7 @@ body {
  margin: 3rem 1rem;
  padding: 0 1rem;
  left: 14rem;
+ 
  
 }
 /* search emotion */
@@ -257,10 +266,11 @@ body {
   gap: 1rem;
 
 }
+.signlepost__box__circlebox,
 .sendpost__circlebox{
     /* transform: translateY(70%); */
-    width: 3.3rem;
-    height: 3.3rem;
+    width: 43px;
+    height: 43px;
     border-radius: 100%;
     overflow: hidden;
 }
@@ -271,6 +281,7 @@ body {
     object-fit: cover;
     background-color: #E5E5E5;
 }
+.signlepost__box__circlebox__img,
 .sendpost__circlebox__img__active{
     width: 100%;
     height: 100%;
@@ -402,11 +413,93 @@ body {
     width:30px;
     height: 30px;
 }
+/* singlepost*/
+.singlepost{
+    display: flex;
+    width:100%;
+    flex-direction: row;
+    margin: 2rem 3rem;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
 
+}
+.signlepost__linebox{ /*수정*/
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    /* margin-left: 5rem; */
+    /* height: 0;
+    padding-top: calc(200 / 400 * 100%); */
+}
 
+.signlepost__linebox > img{
+    display: flex;
+    /* position: absolute; */
+   /*길이변경*/
+}
+.signlepost__box{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width:100%;
+    margin: 2rem;
+}
+.singlepost__box__right{
+    /* flex:7; */
+   margin:0 2rem;
+   /* padding: 0 1rem; */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+.singlepost__box__right__top{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+.singlepost__box__right__top__title{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap:1rem;
+
+}
+.singlepost__box__right__top__date{
+    width: 100%;
+    color: #858585;
+}
+.singlepost__box__right__top__text{
+    width:100%;
+    font-family: 'ABeeZee','Orienta', sans-serif;
+    font-size: 18px;
+    color: #353E4E;
+}
+.singlepost__box__right__trash{
+    color: blue;
+    cursor: pointer;
+    
+}
+.singlepost__box__right__photo{
+   width:49.5rem;
+   height: 22rem;
+   border-radius: 1rem;
+   overflow: hidden;
+}
+.signlepost__box__photo__img{
+   width: 100%;
+   height: 100%;
+   background-color: rgb(199, 199, 199);
+}
 
 /* Footer */ 
 .footer{
-    height: 302px;
+    position: absolute;
     background-color: #A38777;
+    bottom:auto;
+    width:100%;
 }

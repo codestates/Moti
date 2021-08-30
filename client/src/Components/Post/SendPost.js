@@ -5,7 +5,7 @@ import axios from "axios";
 
 const serverurl = process.env.REACT_APP_URL;
 
-function SendPost({accessToken, getAllpost, accessTokenHandler}) {
+function SendPost({getAllpost, accessTokenHandler}) {
   const [text, setText] = useState('')  
   const [previewURL,setPreviwURL] = useState('')
   const [imgfile, setImgfile] = useState('');
@@ -13,6 +13,7 @@ function SendPost({accessToken, getAllpost, accessTokenHandler}) {
   const [content, setContent] = useState('')
   const [isActive, setIsActive] = useState(false)
   const [imgsrc,setImgsrc] = useState('')
+  let accessToken = JSON.parse(window.localStorage.getItem("userInfo")).accessToken;
   const history = useHistory();
 
   const emotionList = [

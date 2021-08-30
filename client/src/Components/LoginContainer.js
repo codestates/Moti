@@ -1,6 +1,9 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const GITHUB_LOGIN_URL = `https://github.com/login/oauth/authorize?client_id=0eda0c23f9078b24bbe1`;
 //배포환경에서 실행한다면 github 콜백주소 변경해줘야함
@@ -26,7 +29,7 @@ export default function LoginContainer ({ loginHandler }) {
         if(!!(loginInfo.email) && !!(loginInfo.password)){
             setSomethingMissed(false)
             axios
-                .post(process.env.REACT_APP_URL+'/user/login', {
+                .post('http://localhost:80/user/login', {
                     adviceID: randomNum,
                     email:loginInfo.email,
                     password:loginInfo.password
@@ -58,6 +61,17 @@ export default function LoginContainer ({ loginHandler }) {
     const getAccessToken = async (authorizationCode) =>{
         const url = process.env.REACT_APP_URL+'/user/oauthgit';
         let resp = await axios.post(url, { authorizationCode: authorizationCode })
+            .then((res)=>{
+                let advice = res.data.data.RandomAdvice;
+                let accessToken = res.data.data.accessToken;
+                // let author = res.data.data.author;
+                let username= res.data.data.username;
+                let profile= res.data.data.profile;
+                loginHandler(accessToken, advice, '', username, profile);
+            })
+            .catch( error => {
+                console.log(error)
+            })
         console.log('이건 언제뜸 getaccesstoken')
         console.log(resp);
     }
@@ -102,7 +116,6 @@ export default function LoginContainer ({ loginHandler }) {
                         className = 'login__box__input__password__image'
                     />
                 </div>
-
             </div>
             <div className='login__box__btn'>
                 <button 
