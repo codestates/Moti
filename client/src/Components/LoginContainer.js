@@ -79,10 +79,8 @@ export default function LoginContainer ({ loginHandler }) {
     useEffect(()=>{
         const url = new URL(window.location.href);
         const authorizationCode = url.searchParams.get('code');
-        if (authorizationCode) {
-            console.log('소셜로그인')
+        if (authorizationCode) {            
             console.log(authorizationCode);
-            //! authorizationCode, username, profile userInfo에 저장.
             getAccessToken(authorizationCode)
         };
     })

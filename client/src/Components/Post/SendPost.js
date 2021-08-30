@@ -3,7 +3,7 @@ import { useHistory } from "react-router";
 import uploadImg from '../../assets/img-upload.svg';
 import axios from "axios";
 
-const serverurl = 'http://localhost:80';
+const serverurl = process.env.REACT_APP_URL;
 
 function SendPost({getAllpost, accessTokenHandler}) {
   const [text, setText] = useState('')  
