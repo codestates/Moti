@@ -208,6 +208,7 @@ body {
  border-right: 2px solid #C4C4C4;
  margin: 3rem 1rem;
  padding: 0 1rem;
+ left: 14rem;
  
 }
 /* search emotion */
@@ -228,17 +229,10 @@ body {
 .searchemotion__box > option{
    color: #757575;
 }
-/*option 에 대한 css 사용방법 연구
-https://webdir.tistory.com/432  플러그인 등등*/
+
 .searchemotion__box__title{
     color: #a5a5a5;
 }
- /* .select-selected{
-    color: #a5a5a5;
-}  */
-/* .select-selected::after{
-}
-*/ 
 
 /* sendpost */
 .sendpost{
@@ -248,22 +242,41 @@ https://webdir.tistory.com/432  플러그인 등등*/
  flex-direction: row;
  justify-content: center;
  margin: 2rem;
+ padding-right: 2rem;
+ /* margin-right: 5rem; */
  /* padding: 0 3rem; */
- gap: 3rem;
+
+}
+.sendpost__wrapper{
+    height: 100%;
+    width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-left: 2rem;
+  gap: 1rem;
+
 }
 .sendpost__circlebox{
-    transform: translateY(70%);
-    width: 3rem;
-    height: 3rem;
+    /* transform: translateY(70%); */
+    width: 3.3rem;
+    height: 3.3rem;
     border-radius: 100%;
     overflow: hidden;
 }
+
 .sendpost__circlebox__img{
     width: 100%;
     height: 100%;
     object-fit: cover;
     background-color: #E5E5E5;
 }
+.sendpost__circlebox__img__active{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
 .sendpost__box{
     display: flex;
     flex-direction: column;
@@ -298,37 +311,50 @@ https://webdir.tistory.com/432  플러그인 등등*/
    gap:1rem;
    
 }
-.sendpost__box__below__leftbox > p,
+/* .sendpost__box__below__leftbox > p, */
 .sendpost__box__below__leftbox > label{
     color: #95685A;
     font-weight: bold;
 }
 
 .sendpost__circlebox__select__btn {
-    border: solid 1px #95685A;
-    /* background-color: white; */
+    border: solid 1px #c2c2c2;
     border-radius: 0.3rem;
     height: 50px;
     width: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 0.1rem;
+    color: #353E4E;
+    background-color: rgb(255, 239, 236);
+    cursor: pointer;
+    
 }
-
-.sendpost__circlebox__select__ul > li{
-    border-color:#95685A;
-    background-color: white;
+.sendpost__circlebox__select__ul{
+    border: solid 1px #95685A;
     border-radius: 0.3rem;
-    height: 50px;
-    width: 70px;
-    background-image: url('../assets/smile.png');
-    background-repeat: no-repeat;
+    /* background-color: rgb(238, 238, 238); */
    
 }
 
-/* .sendpost__box__below__leftbox > select > option {
-    background-image: url('../assets/smile.png');
-    background-repeat: no-repeat;
-    color: #95685A;
+.sendpost__circlebox__select__ul > li{
+    /* border-bottom: dotted 2px #dab2a7; */
+    display: flex;
+    justify-content: center;
+   
     
-} */
+}
+.sendpost__circlebox__select__ul > li :hover{
+    background-color: rgb(255, 239, 236);
+    border-radius: 100%;;
+    /* color: rgb(255, 239, 236); */
+    /* width: 100%; */
+    cursor: pointer;
+  
+    
+}
+
 
 .sendpost__box__below__btn{
     display: flex;
@@ -339,7 +365,8 @@ https://webdir.tistory.com/432  플러그인 등등*/
     background-color: rgba(154, 93, 73, 0.6);
     transition: all 0.3s ease-in-out;
     color: #FFFFFF;
-    font-size: 24px;
+    padding-top: 0.2rem;
+    font-size: 22px;
     font-family: 'Cormorant Garamond',Georgia, serif;
 } 
 .sendpost__box__below__btn:hover{
@@ -348,6 +375,11 @@ https://webdir.tistory.com/432  플러그인 등등*/
   cursor: pointer;
 }
   
+.sendpost__box__below__leftbox {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 5rem;
+}
 #upload{
     /* display: none; */
     opacity: 0;
@@ -370,6 +402,7 @@ https://webdir.tistory.com/432  플러그인 등등*/
     width:30px;
     height: 30px;
 }
+
 
 
 /* Footer */ 

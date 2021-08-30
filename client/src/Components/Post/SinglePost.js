@@ -4,6 +4,7 @@ import line from '../../assets/mypage-line.svg'
 function SinglePost({picture,emotion,text,creatAt}) {
   //creatAt 받아서 날짜 라이브러리
   //각자렌더링
+   console.log(picture,emotion,text,creatAt)
    
     return (
         <div className="signlpost">
