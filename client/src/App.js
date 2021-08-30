@@ -14,7 +14,7 @@ axios.defaults.withCredentials = true;
 
 function App() {
   const history = useHistory();
-  const [userInfo, setUserInfo] = useState({
+  const [userInfo, setUserInfo] = useState( JSON.parse(window.localStorage.getItem("userInfo"))|| {
     isLogin : false,
     accessToken : "",
     advice : "",
@@ -29,9 +29,9 @@ function App() {
   // }
 
   useEffect( () => {
-    let tmp = `{"isLogin":${userInfo.isLogin},"accessToken":"${userInfo.accessToken}","advice":"${userInfo.advice}","username":"${userInfo.username}","profile":"${userInfo.profile}"}`;
+    //let tmp = `{"isLogin":${userInfo.isLogin},"accessToken":"${userInfo.accessToken}","advice":"${userInfo.advice}","username":"${userInfo.username}","profile":"${userInfo.profile}"}`;
 
-    window.localStorage.setItem('userInfo',tmp);
+    window.localStorage.setItem('userInfo',JSON.stringify(userInfo));
   }, [userInfo])
 
   const loginHandler = (accessToken, advice, author, username, profile) => {
@@ -43,8 +43,7 @@ function App() {
       username : username,
       profile : profile
     })
-    window.localStorage.setItem('userInfo', userInfo)
-    console.log('로그인정보변경')
+    console.log(JSON.parse(window.localStorage.getItem("userInfo")));
   }
   
   const logoutHandler = () => {
@@ -56,6 +55,7 @@ function App() {
       username : '',
       profile : ''
     });
+
   }
 
   const accessTokenHandler = (newAccessToken) => {
@@ -63,20 +63,19 @@ function App() {
       ...userInfo,
       accessToken : newAccessToken
     })
-    window.localStorage.setItem('userInfo', userInfo)
   }
 
   return (
     <Router>
       <Switch>
         <Route exact path='/'>
-          <Login loginHandler={loginHandler} userInfo={userInfo}/>
+          <Login loginHandler={loginHandler}/>
         </Route>
         <Route path='/signup'>
           <SignUp />
         </Route>
         <Route path='/mypage'> {/*수정 필요? 로그인하면 유저의 마이페이지로 가는 라우팅 id*/}
-          <Mypage loginHandler={loginHandler} userInfo={userInfo} accessTokenHandler={accessTokenHandler} logoutHandler={logoutHandler}/>
+          <Mypage loginHandler={loginHandler} accessTokenHandler={accessTokenHandler} logoutHandler={logoutHandler}/>
         </Route>
         <Route path='/dashboard'>
           <Dashboard />

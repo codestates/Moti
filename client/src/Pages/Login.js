@@ -3,12 +3,16 @@ import { useHistory } from "react-router-dom";
 import LoginContainer from '../Components/LoginContainer'
 
 
-function Login ({ loginHandler, userInfo }) {
+function Login ({ loginHandler}) {
     const history = useHistory();
-    if(!!(userInfo.isLogin)){
+    // if(!!(userInfo.isLogin)){
+    //     history.push('/mypage')
+    // }
+
+    if(!!JSON.parse(window.localStorage.getItem("userInfo")).isLogin){
         history.push('/mypage')
     }
-  
+    console.log(JSON.parse(window.localStorage.getItem("userInfo")));
     return (
         <div className='login'>
             <div className='login__tittle'>

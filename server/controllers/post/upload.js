@@ -14,7 +14,7 @@ module.exports =  async (req, res) => {
         }else{
             image = fs.readFileSync(req.file.path);
         }
-
+        console.log(req.body);
         let {emotionstate, content} = req.body;
         //const token = authorization.split(' ')[1];
         let token = authorization.split(' ')[1];
@@ -31,7 +31,7 @@ module.exports =  async (req, res) => {
         //Post, emotion, join table 데이터 insert하기
         let PostResult = await Post.create({
             content : content,
-            //picture : image,
+            picture : image,
             user_Id : userInfo.id
         });
 
