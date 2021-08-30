@@ -9,5 +9,6 @@ module.exports = {
     delete: require('./post/delete'),
     allposts: require('./post/allpost'),
     getemailcode: require('./user/getemailcode'),
-    emailveri: require('./user/emailveri')
+    emailveri: require('./user/emailveri'),
+    partofposts : require('./post/PartofPosts')
 }
