@@ -31,7 +31,7 @@ module.exports =  async (req, res) => {
         //Post, emotion, join table 데이터 insert하기
         let PostResult = await Post.create({
             content : content,
-            //picture : image,
+            picture : image,
             user_Id : userInfo.id
         });
 

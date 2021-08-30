@@ -7,7 +7,7 @@ router.post('/signup', controller.signup);
 router.get('/signout', controller.signout);
 router.post('/oauthgit',controller.oauthgit);
 router.put('/changepassword',controller.changepassword);
-router.put('/changeprofile',controller.changeprofile);
+router.put('/changeprofile',upload.single('picture'),controller.changeprofile);
 router.post('/getemailcode',controller.getemailcode);
 router.post('/emailveri',controller.emailveri);
 module.exports = router;

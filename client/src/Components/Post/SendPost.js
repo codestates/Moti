@@ -3,7 +3,7 @@ import { useHistory } from "react-router";
 import uploadImg from '../../assets/img-upload.svg';
 import axios from "axios";
 
-const serverurl = 'http://localhost:80';
+const serverurl = process.env.REACT_APP_URL;
 
 function SendPost({accessToken, getAllpost, accessTokenHandler}) {
   const [text, setText] = useState('')  
@@ -76,9 +76,9 @@ function SendPost({accessToken, getAllpost, accessTokenHandler}) {
        }
      
         const formData = new FormData();
-        formData.append("imgfile",imgfile);
+        formData.append("picture",imgfile);
         formData.append("emotionstate",emotionstate);
-        formData.append("content",content);
+        formData.append("content",text);
 
        for(let key of formData.entries()){
         console.log(`${key}`)
