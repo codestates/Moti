@@ -4,6 +4,8 @@ import {useHistory} from "react-router-dom";
 import SearchEmotion from "./SearchEmotion";
 import SendPost from "./SendPost";
 import SinglePost from "./SinglePost";
+import dotenv from 'dotenv';
+dotenv.config();
 
 function Post({accessTokenHandler}) {
     let accessToken = JSON.parse(window.localStorage.getItem("userInfo")).accessToken;
@@ -62,7 +64,7 @@ function Post({accessTokenHandler}) {
     
  return(
      <div className="post">
-         <SearchEmotion accessToken={accessToken} accessTokenHandler={accessTokenHandler}/>
+         <SearchEmotion />
          <SendPost accessToken={accessToken} getAllpost={getAllpost} accessTokenHandler={accessTokenHandler}/>
             {allpost ? allpost.map((post,idx) => {
                 return  ( 
