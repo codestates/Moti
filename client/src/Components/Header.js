@@ -14,7 +14,6 @@ function Header({loginHandler, userInfo, logoutHandler}) {
     }
     const [dropdownVisible, setDropdownVisible] = useState(false);
     const [modalState, setModalState] = useState('none');
-    // modal state는 none, profile, password로 분기.
 
     const dropdownHandler = () => {
         console.log(dropdownVisible)
@@ -43,7 +42,7 @@ function Header({loginHandler, userInfo, logoutHandler}) {
                     </li>
                     <li className="header__container__menu__item">
                         <Link to='/mypage' className="header__container__menu__item__profilebox">
-                          <img src={'data:image/png;base64, '+ Buffer(userInfo.profile, 'binary').toString('base64')} alt="profile" className="header__container__menu__item__profilebox__profile" />
+                          <img src={typeof(userInfo.profile)==='string'? userInfo.profile :'data:image/png;base64, '+ Buffer(userInfo.profile, 'binary').toString('base64')} alt="profile" className="header__container__menu__item__profilebox__profile" />
                         </Link>
                     </li>
                     <li className="header__container__menu__item header__container__menu__item__setting-box">

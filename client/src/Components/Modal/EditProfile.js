@@ -4,7 +4,13 @@ import axios from 'axios'
 const defaultImage = require('../../assets/bros_blank.jpg')
 
 export default function EditProfile ({loginHandler, userInfo, modalState, modalHandler }) {
-    const currentProfileImage = 'data:image/png;base64, '+Buffer(userInfo.profile,'binary').toString('base64');
+    let currentProfileImage
+    if(typeof(userInfo.profile)==='string'){
+        currentProfileImage = userInfo.profile;
+    }else{
+        currentProfileImage = 'data:image/png;base64, '+Buffer(userInfo.profile,'binary').toString('base64');
+    }
+    console.log(userInfo)
     const [currentInput, setCurrentInput] = useState({
         imageFile:'',
         previewUrl:'',
@@ -47,7 +53,7 @@ export default function EditProfile ({loginHandler, userInfo, modalState, modalH
         }else{
             setCurrentInput({
                 ...currentInput,
-                imageFile: defaultImage,
+                imageFile: 'default_profile',
                 previewUrl: 'bros_blank.jpg'
             })
         }
@@ -56,6 +62,35 @@ export default function EditProfile ({loginHandler, userInfo, modalState, modalH
     const onSubmitHandler = (e) => {
         // put 성공시 setSubmitSuccess(true);, userinfo 변경(이미지 변경시 이미지만, 프로필 변경시 프로필만), currentInput 초기화
         // put 실패시 setSubmitError(true);
+        let body = {};
+        let tmpAccessToken = 'Bearer ' + userInfo.accessToken;
+        if(!!(currentInput.imageFile) && !!(currentInput.username)){
+            body = {
+                username: currentInput.username,
+                profile: currentInput.profile
+            }
+        }else if (!!(currentInput.imageFile)){
+            body = {
+                profile: currentInput.profile
+            }
+        }else {
+            body = {
+                username: currentInput.username
+            }
+        }
+        if(!!(currentInput.imageFile) || !!(currentInput.username)){
+            axios.put(process.env.REACT_APP_URL+'user/changeprofile',body,{
+                headers:{
+                    authorization:tmpAccessToken
+                }
+            })
+            .then((res)=>{
+                console.log(res)
+            })
+            .catch((error)=>{
+                console.log(error)
+            })
+        }
     }
 
     return(

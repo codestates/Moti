@@ -58,6 +58,17 @@ export default function LoginContainer ({ loginHandler }) {
     const getAccessToken = async (authorizationCode) =>{
         const url = process.env.REACT_APP_URL+'/user/oauthgit';
         let resp = await axios.post(url, { authorizationCode: authorizationCode })
+            .then((res)=>{
+                let advice = res.data.data.RandomAdvice;
+                let accessToken = res.data.data.accessToken;
+                // let author = res.data.data.author;
+                let username= res.data.data.username;
+                let profile= res.data.data.profile;
+                loginHandler(accessToken, advice, '', username, profile);
+            })
+            .catch( error => {
+                console.log(error)
+            })
         console.log('이건 언제뜸 getaccesstoken')
         console.log(resp);
     }
@@ -104,7 +115,6 @@ export default function LoginContainer ({ loginHandler }) {
                         className = 'login__box__input__password__image'
                     />
                 </div>
-
             </div>
             <div className='login__box__btn'>
                 <button 
