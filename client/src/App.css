@@ -232,7 +232,7 @@ textarea {
   background-color: rgba(255,255,255,0.35);
   border-radius: 10px;
   width: 526px;
-  height:600px;
+  height:670px;
 }
 
 .signup__box__tittle {
@@ -249,8 +249,35 @@ textarea {
   gap: 0.3rem;
 }
 
+.signup__box__input__email-box__mail-authorization{
+  position: absolute;
+  width: 80px;
+  height: 30px;
+  top: 50px;
+  right: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 2px solid rgba(158,129,119,0.6);
+  background-color: rgba(255,255,255,0.5);
+  color: #95685A;
+  transition: all 0.3s ease-in-out;
+  font-size: medium;
+}
+
+.signup__box__input__email-box__mail-authorization:hover{
+  transition:all 0.3s ease-in-out;
+  background-color: rgb(255, 255, 255);
+}
+
+.signup__box__input__email__send {
+  position : absolute;
+  top: 48px;
+  font-size: small;
+}
+
 .signup__box__input__email{
   position: relative;
+  margin-bottom: 10px;
 }
 
 .signup__box__input__user-name{

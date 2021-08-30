@@ -1,5 +1,5 @@
 import React , {useState, useEffect} from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, useHistory, withRouter } from 'react-router-dom';
 
 import Login from './Pages/Login';
 import SignUp from './Pages/SignUp';
@@ -10,8 +10,10 @@ import Notfound from './Pages/Notfound';
 import './App.css';
 import axios from 'axios';
 
-function App() {
+axios.defaults.withCredentials = true;
 
+function App() {
+  const history = useHistory();
   const [userInfo, setUserInfo] = useState({
     isLogin : false,
     accessToken : "",
@@ -20,16 +22,17 @@ function App() {
     username : "",
     profile : ""
   })
+  console.log(userInfo)
 
   // if(!!(window.localStorage.userInfo)){
   //   setUserInfo(JSON.parse(window.localStorage.getItem('userInfo')));
   // }
 
-  // useEffect( () => {
-  //   let tmp = `{"isLogin":${userInfo.isLogin},"accessToken":"${userInfo.accessToken}","advice":"${userInfo.advice}","username":"${userInfo.username}","profile":"${userInfo.profile}"}`;
+  useEffect( () => {
+    let tmp = `{"isLogin":${userInfo.isLogin},"accessToken":"${userInfo.accessToken}","advice":"${userInfo.advice}","username":"${userInfo.username}","profile":"${userInfo.profile}"}`;
 
-  //   window.localStorage.setItem('userInfo',tmp);
-  // }, [userInfo])
+    window.localStorage.setItem('userInfo',tmp);
+  }, [userInfo])
 
   const loginHandler = (accessToken, advice, author, username, profile) => {
     setUserInfo({
@@ -52,6 +55,13 @@ function App() {
       author : '',
       username : '',
       profile : ''
+    });
+  }
+
+  const accessTokenHandler = (newAccessToken) => {
+    setUserInfo({
+      ...userInfo,
+      accessToken : newAccessToken
     })
     window.localStorage.setItem('userInfo', userInfo)
   }
@@ -66,7 +76,7 @@ function App() {
           <SignUp />
         </Route>
         <Route path='/mypage'> {/*수정 필요? 로그인하면 유저의 마이페이지로 가는 라우팅 id*/}
-          <Mypage loginHandler={loginHandler} userInfo={userInfo} />
+          <Mypage loginHandler={loginHandler} userInfo={userInfo} accessTokenHandler={accessTokenHandler} logoutHandler={logoutHandler}/>
         </Route>
         <Route path='/dashboard'>
           <Dashboard />
@@ -79,4 +89,4 @@ function App() {
   );
 }
 
-export default App;
+export default withRouter(App);

@@ -1,15 +1,21 @@
 const bcrypt = require('bcrypt');
 const model = require('../../models');
 const jwt = require('jsonwebtoken');
+const { isAuthorized, remakeToken } = require('../tokenFunctions')
 
 
-module.exports =  (req, res) =>{
+module.exports =  async (req, res) =>{
     let {nowpassword, newpassword} = req.body;
     const accesstoken = req.headers.authorization.split(' ')[1];
     
     const data = jwt.verify(accesstoken, process.env.ACCESS_SECRET);
-    
-    bcrypt.compare(nowpassword,data.password).then((isMatch)=>{
+    let user = await model.user.findOne({where : {email: data.email}});
+    if(isAuthorized(accesstoken) === 'jwt expired'){
+        token = remakeToken(req);
+        res.set('accessToken', token); //헤더 설정
+    }
+
+    bcrypt.compare(nowpassword,user.dataValues.password).then((isMatch)=>{ //여기 수정 요망
         if(!isMatch){
             res.status(401).send('password mismatch');
         }

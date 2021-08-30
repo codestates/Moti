@@ -14,7 +14,7 @@ function Sidebar(props) {
                  <div className="sidebar__box__user__picbox">
                     <img src={imageUrl} alt={""} className="sidebar__box__user__picbox__pic"/>
                  </div>
-                 <p className="sidebar__box__user__text">환영합니다 <span>{props.userInfo.username}</span>님</p>
+                 <p className="sidebar__box__user__text">환영합니다 <span>{'bitnaraLee'}</span>님</p>
              </div>
              <div className="sidebar__box__proverb">
                  <div className="sidebar__box__proverb__title">today's proverb ▶</div>

@@ -3,10 +3,15 @@ import { Link } from 'react-router-dom';
 import moti from '../assets/moti.svg';
 import search from '../assets/search.svg';
 import './Modal/modal.css'
+import { useHistory } from 'react-router-dom';
 
 import Modal from './Modal/Modal'
 
-function Header() {
+function Header({loginHandler, userInfo, logoutHandler}) {
+    const history = useHistory();
+    if(!(userInfo.isLogin)){
+        history.push('/')
+    }
     const [dropdownVisible, setDropdownVisible] = useState(false);
     const [modalState, setModalState] = useState('none');
     // modal state는 none, profile, password로 분기.
@@ -18,13 +23,6 @@ function Header() {
 
     const modalHandler = (key) => (e) => {
         setModalState(key);
-    }
-
-    const logoutHandler = ()=>{
-        console.log('logout')
-        //서버에 로그아웃 요청, 개인정보 수정(로그아웃 상태로)
-        //로그아웃 후 localStorage의 userInfo 삭제 필요
-        //local.storage.removeItem('userInfo')
     }
 
     return (
@@ -45,7 +43,7 @@ function Header() {
                     </li>
                     <li className="header__container__menu__item">
                         <Link to='/mypage' className="header__container__menu__item__profilebox">
-                          <img src={""} alt="profile" className="header__container__menu__item__profilebox__profile" />
+                          <img src={'data:image/png;base64, '+ Buffer(userInfo.profile, 'binary').toString('base64')} alt="profile" className="header__container__menu__item__profilebox__profile" />
                         </Link>
                     </li>
                     <li className="header__container__menu__item header__container__menu__item__setting-box">
@@ -72,7 +70,7 @@ function Header() {
                     </li>
                 </ul>
           </div>
-          {modalState!=='none'? <Modal modalState={modalState} modalHandler={modalHandler}/> : null}
+          {modalState!=='none'? <Modal modalState={modalState} modalHandler={modalHandler} loginHandler={loginHandler} userInfo={userInfo}/> : null}
        </div>
     )
 

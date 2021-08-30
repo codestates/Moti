@@ -2,12 +2,12 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
-const serverurl = 'http://localhost:80'; // 배포환경시 수정필요
 const GITHUB_LOGIN_URL = `https://github.com/login/oauth/authorize?client_id=0eda0c23f9078b24bbe1`;
 //배포환경에서 실행한다면 github 콜백주소 변경해줘야함
 // 소셜로그인 기능 확인 후 일단 mypage로 콜백
 
 export default function LoginContainer ({ loginHandler }) {
+    const history = useHistory();
 
     const [loginInfo, setLoginInfo] = useState({
         email: '',
@@ -17,7 +17,6 @@ export default function LoginContainer ({ loginHandler }) {
     const [somethingMissed, setSomethingMissed] = useState(false);
     const [errorVisible, setErrorVisible] = useState(false)
 
-    const history = useHistory();
     const handleInputValue = (key) => (e) => {
         setLoginInfo({ ...loginInfo, [key]:e.target.value})
     }
@@ -26,15 +25,13 @@ export default function LoginContainer ({ loginHandler }) {
         let randomNum = Math.floor(Math.random()*10);
         if(!!(loginInfo.email) && !!(loginInfo.password)){
             setSomethingMissed(false)
-            console.log('login request')
             axios
-                .post(serverurl+'/user/login', {
+                .post(process.env.REACT_APP_URL+'/user/login', {
                     adviceID: randomNum,
                     email:loginInfo.email,
                     password:loginInfo.password
                 })
                 .then( res => {
-                    console.log(res)
                     let accessToken = res.data.data.accessToken;
                     let advice = res.data.data.RandomAdvice;
                     let author = res.data.data.author;
@@ -59,7 +56,7 @@ export default function LoginContainer ({ loginHandler }) {
     }
 
     const getAccessToken = async (authorizationCode) =>{
-        const url = serverurl+'/oauthgit';
+        const url = process.env.REACT_APP_URL+'/user/oauthgit';
         let resp = await axios.post(url, { authorizationCode: authorizationCode })
         console.log('이건 언제뜸 getaccesstoken')
         console.log(resp);
