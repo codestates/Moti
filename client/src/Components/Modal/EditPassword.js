@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from 'axios';
 
-export default function EditPassword ({loginHandler, userInfo, modalState, modalHandler }) {
+export default function EditPassword ({accessTokenHandler, loginHandler, userInfo, modalState, modalHandler }) {
     const [currentInput, setCurrentInput] = useState({
         currentPassword: '',
         newPassword: '',
@@ -61,6 +61,9 @@ export default function EditPassword ({loginHandler, userInfo, modalState, modal
                         }
                     })
                     .then((res)=>{
+                        if(res.headers.accessToken){
+                            accessTokenHandler(res.headers.accessToken)
+                        }
                         setEditSuccess(true)
                         setErrorVisible({...errorVisible, somethingMissed:false})
                     })

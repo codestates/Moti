@@ -3,7 +3,7 @@ import axios from 'axios'
 
 const defaultImage = require('../../assets/bros_blank.jpg')
 
-export default function EditProfile ({loginHandler, userInfo, modalState, modalHandler }) {
+export default function EditProfile ({accessTokenHandler, loginHandler, userInfo, modalState, modalHandler }) {
     let currentProfileImage
     if(typeof(userInfo.profile)==='string'){
         currentProfileImage = userInfo.profile;
@@ -32,6 +32,7 @@ export default function EditProfile ({loginHandler, userInfo, modalState, modalH
         e.preventDefault();
         let reader = new FileReader();
         let file = e.target.files[0];
+        console.log(file)
         reader.onloadend = () => {
             setCurrentInput({
                 imageFile : file,
@@ -62,34 +63,41 @@ export default function EditProfile ({loginHandler, userInfo, modalState, modalH
     const onSubmitHandler = (e) => {
         // put 성공시 setSubmitSuccess(true);, userinfo 변경(이미지 변경시 이미지만, 프로필 변경시 프로필만), currentInput 초기화
         // put 실패시 setSubmitError(true);
-        let body = {};
         let tmpAccessToken = 'Bearer ' + userInfo.accessToken;
-        if(!!(currentInput.imageFile) && !!(currentInput.username)){
-            body = {
-                username: currentInput.username,
-                profile: currentInput.profile
-            }
-        }else if (!!(currentInput.imageFile)){
-            body = {
-                profile: currentInput.profile
-            }
-        }else {
-            body = {
-                username: currentInput.username
-            }
-        }
+        const formData = new FormData();
+        formData.append("picture",currentInput.imageFile);
+        formData.append("username",currentInput.username);
+
+        // if(!!(currentInput.imageFile) && !!(currentInput.username)){
+        //     formData.append("picture",currentInput.imageFile);
+        //     formData.append("username",currentInput.username);
+        // }else if (!!(currentInput.imageFile)){
+        //     formData.append("picture",currentInput.imageFile);
+        // }else {
+        //     formData.append("username",currentInput.username);
+        // }
+
         if(!!(currentInput.imageFile) || !!(currentInput.username)){
-            axios.put(process.env.REACT_APP_URL+'user/changeprofile',body,{
-                headers:{
-                    authorization:tmpAccessToken
-                }
-            })
-            .then((res)=>{
-                console.log(res)
-            })
-            .catch((error)=>{
-                console.log(error)
-            })
+            console.log(userInfo.accessToken)
+            console.log(formData)
+            axios
+                .post(process.env.REACT_APP_URL+'user/changeprofile',formData,{
+                    headers:{
+                        'content-type': 'multipart/form-data',
+                        authorization:tmpAccessToken
+                    },
+                    withCredentials: true
+                })
+                .then((res)=>{
+                    setSubmitSuccess(true)
+                    if(res.headers.accessToken){
+                        accessTokenHandler(res.headers.accessToken)
+                    }
+                    console.log(res)
+                })
+                .catch((error)=>{
+                    console.log('error')
+                })
         }
     }
 
