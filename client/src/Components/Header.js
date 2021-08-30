@@ -7,9 +7,11 @@ import { useHistory } from 'react-router-dom';
 
 import Modal from './Modal/Modal'
 
-function Header({loginHandler, userInfo, logoutHandler}) {
+function Header({loginHandler, logoutHandler}) {
+    const userInfo = JSON.parse(window.localStorage.getItem("userInfo"));
     const history = useHistory();
-    if(!(userInfo.isLogin)){
+
+    if(userInfo.isLogin === false){
         history.push('/')
     }
     const [dropdownVisible, setDropdownVisible] = useState(false);
@@ -24,6 +26,7 @@ function Header({loginHandler, userInfo, logoutHandler}) {
         setModalState(key);
     }
 
+    let image = 'data:image/png;base64, '+ Buffer(userInfo.profile, 'binary').toString('base64');
     return (
        <div className="header"> 
          <div className="header__container">
