@@ -58,7 +58,7 @@ export default function LoginContainer ({ loginHandler }) {
         window.location.assign(GITHUB_LOGIN_URL);
     }
 
-    const getAccessToken = async (authorizationCode) =>{
+    const getAccessToken = async (authorizationCode) =>{      
         const url = serverurl+'/user/oauthgit';
         let resp = await axios.post(url, { authorizationCode: authorizationCode })
         console.log('이건 언제뜸 getaccesstoken')
@@ -68,10 +68,8 @@ export default function LoginContainer ({ loginHandler }) {
     useEffect(()=>{
         const url = new URL(window.location.href);
         const authorizationCode = url.searchParams.get('code');
-        if (authorizationCode) {
-            console.log('소셜로그인')
+        if (authorizationCode) {            
             console.log(authorizationCode);
-            //! authorizationCode, username, profile userInfo에 저장.
             getAccessToken(authorizationCode)
         };
     })
