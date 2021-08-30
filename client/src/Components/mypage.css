@@ -485,15 +485,16 @@ body {
     
 }
 .singlepost__box__right__photo{
-   width:49.5rem;
-   height: 22rem;
+   max-width:49.5rem;
+   max-height:40rem;
    border-radius: 1rem;
    overflow: hidden;
 }
 .signlepost__box__photo__img{
    width: 100%;
    height: 100%;
-   background-color: rgb(199, 199, 199);
+   object-fit: cover;
+   /* background-color: rgb(199, 199, 199); */
 }
 
 /* Footer */ 

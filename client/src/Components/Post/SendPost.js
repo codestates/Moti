@@ -2,6 +2,7 @@ import  React,{useState}  from "react";
 import { useHistory } from "react-router";
 import uploadImg from '../../assets/img-upload.svg';
 import axios from "axios";
+import { emotionList } from "./EmotionList";
 
 const serverurl = process.env.REACT_APP_URL;
 
@@ -10,29 +11,10 @@ function SendPost({getAllpost, accessTokenHandler}) {
   const [previewURL,setPreviwURL] = useState('')
   const [imgfile, setImgfile] = useState('');
   const [emotionstate, setEmotionstate] = useState('')
-  const [content, setContent] = useState('')
   const [isActive, setIsActive] = useState(false)
   const [imgsrc,setImgsrc] = useState('')
   let accessToken = JSON.parse(window.localStorage.getItem("userInfo")).accessToken;
   const history = useHistory();
-
-  const emotionList = [
-      {
-        emotion : 'happy',
-        img: '../images/emotion-happy.png', 
-      },
-      {
-        emotion : 'boring',
-        img: '../images/emotion-boring.png',  
-      },
-      {
-        emotion : 'so sad',
-        img: '../images/emotion-sad.png',  
-      },
-      {
-        emotion : 'angry',
-        img: '../images/emotion-angry.png',  
-      }]
 
 
  /*감정 선택 */
@@ -71,7 +53,7 @@ function SendPost({getAllpost, accessTokenHandler}) {
   // 텍스트가 있는지 + 감정 선택했는지 확인, 없으면 에러메세지 //
   const submitHandle = (event) => {
       event.preventDefault();
-       setContent(text)           
+    //    setContent(text)           
        if(!text || !emotionstate){
            return /*모달을 만들어 넣구 싶은데! */
        }
@@ -93,7 +75,7 @@ function SendPost({getAllpost, accessTokenHandler}) {
             };
 
             axios
-            .post(serverurl +`/post/upload`, formData, config)
+            .post(process.env.REACT_APP_URL +`/post/upload`, formData, config)
                 .then((res)=>{/*헤더 검사해서 새로운 액세스토큰 있는지 확인,있으면 상태변경*/
                     if(res.headers.accessToken){
                         accessTokenHandler(accessToken)
@@ -111,7 +93,6 @@ function SendPost({getAllpost, accessTokenHandler}) {
                    setPreviwURL('')
                    setImgfile('')
                    setEmotionstate('')
-                   setContent('')
                 })
                 .catch(err => 
                     console.log(err))
