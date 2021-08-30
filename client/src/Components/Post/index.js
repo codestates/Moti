@@ -6,7 +6,8 @@ import SendPost from "./SendPost";
 import SinglePost from "./SinglePost";
 
 const serverurl = 'http://localhost:80';// 배포환경시 수정필요
-function Post({isLogin, accessToken,accessTokenHandler}) {
+function Post({accessTokenHandler}) {
+    let accessToken = JSON.parse(window.localStorage.getItem("userInfo")).accessToken;
     const [allpost, setAllpost] = useState(null)
     const history = useHistory();
  //모든 포스트 요청
@@ -15,7 +16,7 @@ function Post({isLogin, accessToken,accessTokenHandler}) {
         axios
             .get(serverurl+'/post/allposts',{
                 headers: {
-                    "Content-type": "multipart/form-data",// get이라서 필요없나...{'Content-Type': 'application/json'}
+                    "Content-Type": "multipart/form-data",// get이라서 필요없나...{'Content-Type': 'application/json'}
                     authorization: `Bearer ${accessToken}`
                     },
                 withCredentials: true
