@@ -14,7 +14,8 @@ function Sidebar() {
          <div className="sidebar__box">
              <div className="sidebar__box__user">
                  <div className="sidebar__box__user__picbox">
-                    <img src={imageUrl} alt={""} className="sidebar__box__user__picbox__pic"/>
+                    <img src={typeof(user.profile)==='string'? user.profile :imageUrl}
+                     alt="profile" className="sidebar__box__user__picbox__pic" />
                  </div>
                  <p className="sidebar__box__user__text">환영합니다 <span>{user.username}</span>님</p>
              </div>

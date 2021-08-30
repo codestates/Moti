@@ -5,18 +5,24 @@ import SearchEmotion from "./SearchEmotion";
 import SendPost from "./SendPost";
 import SinglePost from "./SinglePost";
 
-const serverurl = 'http://localhost:80';// 배포환경시 수정필요
 function Post({accessTokenHandler}) {
     let accessToken = JSON.parse(window.localStorage.getItem("userInfo")).accessToken;
     const [allpost, setAllpost] = useState(null)
     const history = useHistory();
- //모든 포스트 요청
+
+    
+     /*최초 렌더링시 */    
+     useEffect(()=>{
+        getAllpost(accessToken)
+    },[])   
+
+    //모든 포스트 요청
    
     const getAllpost = (accessToken) => {
         axios
-            .get(serverurl+'/post/allposts',{
+            .get(process.env.REACT_APP_URL+'/post/allposts',{
                 headers: {
-                    "Content-Type": "multipart/form-data",// get이라서 필요없나...{'Content-Type': 'application/json'}
+                    "Content-Type": "multipart/form-data",
                     authorization: `Bearer ${accessToken}`
                     },
                 withCredentials: true
@@ -40,10 +46,17 @@ function Post({accessTokenHandler}) {
                 console.log(err)
             })
         }
-    /*최초 렌더링시 */    
-    useEffect(()=>{
-        getAllpost(accessToken)
-    },[])    
+  
+
+     /*게시물 삭제 */
+
+  
+     const handleDelete = (e,idx) => {
+        e.preventDefault(); 
+        const removePost = allpost.filter((post,index) => index !== idx)
+        setAllpost(removePost)
+      }
+
 
    /* 인피니트 스크롤 구현 */
     
@@ -53,7 +66,7 @@ function Post({accessTokenHandler}) {
          <SendPost accessToken={accessToken} getAllpost={getAllpost} accessTokenHandler={accessTokenHandler}/>
             {allpost ? allpost.map((post,idx) => {
                 return  ( 
-                    <SinglePost key={idx} {...post}/>
+                    <SinglePost key={idx} {...post} idx={idx} handleDelete={handleDelete}/>
                     )
                 })
             :
