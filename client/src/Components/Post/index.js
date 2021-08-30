@@ -5,17 +5,22 @@ import SearchEmotion from "./SearchEmotion";
 import SendPost from "./SendPost";
 import SinglePost from "./SinglePost";
 
-const serverurl = 'http://localhost:80';// 배포환경시 수정필요
 function Post({isLogin, accessToken,accessTokenHandler}) {
     const [allpost, setAllpost] = useState(null)
     const history = useHistory();
- //모든 포스트 요청
-   
+    
+
+     /*최초 렌더링시 */    
+    useEffect(()=>{
+        getAllpost(accessToken)
+    },[])   
+
+     //모든 포스트 요청
     const getAllpost = (accessToken) => {
         axios
-            .get(serverurl+'/post/allposts',{
+            .get(process.env.REACT_APP_URL+'/post/allposts',{
                 headers: {
-                    "Content-type": "multipart/form-data",// get이라서 필요없나...{'Content-Type': 'application/json'}
+                    "Content-type": "multipart/form-data",
                     authorization: `Bearer ${accessToken}`
                     },
                 withCredentials: true
@@ -26,9 +31,12 @@ function Post({isLogin, accessToken,accessTokenHandler}) {
                     accessTokenHandler(accessToken)
 
                 }
-                if(res.status === 200){
-                   const newAllpost = res.data.AllPosts
-                   setAllpost(newAllpost);
+                if(res.status === 200){ // 최초렌더링시랑 분기해야함
+                //    const newAllpost = res.data.AllPosts[res.data.AllPosts.length-1]
+                //    console.log(newAllpost)
+                //    setAllpost([newAllpost,...allpost]);
+                const newAllpost = res.data.AllPosts
+                setAllpost(newAllpost);
                 }
                 // 유효하지 않을 경우 -> 예러폐이지
                 else{
@@ -39,10 +47,14 @@ function Post({isLogin, accessToken,accessTokenHandler}) {
                 console.log(err)
             })
         }
-    /*최초 렌더링시 */    
-    useEffect(()=>{
-        getAllpost(accessToken)
-    },[])    
+  /*게시물 삭제 */
+
+  
+    const handleDelete = (e,idx) => {
+        e.preventDefault(); 
+        const removePost = allpost.filter((post,index) => index !== idx)
+        setAllpost(removePost)
+      }
 
    /* 인피니트 스크롤 구현 */
     
@@ -50,9 +62,9 @@ function Post({isLogin, accessToken,accessTokenHandler}) {
      <div className="post">
          <SearchEmotion />
          <SendPost accessToken={accessToken} getAllpost={getAllpost} accessTokenHandler={accessTokenHandler}/>
-            {allpost ? allpost.map((post,idx) => {
+           {allpost ? allpost.map((post,idx) => {
                 return  ( 
-                    <SinglePost key={idx} {...post}/>
+                    <SinglePost key={idx} {...post} idx={idx} handleDelete={handleDelete}/>
                     )
                 })
             :
