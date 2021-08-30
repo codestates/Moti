@@ -9,7 +9,7 @@ const fromEmail = 'moti_veri@naver.com'
 
 module.exports = async (req,res) =>{
     //let testAccount = await nodemailer.createTestAccount();
-    console.log(req.body);
+    console.log(req);
     const email = req.body.email;
     console.log(email);
     const generateRandom = function (min, max) {

@@ -63,14 +63,23 @@ export default function SignUpContainer () {
         }
     }
 
+    
     const mailAuthorization = () => {
         if(!(errorVisible.email) && !!(signupInfo.email)){
             console.log('email here');
             console.log(signupInfo.email)
-            axios
-                .get(process.env.REACT_APP_URL+'/user/getemailcode',{
-                    email:signupInfo.email
-                })
+            // axios
+            //     .get(process.env.REACT_APP_URL+'/user/getemailcode',{
+            //         email:signupInfo.email
+            //     })
+            axios({
+                method: 'get',
+                url: process.env.REACT_APP_URL+'/user/getemailcode',
+                headers: {}, 
+                data: {
+                    email:signupInfo.email, // This is the body part
+                }
+            })
                 .then( res => {
                     setEmailCheckCode(res.data.data.emailcode);
                     setSendEmail(true);
