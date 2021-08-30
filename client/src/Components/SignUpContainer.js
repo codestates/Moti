@@ -66,10 +66,11 @@ export default function SignUpContainer () {
     const mailAuthorization = () => {
         if(!(errorVisible.email) && !!(signupInfo.email)){
             axios
-                .get(process.env.REACT_APP_URL+'/user/getemailcode',{
+                .post(process.env.REACT_APP_URL+'/user/getemailcode',{
                     email:signupInfo.email
                 })
                 .then( res => {
+                    console.log(res)
                     setEmailCheckCode(res.data.data.emailcode);
                     setSendEmail(true);
                 })
