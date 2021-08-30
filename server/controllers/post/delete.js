@@ -15,20 +15,20 @@ module.exports = async (req, res) => {
 
             const post_id = req.body.post_id;
 
-            let postDeleteResult = await Post.destroy({
-                where : {
+                await Post.destroy({
+                     where : {
                     id : post_id
-                }
-            })
-            
-            await Post_emotion.destroy({
-                where : {
-                   Post_Id : post_id
-                }
-            })
-        
+                    }
+                })
 
-            res.status(200).json({message : '삭제 성공'})
+                await Post_emotion.destroy({
+                    where : {
+                    Post_Id : post_id
+                    }
+                })
+    
+                res.status(200).json({message : '삭제 성공'})
+            
         }
     } catch (error) {
         res.status(400).json({message : '삭제 실패 다시 시도해주세요'})
