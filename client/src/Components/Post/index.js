@@ -40,6 +40,7 @@ function Post({accessTokenHandler}) {
                 console.log(err)
             })
         }
+
     /*최초 렌더링시 */    
     useEffect(()=>{
         getAllpost(accessToken)
@@ -49,7 +50,7 @@ function Post({accessTokenHandler}) {
     
  return(
      <div className="post">
-         <SearchEmotion />
+         <SearchEmotion accessToken={accessToken} accessTokenHandler={accessTokenHandler}/>
          <SendPost accessToken={accessToken} getAllpost={getAllpost} accessTokenHandler={accessTokenHandler}/>
             {allpost ? allpost.map((post,idx) => {
                 return  ( 

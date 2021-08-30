@@ -1,7 +1,8 @@
 import  React  from "react";
+import SinglePost from "./SinglePost";
 
-function SearchEmotion() {
-
+function SearchEmotion({accessToken, accessTokenHandler}) {
+    const [emotionPosts, setemotionPosts] = useState(null);
 
  return (
      <div className="searchemotion">
