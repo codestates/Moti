@@ -30,7 +30,8 @@ module.exports = async (req,res)=>{
           headers:{authorization: `token ${accessToken}`}
         })  
         //console.log(gitInfo.data)
-        let user = await model.user.findOne({where : {id: gitInfo.data.id}});
+        const db_username = 'git/'+gitInfo.data.login;
+        let user = await model.user.findOne({where : {username: db_username}});
 
         if(user){
           console.log("가입되어있는 git id. 바로 로그인 진행")
@@ -38,8 +39,7 @@ module.exports = async (req,res)=>{
         else{
           console.log("첫 로그인 git, DB 저장 후 로그인 진행")
           model.user.create({
-            id : gitInfo.data.id,
-            username : gitInfo.data.login,
+            username : db_username,
           })
 
         }
