@@ -11,7 +11,6 @@ function SearchEmotion() {
              <option value="2" className="searchemotion__box__face">meh...</option>
              <option value="3" className="searchemotion__box__face">so sad</option>
              <option value="4" className="searchemotion__box__face">what the f..?</option>
-             <option value="5" className="searchemotion__box__face">something..</option>
          </select>
     
      </div>
