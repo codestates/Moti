@@ -21,7 +21,7 @@ module.exports = async (req, res) => {
                 }
             })
             
-            Post_emotionResult = await Post_emotion.destroy({
+            await Post_emotion.destroy({
                 where : {
                    Post_Id : post_id
                 }
