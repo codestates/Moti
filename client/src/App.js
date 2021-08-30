@@ -40,6 +40,7 @@ function App() {
       username : username,
       profile : profile
     })
+    window.localStorage.setItem('userInfo', userInfo)
     console.log('로그인정보변경')
   }
   
@@ -52,6 +53,7 @@ function App() {
       username : '',
       profile : ''
     })
+    window.localStorage.setItem('userInfo', userInfo)
   }
 
   return (

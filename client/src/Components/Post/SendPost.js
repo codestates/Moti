@@ -29,10 +29,14 @@ function SendPost() {
 
         const formData = new FormData();
         formData.append(
-        "upload",
+        "picture",
         imgfile,
         // imgfile.name
         );
+        formData.append(
+            "content",
+            text
+        )
         const config = {
         headers: {
             "content-type": "multipart/form-data"
