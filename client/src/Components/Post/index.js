@@ -4,6 +4,7 @@ import {useHistory} from "react-router-dom";
 import SearchEmotion from "./SearchEmotion";
 import SendPost from "./SendPost";
 import SinglePost from "./SinglePost";
+import InitialSinglePost from "./InitialSinglePost";
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -31,7 +32,7 @@ function Post({accessTokenHandler}) {
      /*게시물 삭제 */
     
   
-     const handleDelete = (e,idx,accessToken) => {
+     const handleDelete = (e,id) => {
         e.preventDefault(); 
         axios
         .delete(process.env.REACT_APP_URL+'/post/delete', {
@@ -39,7 +40,7 @@ function Post({accessTokenHandler}) {
                 authorization: `Bearer ${accessToken}`
             },
             data: {
-                post_id : idx
+                post_id : id
             }
         })
         .then((res)=>{
@@ -77,12 +78,10 @@ function Post({accessTokenHandler}) {
                       setAllpost(res.data.AllPosts)
                    }
                    else{
-                   const newAllpost = res.data.AllPosts[res.data.AllPosts.length-1]
+                    let sortAllPost =  res.data.AllPosts.sort((a,b)=> - b.id - a.id )  
+                    setAllpost(sortAllPost);
+                    }
 
-                   setAllpost([newAllpost,...allpost]);
-                   }
-                // const newAllpost = res.data.AllPosts
-                // setAllpost(newAllpost);
                 }
                 // 기존이 null일 경우 그냥 렌더링, 아닐시 마지막것을 옮겨서..
                 // 유효하지 않을 경우 -> 예러폐이지
@@ -159,11 +158,11 @@ function Post({accessTokenHandler}) {
          <SendPost accessToken={accessToken} getAllpost={getAllpost} accessTokenHandler={accessTokenHandler}/>
             {allpost ? allpost.map((post,idx) => {
                 return  ( 
-                    <SinglePost key={idx} {...post} idx={idx} handleDelete={handleDelete}/>
+                    <SinglePost key={idx} {...post}  handleDelete={handleDelete}/>
                     )
                 })
             :
-            <SinglePost allpost={allpost}/>}
+            <InitialSinglePost/>}
      </div>
  )
 }
