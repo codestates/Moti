@@ -31,7 +31,7 @@ module.exports = async (req,res) =>{
     }
 
     if(username === ''){
-        username = user.dataValues.usernema;
+        username = user.dataValues.username;
     }
     await model.user.update({ profile: image, username: username }, {
         where: {
