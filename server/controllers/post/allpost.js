@@ -21,7 +21,7 @@ module.exports = (req, res) => {
             let obj = {};
 
             Post.findAll({
-                attributes : ['content', 'picture', 'createdAt'],
+                attributes : ['id', 'content', 'picture', 'createdAt'],
                 include : [{
                     model: Post_emotion,
                     required: true,
@@ -38,6 +38,7 @@ module.exports = (req, res) => {
             })
             .then((result) => {
                 for(let i=0; i<result.length; i++){
+                   obj['id'] = result[i].dataValues.id; //id 추가
                    obj['content'] = result[i].dataValues.content;
                    obj['picture'] = result[i].dataValues.picture;
                    obj['createdAt'] = result[i].dataValues.createdAt;

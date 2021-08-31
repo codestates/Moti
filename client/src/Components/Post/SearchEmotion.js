@@ -2,7 +2,6 @@ import  React  from "react";
 
 function SearchEmotion() {
 
-
  return (
      <div className="searchemotion">
          <select className="searchemotion__box">
