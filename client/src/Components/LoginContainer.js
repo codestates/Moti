@@ -68,6 +68,7 @@ export default function LoginContainer ({ loginHandler }) {
                 let username= res.data.data.username;
                 let profile= res.data.data.profile;
                 loginHandler(accessToken, advice, author, username, profile);
+                history.push("/mypage")
             })
             .catch( error => {
                 console.log(error)
