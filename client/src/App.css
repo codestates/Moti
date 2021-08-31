@@ -346,8 +346,19 @@ textarea {
   width: 37vw;
 }
 
+.signup__box__btn-area{
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.signup__box__btn-area__error{
+  position: absolute;
+  top: 5vh;
+}
+
 /* tablet */
-/* ! 해야됨 */
+
 @media screen and (min-width: 768px) {
   /* login */
   .login__tittle {
@@ -395,7 +406,20 @@ textarea {
     border-radius: 8px;
   }
 
-  
+  /* sign up */
+
+  .signup__box__tittle {
+    font-size : 36px;
+    margin-bottom: 60px;
+  }
+
+  .signup__box__input__email-box__mail-authorization{
+    right: 10px;
+    width: 100px;
+    height: 27px;
+    font-size: medium;
+  }
+
 }
 
 /*  desktop */
@@ -477,24 +501,13 @@ textarea {
   
   .signup__box {
     width: 526px;
-    height:670px;
+    height:720px;
   }
   
   .signup__box__tittle {
-    font-size: 36px;
     margin-top: 30px;
-    margin-bottom: 60px;
   }
   
-  .signup__box__input {
-    margin-bottom: 26px;
-    gap: 0.3rem;
-  }
-  
-  .signup__box__input__email{
-    margin-bottom: 10px;
-  }
-
   .signup__box__input__email{
     margin-bottom: 10px;
   }
@@ -553,14 +566,9 @@ textarea {
     top: 48px;
   }
   
-  .signup__box__btn-area{
-    position: relative;
-  }
-  
   .signup__box__btn-area__error{
     position: absolute;
     top: 50px;
-    left:120px;
   }
   
 }

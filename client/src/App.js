@@ -65,6 +65,28 @@ function App() {
     })
   }
 
+  const profileHandler = (imageUrl, username) => {
+    if(!!(imageUrl) && !!(username)){
+      setUserInfo({
+        ...userInfo,
+        profile: imageUrl,
+        username: username
+      })
+    }
+    else if(!!(imageUrl)){
+      setUserInfo({
+        ...userInfo,
+        profile: imageUrl
+      })
+    }
+    else if(!!(username)){
+      setUserInfo({
+        ...userInfo,
+        username: username
+      })
+    }
+  }
+
   return (
     <Router>
       <Switch>
@@ -75,10 +97,10 @@ function App() {
           <SignUp />
         </Route>
         <Route path='/mypage'> {/*수정 필요? 로그인하면 유저의 마이페이지로 가는 라우팅 id*/}
-          <Mypage loginHandler={loginHandler} accessTokenHandler={accessTokenHandler} logoutHandler={logoutHandler}/>
+          <Mypage profileHandler={profileHandler} loginHandler={loginHandler} accessTokenHandler={accessTokenHandler} logoutHandler={logoutHandler}/>
         </Route>
         <Route path='/dashboard'>
-          <Dashboard />
+          <Dashboard profileHandler={profileHandler} loginHandler={loginHandler} accessTokenHandler={accessTokenHandler} logoutHandler={logoutHandler}/>
         </Route>
         <Route path='*'>
           <Notfound />

@@ -5,13 +5,13 @@ import Footer from '../Components/Footer';
 import Post from '../Components/Post';
 import '../Components/mypage.css';
 
-function Mypage({loginHandler, accessTokenHandler,logoutHandler}) {
+function Mypage({profileHandler, loginHandler, accessTokenHandler,logoutHandler}) {
     // 구조분해해서 가져갈 부분만 가져가도
     const { isLogin, accessToken, advice, username, profile} = JSON.parse(window.localStorage.getItem('userInfo'));
     // console.log(userInfo);
     return (
        <div className="mypage"> 
-        <Header accessTokenHandler={accessTokenHandler} loginHandler={loginHandler} logoutHandler={logoutHandler}/>
+        <Header profileHandler={profileHandler} accessTokenHandler={accessTokenHandler} loginHandler={loginHandler} logoutHandler={logoutHandler}/>
             <div className="mypage__container">
              <Sidebar />
              <Post accessTokenHandler={accessTokenHandler}/> 
