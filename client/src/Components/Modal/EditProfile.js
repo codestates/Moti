@@ -81,7 +81,7 @@ export default function EditProfile ({accessTokenHandler, loginHandler, userInfo
             console.log(userInfo.accessToken)
             console.log(formData)
             axios
-                .post(process.env.REACT_APP_URL+'user/changeprofile',formData,{
+                .post(process.env.REACT_APP_URL+'/user/changeprofile',formData,{
                     headers:{
                         'content-type': 'multipart/form-data',
                         authorization:tmpAccessToken
