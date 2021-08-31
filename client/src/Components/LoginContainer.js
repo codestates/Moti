@@ -29,7 +29,7 @@ export default function LoginContainer ({ loginHandler }) {
         if(!!(loginInfo.email) && !!(loginInfo.password)){
             setSomethingMissed(false)
             axios
-                .post('http://localhost:80/user/login', {
+                .post(process.env.REACT_APP_URL+'/user/login', {
                     adviceID: randomNum,
                     email:loginInfo.email,
                     password:loginInfo.password

@@ -4,7 +4,9 @@ const jwt = require('jsonwebtoken');
 const { isAuthorized, remakeToken } = require('../tokenFunctions')
 module.exports = async (req,res) =>{
     let {username,profile} = req.body;
-
+    console.log(req);
+    console.log(username);
+    console.log(profile);
     const accesstoken = req.headers.authorization.split(' ')[1]; 
     if(isAuthorized(accesstoken) === 'jwt expired'){
         token = remakeToken(req);

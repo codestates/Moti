@@ -9,7 +9,8 @@ function Login ({ loginHandler}) {
     //     history.push('/mypage')
     // }
 
-    if(!!JSON.parse(window.localStorage.getItem("userInfo")).isLogin){
+    if(JSON.parse(window.localStorage.getItem("userInfo"))!== null
+      && !!JSON.parse(window.localStorage.getItem("userInfo")).isLogin){
         history.push('/mypage')
     }
     console.log(JSON.parse(window.localStorage.getItem("userInfo")));
