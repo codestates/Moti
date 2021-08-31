@@ -1,7 +1,7 @@
-const { Post } = require('../../models');
+const { Post ,emotion, Post_emotion } = require('../../models');
 const { remakeToken, isAuthorized } = require('../tokenFunctions/index');
 
-module.exports = (req, res) => {
+module.exports = async (req, res) => {
     try {
         const authorization = req.headers['authorization'];
         if(!authorization){
@@ -14,19 +14,24 @@ module.exports = (req, res) => {
             }
 
             const post_id = req.body.post_id;
-            Post.destroy({
-                where : {
+
+                await Post.destroy({
+                     where : {
                     id : post_id
-                }
-            })
-            .then((result) => {
-                res.status(400).json({message : '삭제 성공'})
-            })
-            .catch((e) => {
-                res.status(400).json({message : '삭제 실패 다시 시도해주세요'})
-            })
+                    }
+                })
+
+                await Post_emotion.destroy({
+                    where : {
+                    Post_Id : post_id
+                    }
+                })
+    
+                res.status(200).json({message : '삭제 성공'})
+            
         }
     } catch (error) {
         res.status(400).json({message : '삭제 실패 다시 시도해주세요'})
+        console.log(error);
     }
 }

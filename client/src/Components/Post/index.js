@@ -4,6 +4,8 @@ import {useHistory} from "react-router-dom";
 import SearchEmotion from "./SearchEmotion";
 import SendPost from "./SendPost";
 import SinglePost from "./SinglePost";
+import dotenv from 'dotenv';
+dotenv.config();
 
 function Post({accessTokenHandler}) {
     let accessToken = JSON.parse(window.localStorage.getItem("userInfo")).accessToken;

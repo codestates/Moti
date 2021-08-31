@@ -3,6 +3,8 @@ import { useHistory } from "react-router";
 import uploadImg from '../../assets/img-upload.svg';
 import axios from "axios";
 import { emotionList } from "./EmotionList";
+import dotenv from 'dotenv';
+dotenv.config();
 
 const serverurl = process.env.REACT_APP_URL;
 
