@@ -93,6 +93,13 @@ export default function EditProfile ({accessTokenHandler, loginHandler, userInfo
                     if(res.headers.accessToken){
                         accessTokenHandler(res.headers.accessToken)
                     }
+                    let accessToken = res.data.data.accessToken;
+                    let advice = res.data.data.RandomAdvice;
+                    let author = res.data.data.author;
+                    let username = res.data.data.username;
+                    let profile = res.data.data.profile
+                    loginHandler(accessToken, advice, author, username, profile);
+                    
                     console.log(res)
                 })
                 .catch((error)=>{
