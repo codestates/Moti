@@ -46,7 +46,7 @@ module.exports = async (req,res)=>{
 
         }
         
-        const userInfo = await user.findOne({attributes: ['id', 'email', 'username'], where: {username: db_username}});
+        const userInfo = await model.user.findOne({attributes: ['id', 'email', 'username'], where: {username: db_username}});
         const access_token = generateAccessToken(userInfo.dataValues);
         const refresh_token = generateRefreshToken(userInfo.dataValues);
         res.cookie('RefreshToken', refresh_token, {httpOnly: true, sameSite: 'none', secure: true});
