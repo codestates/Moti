@@ -29,7 +29,7 @@ export default function LoginContainer ({ loginHandler }) {
         if(!!(loginInfo.email) && !!(loginInfo.password)){
             setSomethingMissed(false)
             axios
-                .post('http://localhost:80/user/login', {
+                .post(process.env.REACT_APP_URL+'/user/login', {
                     adviceID: randomNum,
                     email:loginInfo.email,
                     password:loginInfo.password
@@ -64,10 +64,11 @@ export default function LoginContainer ({ loginHandler }) {
             .then((res)=>{
                 let advice = res.data.data.RandomAdvice;
                 let accessToken = res.data.data.accessToken;
-                // let author = res.data.data.author;
+                let author = res.data.data.author;
                 let username= res.data.data.username;
                 let profile= res.data.data.profile;
-                loginHandler(accessToken, advice, '', username, profile);
+                loginHandler(accessToken, advice, author, username, profile);
+                history.push("/mypage")
             })
             .catch( error => {
                 console.log(error)

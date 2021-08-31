@@ -10,7 +10,6 @@ export default function EditProfile ({profileHandler, accessTokenHandler, loginH
     }else{
         currentProfileImage = 'data:image/png;base64, '+Buffer(userInfo.profile,'binary').toString('base64');
     }
-    console.log(userInfo)
     const [currentInput, setCurrentInput] = useState({
         imageFile:'',
         previewUrl:'',
@@ -79,7 +78,7 @@ export default function EditProfile ({profileHandler, accessTokenHandler, loginH
 
         if(!!(currentInput.imageFile) || !!(currentInput.username)){
             axios
-                .post(process.env.REACT_APP_URL+'user/changeprofile',formData,{
+                .post(process.env.REACT_APP_URL+'/user/changeprofile',formData,{
                     headers:{
                         'content-type': 'multipart/form-data',
                         authorization: tmpAccessToken
