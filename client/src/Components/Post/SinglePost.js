@@ -11,9 +11,9 @@ function SinglePost({idx,picture,emotion,content,createdAt,handleDelete,allpost}
    console.log(picture,emotion,content,createdAt)
 
  
-   //const emotionUrl = emotion? emotionList.filter(emo => emo.emotion === emotion)[0].img : emotionList[0].img
+   const emotionUrl = emotion? emotionList.filter(emo => emo.emotion === emotion)[0].img : emotionList[0].img
    const imageUrl = picture ? 'data:image/png;base64, '+ Buffer(picture, 'binary').toString('base64') : ''
-   //console.log(imageUrl)
+   console.log(imageUrl)
    //상태로 조회하자 
    
     return (
@@ -27,7 +27,7 @@ function SinglePost({idx,picture,emotion,content,createdAt,handleDelete,allpost}
              :
             <div className="signlepost__box">
                 <div className="signlepost__box__circlebox">
-                     <img src={''} className="signlepost__box__circlebox__img"/>
+                     <img src={emotionUrl} className="signlepost__box__circlebox__img"/>
                  </div>
                  <div className="singlepost__box__right">
                    <div className="singlepost__box__right__top">
