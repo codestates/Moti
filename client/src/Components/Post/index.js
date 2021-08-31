@@ -34,7 +34,7 @@ function Post({accessTokenHandler}) {
      const handleDelete = (e,idx,accessToken) => {
         e.preventDefault(); 
         axios
-        .delete('http://localhost:80/post/delete', {
+        .delete(process.env.REACT_APP_URL+'/post/delete', {
             headers : {
                 authorization: `Bearer ${accessToken}`
             },
