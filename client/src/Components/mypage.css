@@ -149,7 +149,7 @@ body {
 .sidebar__box__user{
     display: flex;
     flex-direction: column;
-    width: 56%;
+    width: 75%;
     margin-top: 0.5rem;
     border-bottom: 1px solid #C4C4C4;
     align-items: center;
@@ -275,6 +275,11 @@ body {
     overflow: hidden;
 }
 
+/* .sendpost__circlebox{
+    transform: translateX(-10%);
+  
+} */
+
 .sendpost__circlebox__img{
     width: 100%;
     height: 100%;
@@ -314,12 +319,20 @@ body {
     display: flex;
     justify-content: space-between;
 }
+.sensendpost__box__below__error{
+    color: rgb(226, 32, 32);
+}
+
+.sensendpost__box__below__error__hide{
+    display: none;
+}
 .sendpost__box__below__leftbox{
     flex:6;
    display: flex;
    flex-direction: row;
    align-items: center;
    gap:1rem;
+
    
 }
 /* .sendpost__box__below__leftbox > p, */
@@ -362,8 +375,6 @@ body {
     /* color: rgb(255, 239, 236); */
     /* width: 100%; */
     cursor: pointer;
-  
-    
 }
 
 
@@ -409,10 +420,25 @@ body {
 }
 /*해결할것: 마우스 포인터 되는 부분(img)에는 업로드창 안뜨고 포인터 안되는 부분(버튼이 존재하는)에서 뜸 
 이미지 업로드 된것 미리 보기*/
-.sendpost__box__textbox__img{
-    width:30px;
-    height: 30px;
+.sendpost__box__leftbox__preivew__img{
+  
+   width: 48px;
+   height: 48px;
+  
 }
+
+.sendpost__box__below__leftbox__delete{
+   width: 30px;
+   height: 30px;
+   font-size: 35px;
+   color:rgb(88, 84, 84);
+   background-color: rgb(255, 255, 255);
+   transform: translateX(-180%) translateY(130%);
+ 
+
+}
+
+
 /* singlepost*/
 .singlepost{
     display: flex;
@@ -444,11 +470,13 @@ body {
     justify-content: space-between;
     width:100%;
     margin: 2rem;
+    padding: 0 1rem;
+    margin-bottom: 3rem;
 }
 .singlepost__box__right{
     /* flex:7; */
    margin:0 2rem;
-   /* padding: 0 1rem; */
+   padding: 0 3rem;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -471,23 +499,28 @@ body {
 }
 .singlepost__box__right__top__date{
     width: 100%;
+    font-size: smaller;
     color: #858585;
 }
 .singlepost__box__right__top__text{
     width:100%;
-    font-family: 'ABeeZee','Orienta', sans-serif;
-    font-size: 18px;
+    font-family: 'Cormorant Garamond',Georgia, serif;
+    font-size: 20px;
     color: #353E4E;
 }
+/* .singlepost__box__right__trashbox{
+    
+} */
 .singlepost__box__right__trash{
-    color: blue;
+    /* color: blue; */
     cursor: pointer;
+    /* background-color: #7a6d65; */
     
 }
 .singlepost__box__right__photo{
    max-width:49.5rem;
    max-height:40rem;
-   border-radius: 1rem;
+   border-radius: 3px;
    overflow: hidden;
 }
 .signlepost__box__photo__img{

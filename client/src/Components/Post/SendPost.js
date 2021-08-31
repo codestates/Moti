@@ -4,7 +4,6 @@ import uploadImg from '../../assets/img-upload.svg';
 import axios from "axios";
 import { emotionList } from "./EmotionList";
 
-const serverurl = 'http://localhost:80';
 
 function SendPost({getAllpost, accessTokenHandler}) {
   const [text, setText] = useState('')  
@@ -13,6 +12,7 @@ function SendPost({getAllpost, accessTokenHandler}) {
   const [emotionstate, setEmotionstate] = useState('')
   const [isActive, setIsActive] = useState(false)
   const [imgsrc,setImgsrc] = useState('')
+  const [errMesage,setErrMessage] = useState('')
   let accessToken = JSON.parse(window.localStorage.getItem("userInfo")).accessToken;
   const history = useHistory();
 
@@ -34,7 +34,11 @@ function SendPost({getAllpost, accessTokenHandler}) {
    
  } 
 
+ /*유효성체크 */
 
+ const validationCheck = () => {
+     
+ }
  /*미리보기 + onChange 이벤트 */
   const fileUploadHandler = (e) => {
      e.preventDefault(); 
@@ -46,7 +50,7 @@ function SendPost({getAllpost, accessTokenHandler}) {
             setImgfile(file)
             setPreviwURL(reader.result)
         } 
-        reader.readAsDataURL(file); // blob처리필요?
+        reader.readAsDataURL(file); 
     }
 
   /*파일 전송 */
@@ -55,7 +59,8 @@ function SendPost({getAllpost, accessTokenHandler}) {
       event.preventDefault();
     //    setContent(text)           
        if(!text || !emotionstate){
-           return /*모달을 만들어 넣구 싶은데! */
+           setErrMessage(true)
+           return 
        }
      
         const formData = new FormData();
@@ -98,23 +103,31 @@ function SendPost({getAllpost, accessTokenHandler}) {
                     console.log(err))
     }
 
+    /* 사진 삭제 */
+    const deleteHandler = () => {
+        setImgfile('')
+        setPreviwURL('')
+    }
+
     /*이미지 미리보기 분기 */
     let profile_preview = null;
     if(imgfile !== ''){
-      profile_preview = <img className='sendpost__box__textbox__img' src={previewURL}/>
+      profile_preview = <img className='sendpost__box__leftbox__preivew__img' src={previewURL}/>
+      
     }
+ 
    
     return (
         <div className="sendpost">
             <div className="sendpost__wrapper">
               <div className="sendpost__circlebox">
-                 {imgsrc? 
+                 {imgsrc && emotionstate? 
                     <img src={imgsrc} alt="face" className="sendpost__circlebox__img__active"/>
                      :
                      <div className="sendpost__circlebox__img"/>}
                  </div>
                  <div className="sendpost__circlebox__select">
-                            <div className="sendpost__circlebox__select__btn" onClick={openHandler}>
+                            <div className="sendpost__circlebox__select__btn" onClick={openHandler}  onBlur={validationCheck()}>
                             {emotionstate? emotionstate :'Choice!'}
                             </div>
                                 {isActive? 
@@ -137,11 +150,16 @@ function SendPost({getAllpost, accessTokenHandler}) {
                      value={text} 
                       placeholder="How are you today?"
                       className="sendpost__box__textbox" 
-                      onChange={(e)=>setText(e.target.value)
-                     }>
+                      onChange={(e)=>
+                          setText(e.target.value)
+                     }
+                     onBlur={validationCheck()}
+                     >
                   </textarea>
                     <div className="sendpost__box__below">
-                  
+                      <div className={errMesage? "sensendpost__box__below__error error" : "sensendpost__box__below__error hide"} >
+                         오늘의 기분 선택과 글 작성을 완료해주세요.
+                          </div>
                         <div className="sendpost__box__below__leftbox">
                             <input type="file" 
                                 id="upload" 
@@ -154,8 +172,16 @@ function SendPost({getAllpost, accessTokenHandler}) {
                            select your photo 
                             </label>
                             <img src={uploadImg} alt="upload" />
-                            {profile_preview} 
-                            {/* <p>how do you feel?</p> */}
+                            {profile_preview}
+                            {profile_preview ?
+          
+                                <button className="sendpost__box__below__leftbox__delete" onClick={deleteHandler}
+                                    >&times;
+                                  </button>
+                                
+                                  :
+                                  null}
+                               
                         </div>
                        <button className="sendpost__box__below__btn" 
                             onClick={(event)=>submitHandle(event)
