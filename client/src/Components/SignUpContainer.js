@@ -2,7 +2,7 @@ import axios from 'axios';
 import dotenv from 'dotenv'
 import React, {useState} from 'react';
 dotenv.config();
-
+ 
 export default function SignUpContainer () {
     const [signupInfo, setSignupInfo] = useState({
         email:'',

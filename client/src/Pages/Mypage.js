@@ -11,7 +11,7 @@ function Mypage({loginHandler, accessTokenHandler,logoutHandler}) {
     // console.log(userInfo);
     return (
        <div className="mypage"> 
-        <Header loginHandler={loginHandler} logoutHandler={logoutHandler}/>
+        <Header accessTokenHandler={accessTokenHandler} loginHandler={loginHandler} logoutHandler={logoutHandler}/>
             <div className="mypage__container">
              <Sidebar />
              <Post accessTokenHandler={accessTokenHandler}/> 
