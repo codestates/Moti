@@ -23,7 +23,7 @@ function Post({accessTokenHandler}) {
      /*게시물 삭제 */
     
   
-     const handleDelete = (e,idx) => {
+     const handleDelete = (e,id) => {
         e.preventDefault(); 
         axios
         .delete(process.env.REACT_APP_URL+'/post/delete',{
@@ -31,7 +31,7 @@ function Post({accessTokenHandler}) {
                 authorization: `Bearer ${accessToken}`
                 },
             data: {
-                post_id : idx
+                post_id : id
             }
         })
         .then((res)=>{
