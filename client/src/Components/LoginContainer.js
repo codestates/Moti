@@ -64,10 +64,10 @@ export default function LoginContainer ({ loginHandler }) {
             .then((res)=>{
                 let advice = res.data.data.RandomAdvice;
                 let accessToken = res.data.data.accessToken;
-                // let author = res.data.data.author;
+                let author = res.data.data.author;
                 let username= res.data.data.username;
                 let profile= res.data.data.profile;
-                loginHandler(accessToken, advice, '', username, profile);
+                loginHandler(accessToken, advice, author, username, profile);
             })
             .catch( error => {
                 console.log(error)

@@ -64,7 +64,8 @@ module.exports = async (req,res)=>{
           accessToken : accessToken, 
           username : gitInfo.data.login,
           profile : gitInfo.data.avatar_url,
-          RandomAdvice : advice.dataValues.advice
+          RandomAdvice : advice.dataValues.advice,
+          author : advice.dataValues.author
       }, message : 'login ok'});
     
       }).catch(e => {

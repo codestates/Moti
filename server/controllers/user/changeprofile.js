@@ -30,7 +30,7 @@ module.exports = async (req,res) =>{
         image = fs.readFileSync(req.file.path);
     }
 
-    if(username === ''){
+    if(username === '' || username === 'undefined'){
         username = user.dataValues.username;
     }
     await model.user.update({ profile: image, username: username }, {
