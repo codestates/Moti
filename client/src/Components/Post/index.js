@@ -4,6 +4,7 @@ import {useHistory} from "react-router-dom";
 import SearchEmotion from "./SearchEmotion";
 import SendPost from "./SendPost";
 import SinglePost from "./SinglePost";
+import InitialSinglePost from "./InitialSinglePost";
 import dotenv from 'dotenv';
 dotenv.config();
 
