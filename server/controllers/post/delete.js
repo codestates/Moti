@@ -12,7 +12,7 @@ module.exports = async (req, res) => {
                 const newToken = remakeToken(req);
                 res.set('accessToken', newToken); //헤더 설정
             }
-
+            console.log(req.body);
             const post_id = req.body.post_id;
 
                 await Post.destroy({
