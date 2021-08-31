@@ -3,7 +3,7 @@ import axios from 'axios'
 
 const defaultImage = require('../../assets/bros_blank.jpg')
 
-export default function EditProfile ({accessTokenHandler, loginHandler, userInfo, modalState, modalHandler }) {
+export default function EditProfile ({profileHandler, accessTokenHandler, loginHandler, userInfo, modalState, modalHandler }) {
     let currentProfileImage
     if(typeof(userInfo.profile)==='string'){
         currentProfileImage = userInfo.profile;
@@ -78,13 +78,11 @@ export default function EditProfile ({accessTokenHandler, loginHandler, userInfo
         // }
 
         if(!!(currentInput.imageFile) || !!(currentInput.username)){
-            console.log(userInfo.accessToken)
-            console.log(formData)
             axios
                 .post(process.env.REACT_APP_URL+'user/changeprofile',formData,{
                     headers:{
                         'content-type': 'multipart/form-data',
-                        authorization:tmpAccessToken
+                        authorization: tmpAccessToken
                     },
                     withCredentials: true
                 })
@@ -93,6 +91,7 @@ export default function EditProfile ({accessTokenHandler, loginHandler, userInfo
                     if(res.headers.accessToken){
                         accessTokenHandler(res.headers.accessToken)
                     }
+                    profileHandler(currentInput.previewUrl, currentInput.username);
                     console.log(res)
                 })
                 .catch((error)=>{

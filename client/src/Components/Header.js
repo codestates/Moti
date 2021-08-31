@@ -7,7 +7,7 @@ import { useHistory } from 'react-router-dom';
 
 import Modal from './Modal/Modal'
 
-function Header({accessTokenHandler, loginHandler, logoutHandler}) {
+function Header({profileHandler, accessTokenHandler, loginHandler, logoutHandler}) {
     const userInfo = JSON.parse(window.localStorage.getItem("userInfo"));
     const history = useHistory();
 
@@ -72,7 +72,7 @@ function Header({accessTokenHandler, loginHandler, logoutHandler}) {
                     </li>
                 </ul>
           </div>
-          {modalState!=='none'? <Modal accessTokenHandler={accessTokenHandler} modalState={modalState} modalHandler={modalHandler} loginHandler={loginHandler} userInfo={userInfo}/> : null}
+          {modalState!=='none'? <Modal profileHandler={profileHandler} accessTokenHandler={accessTokenHandler} modalState={modalState} modalHandler={modalHandler} loginHandler={loginHandler} userInfo={userInfo}/> : null}
        </div>
     )
 

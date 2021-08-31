@@ -5,14 +5,12 @@ import LoginContainer from '../Components/LoginContainer'
 
 function Login ({ loginHandler}) {
     const history = useHistory();
-    // if(!!(userInfo.isLogin)){
-    //     history.push('/mypage')
-    // }
 
-    if(!!JSON.parse(window.localStorage.getItem("userInfo")).isLogin){
+    if(JSON.parse(window.localStorage.getItem("userInfo"))!== null && !!JSON.parse(window.localStorage.getItem("userInfo")).isLogin){
         history.push('/mypage')
     }
-    console.log(JSON.parse(window.localStorage.getItem("userInfo")));
+
+    // console.log(JSON.parse(window.localStorage.getItem("userInfo")));
     return (
         <div className='login'>
             <div className='login__tittle'>
