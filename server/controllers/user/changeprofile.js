@@ -8,6 +8,7 @@ module.exports = async (req,res) =>{
     console.log(req);
     console.log(username);
     const accesstoken = req.headers.authorization.split(' ')[1]; 
+    const advice = await model.RandomAdvice.findOne({where : {id : 1}});
     
     if(isAuthorized(accesstoken) === 'jwt expired'){
         token = remakeToken(req);
@@ -39,5 +40,12 @@ module.exports = async (req,res) =>{
         }
     });
 
-    res.status(200).send('profile changed successfully')
+    res.json({data : {
+        accessToken : accesstoken, 
+        username : username,
+        profile : image,
+        RandomAdvice : advice.dataValues.advice,
+        author : advice.dataValues.author
+    }, message : 'profile changed ok'});
+
 }
