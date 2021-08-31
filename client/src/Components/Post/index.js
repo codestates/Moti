@@ -9,7 +9,8 @@ dotenv.config();
 
 function Post({accessTokenHandler}) {
     let accessToken = JSON.parse(window.localStorage.getItem("userInfo")).accessToken;
-    const [allpost, setAllpost] = useState(null)
+    const [allpost, setAllpost] = useState(null);
+    const [emotionState, setemotionState] = useState('');
     const history = useHistory();
 
     
@@ -18,6 +19,14 @@ function Post({accessTokenHandler}) {
         getAllpost(accessToken)
     },[])   
 
+    useEffect(() => {
+        if(emotionState === "0"){
+            getAllPosts2(accessToken)
+        }else{
+           getPostsbyemotion(emotionState, accessToken) 
+        }
+    }, [emotionState])
+
 
      /*게시물 삭제 */
     
@@ -25,15 +34,13 @@ function Post({accessTokenHandler}) {
      const handleDelete = (e,idx,accessToken) => {
         e.preventDefault(); 
         axios
-        .delete(process.env.REACT_APP_URL+'/post/delete',{
-           post_id : idx
-        },
-        {
-            headers: {
-                "Content-Type": "multipart/form-data",
+        .delete(process.env.REACT_APP_URL+'/post/delete', {
+            headers : {
                 authorization: `Bearer ${accessToken}`
-                },
-            withCredentials: true
+            },
+            data: {
+                post_id : idx
+            }
         })
         .then((res)=>{
             if(res.status === 200){ //또 렌더링
@@ -87,6 +94,59 @@ function Post({accessTokenHandler}) {
                 console.log(err)
             })
         }
+
+        //새로운 전체 포스트 조회 요청
+        const getAllPosts2 = (accessToken) => {
+            axios
+                .get(process.env.REACT_APP_URL+'/post/allposts',{
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                        authorization: `Bearer ${accessToken}`
+                        },
+                    withCredentials: true
+                })
+                .then((res) => {
+                    if(res.headers.accessToken){
+                        accessTokenHandler(accessToken)
+
+                    }
+
+                    if(res.status === 200){
+                        setAllpost(res.data.AllPosts)
+                    }else{
+                        history.push('/notfound');
+                    }
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+        }
+
+        //emotion tag별 포스트 조회
+        const getPostsbyemotion = (emotion, accessToken) => {
+            axios
+                .get(process.env.REACT_APP_URL+`/post/posts/${emotion}`,{
+                    headers :{
+                        "Content-Type": "multipart/form-data",
+                        authorization: `Bearer ${accessToken}`
+                    },
+                    withCredentials : true
+                })
+                .then((res) => {
+                    if(res.headers.accessToken){
+                        accessTokenHandler(accessToken)
+                    }
+
+                    if(res.status === 200){
+                        setAllpost(res.data.emotionPosts)
+                    }else{
+                        history.push('/notfound');
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        }
   
  
     //   const removePost = allpost.filter((post,index) => index !== idx)
@@ -95,7 +155,7 @@ function Post({accessTokenHandler}) {
     
  return(
      <div className="post">
-         <SearchEmotion />
+         <SearchEmotion setemotionState = {setemotionState} />
          <SendPost accessToken={accessToken} getAllpost={getAllpost} accessTokenHandler={accessTokenHandler}/>
             {allpost ? allpost.map((post,idx) => {
                 return  ( 
