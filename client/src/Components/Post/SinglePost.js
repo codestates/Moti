@@ -5,10 +5,10 @@ import trash from '../../assets/delete-trash.svg';
 import { emotionList } from "./EmotionList";
 const {Buffer} = require('buffer')
 
-function SinglePost({idx,picture,emotion,content,createdAt,handleDelete,allpost}) {
+function SinglePost({id,picture,emotion,content,createdAt,handleDelete,allpost}) {
   //creatAt 받아서 날짜 라이브러리
   //각자렌더링
-   console.log(picture,emotion,content,createdAt)
+   console.log(id,picture,emotion,content,createdAt)
 
  
    const emotionUrl = emotion? emotionList.filter(emo => emo.emotion === emotion)[0].img : emotionList[0].img
@@ -22,9 +22,6 @@ function SinglePost({idx,picture,emotion,content,createdAt,handleDelete,allpost}
           <div className="signlepost__linebox">
             <img src={line} alt="line"/>
           </div>
-           {allpost === null? 
-             <h1> 기록된 다짐이 없습니다.</h1> 
-             :
             <div className="signlepost__box">
                 <div className="signlepost__box__circlebox">
                      <img src={emotionUrl} className="signlepost__box__circlebox__img"/>
@@ -43,7 +40,7 @@ function SinglePost({idx,picture,emotion,content,createdAt,handleDelete,allpost}
                          <img 
                           src={trash} 
                           className="singlepost__box__right__trash"
-                          onClick={(e)=>handleDelete(e,idx)}/>
+                          onClick={(e)=>handleDelete(e,id)}/>
                         </div>
                    </div>
                    {imageUrl?  <div className="singlepost__box__right__photo">
@@ -53,7 +50,6 @@ function SinglePost({idx,picture,emotion,content,createdAt,handleDelete,allpost}
                  </div>
 
             </div>
-            } 
         </div>
    
     )
