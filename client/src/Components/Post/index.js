@@ -4,13 +4,13 @@ import {useHistory} from "react-router-dom";
 import SearchEmotion from "./SearchEmotion";
 import SendPost from "./SendPost";
 import SinglePost from "./SinglePost";
+import InitialSinglePost from "./InitialSinglePost";
 import dotenv from 'dotenv';
 dotenv.config();
 
 function Post({accessTokenHandler}) {
     let accessToken = JSON.parse(window.localStorage.getItem("userInfo")).accessToken;
-    const [allpost, setAllpost] = useState(null);
-    const [emotionState, setemotionState] = useState('');
+    const [allpost, setAllpost] = useState(null)
     const history = useHistory();
 
     
@@ -19,32 +19,25 @@ function Post({accessTokenHandler}) {
         getAllpost(accessToken)
     },[])   
 
-    useEffect(() => {
-        if(emotionState === "0"){
-            getAllPosts2(accessToken)
-        }else{
-           getPostsbyemotion(emotionState, accessToken) 
-        }
-    }, [emotionState])
-
 
      /*게시물 삭제 */
     
   
-     const handleDelete = (e,idx,accessToken) => {
+     const handleDelete = (e,idx) => {
         e.preventDefault(); 
         axios
-        .delete(process.env.REACT_APP_URL+'/post/delete', {
-            headers : {
+        .delete(process.env.REACT_APP_URL+'/post/delete',{
+            headers: {
                 authorization: `Bearer ${accessToken}`
-            },
+                },
             data: {
                 post_id : idx
             }
         })
         .then((res)=>{
             if(res.status === 200){ //또 렌더링
-                getAllpost(accessToken)  
+                // getAllpost(accessToken)  
+                setAllpost(allpost.filter(post=> post.id !== id))
             } else{
                 history.push('/notfound');
             }
@@ -77,12 +70,10 @@ function Post({accessTokenHandler}) {
                       setAllpost(res.data.AllPosts)
                    }
                    else{
-                   const newAllpost = res.data.AllPosts[res.data.AllPosts.length-1]
-
-                   setAllpost([newAllpost,...allpost]);
+                   let sortAllPost =  res.data.AllPosts.sort((a,b)=> - b.id - a.id )  
+                   setAllpost(sortAllPost);
                    }
-                // const newAllpost = res.data.AllPosts
-                // setAllpost(newAllpost);
+    
                 }
                 // 기존이 null일 경우 그냥 렌더링, 아닐시 마지막것을 옮겨서..
                 // 유효하지 않을 경우 -> 예러폐이지
@@ -94,76 +85,20 @@ function Post({accessTokenHandler}) {
                 console.log(err)
             })
         }
-
-        //새로운 전체 포스트 조회 요청
-        const getAllPosts2 = (accessToken) => {
-            axios
-                .get(process.env.REACT_APP_URL+'/post/allposts',{
-                    headers: {
-                        "Content-Type": "multipart/form-data",
-                        authorization: `Bearer ${accessToken}`
-                        },
-                    withCredentials: true
-                })
-                .then((res) => {
-                    if(res.headers.accessToken){
-                        accessTokenHandler(accessToken)
-
-                    }
-
-                    if(res.status === 200){
-                        setAllpost(res.data.AllPosts)
-                    }else{
-                        history.push('/notfound');
-                    }
-                })
-                .catch(err => {
-                    console.log(err)
-                })
-        }
-
-        //emotion tag별 포스트 조회
-        const getPostsbyemotion = (emotion, accessToken) => {
-            axios
-                .get(process.env.REACT_APP_URL+`/post/posts/${emotion}`,{
-                    headers :{
-                        "Content-Type": "multipart/form-data",
-                        authorization: `Bearer ${accessToken}`
-                    },
-                    withCredentials : true
-                })
-                .then((res) => {
-                    if(res.headers.accessToken){
-                        accessTokenHandler(accessToken)
-                    }
-
-                    if(res.status === 200){
-                        setAllpost(res.data.emotionPosts)
-                    }else{
-                        history.push('/notfound');
-                    }
-                })
-                .catch(err => {
-                    console.log(err);
-                })
-        }
   
- 
-    //   const removePost = allpost.filter((post,index) => index !== idx)
-    //   setAllpost(removePost)
    /* 인피니트 스크롤 구현 */
     
  return(
      <div className="post">
-         <SearchEmotion setemotionState = {setemotionState} />
+         <SearchEmotion />
          <SendPost accessToken={accessToken} getAllpost={getAllpost} accessTokenHandler={accessTokenHandler}/>
-            {allpost ? allpost.map((post,idx) => {
+            {allpost? allpost.map((post,idx) => {
                 return  ( 
-                    <SinglePost key={idx} {...post} idx={idx} handleDelete={handleDelete}/>
+                    <SinglePost key={idx} {...post} handleDelete={handleDelete}/>
                     )
-                })
-            :
-            <SinglePost allpost={allpost}/>}
+                }):
+    
+            <InitialSinglePost/>}
      </div>
  )
 }
