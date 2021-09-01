@@ -25,7 +25,6 @@ function Post({accessTokenHandler}) {
     },[])   
 
     useEffect(() => {
-        setIsLoding(true)
         if(emotionState === "0"){
             getAllPosts2(accessToken)
         
@@ -97,6 +96,7 @@ function Post({accessTokenHandler}) {
 
         //새로운 전체 포스트 조회 요청
         const getAllPosts2 = (accessToken) => {
+            setIsLoding(true) 
             axios
                 .get(process.env.REACT_APP_URL+'/post/allposts',{
                     headers: {
@@ -124,6 +124,7 @@ function Post({accessTokenHandler}) {
 
         //emotion tag별 포스트 조회
         const getPostsbyemotion = (emotion, accessToken) => {
+            setIsLoding(true) 
             axios
                 .get(process.env.REACT_APP_URL+`/post/posts/${emotion}`,{
                     headers :{
