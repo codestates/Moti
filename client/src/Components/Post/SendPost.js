@@ -15,7 +15,7 @@ function SendPost({getAllpost, accessTokenHandler}) {
   const [emotionstate, setEmotionstate] = useState('')
   const [isActive, setIsActive] = useState(false)
   const [imgsrc,setImgsrc] = useState('')
-  const [errMesage,setErrMessage] = useState('')
+  const [errMesage,setErrMessage] = useState(false)
   let accessToken = JSON.parse(window.localStorage.getItem("userInfo")).accessToken;
   const history = useHistory();
 
@@ -40,7 +40,7 @@ function SendPost({getAllpost, accessTokenHandler}) {
  /*유효성체크 */
 
  const validationCheck = () => {
-
+   return
  }
  /*미리보기 + onChange 이벤트 */
   const fileUploadHandler = (e) => {
@@ -57,10 +57,10 @@ function SendPost({getAllpost, accessTokenHandler}) {
     }
 
   /*파일 전송 */
-  // 텍스트가 있는지 + 감정 선택했는지 확인, 없으면 에러메세지 //
+
   const submitHandle = (event) => {
       event.preventDefault();
-    //    setContent(text)           
+   
        if(!text || !emotionstate){
            setErrMessage(true)
            return 
@@ -84,11 +84,11 @@ function SendPost({getAllpost, accessTokenHandler}) {
 
             axios
             .post(process.env.REACT_APP_URL +`/post/upload`, formData, config)
-                .then((res)=>{/*헤더 검사해서 새로운 액세스토큰 있는지 확인,있으면 상태변경*/
+                .then((res)=>{
                     if(res.headers.accessToken){
                         accessTokenHandler(accessToken)
                     }
-                    if(res.data.message === '업로드 성공'){ //하면 모든 포스트 불러옴
+                    if(res.data.message === '업로드 성공'){ 
                         getAllpost(accessToken)
                     }
                     // 유효하지 않을 경우
@@ -101,6 +101,7 @@ function SendPost({getAllpost, accessTokenHandler}) {
                    setPreviwURL('')
                    setImgfile('')
                    setEmotionstate('')
+                   setErrMessage(false)
                 })
                 .catch(err => 
                     console.log(err))
