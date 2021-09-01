@@ -151,7 +151,10 @@ export default function EditProfile ({profileHandler, accessTokenHandler, loginH
             <div className='header__setting-modal__profile__edit-image'>
                 <div>
                     <div className='header__setting-modal__profile__edit-image__text'>
-                        프로필 사진
+                        프로필
+                    </div>
+                    <div className='header__setting-modal__profile__edit-image__text'>
+                         사진
                     </div>
                     <div className='header__setting-modal__profile__edit-image__text'>
                         (최대 4MB)
