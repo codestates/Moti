@@ -46,7 +46,7 @@ export default function EditPassword ({accessTokenHandler, loginHandler, userInf
     }
 
     const onSubmitHandler = (e) => {
-        if(!!(currentInput.currentPassword) && !!(currentInput.newPassword) && !!(currentInput.newPasswordCheck)){
+        if(!!(currentInput.currentPassword) && !!(currentInput.newPassword) && !!(currentInput.newPasswordCheck) && !(userInfo.isSocial)){
             setErrorVisible({...errorVisible, somethingMissed:false});
             let tmpAccessToken = 'Bearer ' + userInfo.accessToken;
             if(!(errorVisible.currentPassword) && !(errorVisible.newPassword) && !(errorVisible.newPasswordCheck)){
@@ -68,7 +68,7 @@ export default function EditPassword ({accessTokenHandler, loginHandler, userInf
                         setErrorVisible({...errorVisible, somethingMissed:false})
                     })
                     .catch( error => {
-                        console.log(error)
+                        console.log('email change fail')
                         setEditError(true);
                     })
             }
@@ -93,6 +93,7 @@ export default function EditPassword ({accessTokenHandler, loginHandler, userInf
                         name='currentPassword'
                         onChange={handleInputValue('currentPassword')}
                         onBlur={validationCheck('currentPassword')}
+                        disabled = {userInfo.isSocial? 'disabled' : ''}
                     />
                     <div className= {errorVisible.currentPassword? 'header__setting-modal__password__input__current-password__error error' : 'header__setting-modal__password__input__current-password__error error hide'}>
 
@@ -108,6 +109,7 @@ export default function EditPassword ({accessTokenHandler, loginHandler, userInf
                         name='newPassword'
                         onChange={handleInputValue('newPassword')}
                         onBlur={validationCheck('newPassword')}
+                        disabled = {userInfo.isSocial? 'disabled' : ''}
                     />
                     <div className= {errorVisible.newPassword? 'header__setting-modal__password__input__new-password__error error' : 'header__setting-modal__password__input__new-password__error error hide'}>
                         비밀번호는 숫자와 영문자 조합으로 8~20자리를 사용해야 합니다.
@@ -123,6 +125,7 @@ export default function EditPassword ({accessTokenHandler, loginHandler, userInf
                         name='newPasswordCheck'
                         onChange={handleInputValue('newPasswordCheck')}
                         onBlur={validationCheck('newPasswordCheck')}
+                        disabled = {userInfo.isSocial? 'disabled' : ''}
                     />
                     <div className={errorVisible.newPasswordCheck? 'header__setting-modal__password__input__new-password-check__error error' : 'header__setting-modal__password__input__new-password-check__error error hide'}>
                         비밀번호가 일치하지 않습니다.
@@ -132,6 +135,7 @@ export default function EditPassword ({accessTokenHandler, loginHandler, userInf
             <div className='header__setting-modal__password__btn'>
                 <button className='header__setting-modal__password__btn__change' 
                     onClick={onSubmitHandler}
+                    disabled = {userInfo.isSocial? 'disabled' : ''}
                 >
                     변경
                 </button>
@@ -152,6 +156,11 @@ export default function EditPassword ({accessTokenHandler, loginHandler, userInf
                     className={editSuccess? 'header__setting-modal__password__error__success' : 'header__setting-modal__password__error__success hide'}
                 >
                     비밀번호가 변경되었습니다.
+                </div>
+                <div
+                    className={userInfo.isSocial? 'header__setting-modal__password__error__social error' : 'header__setting-modal__password__error__social error hide'}
+                >
+                    소셜 로그인 유저는 비밀번호를 변경할 수 없습니다.
                 </div>
             </div>
         </div>

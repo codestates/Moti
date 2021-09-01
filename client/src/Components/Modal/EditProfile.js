@@ -1,8 +1,6 @@
 import React, {useState} from "react"
 import axios from 'axios'
 
-const defaultImage = require('../../assets/bros_blank.jpg')
-
 export default function EditProfile ({profileHandler, accessTokenHandler, loginHandler, userInfo, modalState, modalHandler }) {
     let currentProfileImage
     if(typeof(userInfo.profile)==='string'){
@@ -16,6 +14,7 @@ export default function EditProfile ({profileHandler, accessTokenHandler, loginH
         username:''
     })
 
+    const [imageSizeError, setImageSizeError] = useState(false);
     const [submitError, setSubmitError] = useState(false);
     const [submitSuccess, setSubmitSuccess] = useState(false);
 
@@ -31,14 +30,18 @@ export default function EditProfile ({profileHandler, accessTokenHandler, loginH
         e.preventDefault();
         let reader = new FileReader();
         let file = e.target.files[0];
-        console.log(file)
-        reader.onloadend = () => {
-            setCurrentInput({
-                imageFile : file,
-                previewUrl : reader.result
-            })
+        if(file.size>4000000){
+            setImageSizeError(true)
+        }else{
+            setImageSizeError(false)
+            reader.onloadend = () => {
+                setCurrentInput({
+                    imageFile : file,
+                    previewUrl : reader.result
+                })
+            }
+            reader.readAsDataURL(file);
         }
-        reader.readAsDataURL(file);
     }
 
     const deleteImage = () => {
@@ -60,8 +63,6 @@ export default function EditProfile ({profileHandler, accessTokenHandler, loginH
     }
 
     const onSubmitHandler = async (e) => {
-        // put 성공시 setSubmitSuccess(true);, userinfo 변경(이미지 변경시 이미지만, 프로필 변경시 프로필만), currentInput 초기화
-        // put 실패시 setSubmitError(true);
         const MAX_WIDTH = 320;
         const MAX_HEIGHT = 180;
         const MIME_TYPE = "image/jpeg";
@@ -75,7 +76,6 @@ export default function EditProfile ({profileHandler, accessTokenHandler, loginH
         img.src = blobURL;
         img.onerror = function () {
             URL.revokeObjectURL(this.src);
-            // Handle the failure properly
             console.log("Cannot load image");
         };
         img.onload = await function () {
@@ -88,25 +88,11 @@ export default function EditProfile ({profileHandler, accessTokenHandler, loginH
             ctx.drawImage(img, 0, 0, newWidth, newHeight);
             canvas.toBlob(
             (blob) => {
-                // Handle the compressed image. es. upload or save in local state
-                console.log('~~~~blob~~~');
-                console.log(blob);
                 imgforaxios=blob;
                 let tmpAccessToken = 'Bearer ' + userInfo.accessToken;
                 const formData = new FormData();
-                console.log('!!!!!!!imgfor!!!!!!')
-                console.log(imgforaxios);
                 formData.append("picture",imgforaxios);
                 formData.append("username",currentInput.username);
-
-                // if(!!(currentInput.imageFile) && !!(currentInput.username)){
-                //     formData.append("picture",currentInput.imageFile);
-                //     formData.append("username",currentInput.username);
-                // }else if (!!(currentInput.imageFile)){
-                //     formData.append("picture",currentInput.imageFile);
-                // }else {
-                //     formData.append("username",currentInput.username);
-                // }
 
                 if(!!(currentInput.imageFile) || !!(currentInput.username)){
                     axios
@@ -123,7 +109,6 @@ export default function EditProfile ({profileHandler, accessTokenHandler, loginH
                                 accessTokenHandler(res.headers.accessToken)
                             }
                             profileHandler(currentInput.previewUrl, currentInput.username);
-                            console.log(res)
                         })
                         .catch((error)=>{
                             console.log('error')
@@ -164,12 +149,18 @@ export default function EditProfile ({profileHandler, accessTokenHandler, loginH
                 개인정보 변경
             </div>
             <div className='header__setting-modal__profile__edit-image'>
-                <div className='header__setting-modal__profile__edit-image__text'>
-                    프로필 사진
+                <div>
+                    <div className='header__setting-modal__profile__edit-image__text'>
+                        프로필 사진
+                    </div>
+                    <div className='header__setting-modal__profile__edit-image__text'>
+                        (최대 4MB)
+                    </div>
                 </div>
                 <div className='header__setting-modal__profile__edit-image__input'>
                     <img 
                         className='header__setting-modal__profile__edit-image__input__image' 
+                        alt='user profile'
                         src={!!(currentInput.imageFile)? currentInput.previewUrl : currentProfileImage}
                     />
                     <div className='header__setting-modal__profile__edit-image__input__btn'>
@@ -184,6 +175,7 @@ export default function EditProfile ({profileHandler, accessTokenHandler, loginH
                                 accept='image/jpg, image/png, image/jpeg'
                                 name='profileImage'
                                 onChange={imageFileHandler('imageFile')}
+                                disabled = {userInfo.isSocial? 'disabled' : ''}
                             />
                             </label>
                         
@@ -191,9 +183,15 @@ export default function EditProfile ({profileHandler, accessTokenHandler, loginH
                         <button 
                             className='header__setting-modal__profile__edit-image__input__btn__delete'
                             onClick={deleteImage}
+                            disabled = {userInfo.isSocial? 'disabled' : ''}
                         >
                             이미지 삭제
                         </button>
+                    </div>
+                    <div
+                        className={imageSizeError? 'header__setting-modal__profile__edit-image__size-error error' : 'header__setting-modal__profile__edit-image__size-error error hide'}
+                    >
+                        4MB 미만의 이미지만 업로드해주세요.
                     </div>
                 </div>
             </div>
@@ -204,12 +202,14 @@ export default function EditProfile ({profileHandler, accessTokenHandler, loginH
                 <input
                     className='header__setting-modal__profile__edit-username__input'
                     onChange={handleInputValue('username')}
+                    disabled = {userInfo.isSocial? 'disabled' : ''}
                 />
             </div>
             <div className='header__setting-modal__profile__btn'>
                 <button
                     className='header__setting-modal__profile__btn__submit'
                     onClick={onSubmitHandler}
+                    disabled = {userInfo.isSocial? 'disabled' : ''}
                 >
                     적용
                 </button>
@@ -228,6 +228,11 @@ export default function EditProfile ({profileHandler, accessTokenHandler, loginH
                     className={submitSuccess? 'header__setting-modal__profile__error__success' : 'header__setting-modal__profile__error__success hide'}
                 >
                     개인 정보가 변경되었습니다.
+                </div>
+                <div
+                    className={userInfo.isSocial? 'header__setting-modal__profile__error__error error' : 'header__setting-modal__profile__error__error error hide'}
+                >
+                    소셜 로그인 유저는 프로필을 변경할 수 없습니다.
                 </div>
             </div>
         </div>

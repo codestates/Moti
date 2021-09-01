@@ -41,12 +41,12 @@ export default function LoginContainer ({ loginHandler }) {
                     let username = res.data.data.username;
                     let profile = res.data.data.profile
                     
-                    loginHandler(accessToken, advice, author, username, profile);
+                    loginHandler(accessToken, advice, author, username, profile, false);
                 
                     history.push("/mypage")
                 })
                 .catch( err => {
-                    console.error(err)
+                    console.error('login fail')
                     setErrorVisible(true)
                 })
         }else{
@@ -67,21 +67,18 @@ export default function LoginContainer ({ loginHandler }) {
                 let author = res.data.data.author;
                 let username= res.data.data.username;
                 let profile= res.data.data.profile;
-                loginHandler(accessToken, advice, author, username, profile);
+                loginHandler(accessToken, advice, author, username, profile, true);
                 history.push("/mypage")
             })
             .catch( error => {
-                console.log(error)
+                console.log('social login fail')
             })
-        console.log('이건 언제뜸 getaccesstoken')
-        console.log(resp);
     }
 
     useEffect(()=>{
         const url = new URL(window.location.href);
         const authorizationCode = url.searchParams.get('code');
-        if (authorizationCode) {            
-            console.log(authorizationCode);
+        if (authorizationCode) {
             getAccessToken(authorizationCode)
         };
     })

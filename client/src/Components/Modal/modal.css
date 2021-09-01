@@ -151,6 +151,15 @@ body {
     margin-bottom: 1rem;
 }
 
+.header__setting-modal__profile__edit-image__input{
+    position: relative;
+}
+
+.header__setting-modal__profile__edit-image__size-error{
+    position: absolute;
+    bottom: -2.65vh;
+}
+
 .header__setting-modal__profile__edit-image__input__btn {
     display: flex;
 }

@@ -18,7 +18,6 @@ function Header({profileHandler, accessTokenHandler, loginHandler, logoutHandler
     const [modalState, setModalState] = useState('none');
 
     const dropdownHandler = () => {
-        console.log(dropdownVisible)
         setDropdownVisible(!dropdownVisible)
     }
 
@@ -26,7 +25,6 @@ function Header({profileHandler, accessTokenHandler, loginHandler, logoutHandler
         setModalState(key);
     }
 
-    let image = 'data:image/png;base64, '+ Buffer(userInfo.profile, 'binary').toString('base64');
     return (
        <div className="header"> 
          <div className="header__container">
@@ -54,6 +52,7 @@ function Header({profileHandler, accessTokenHandler, loginHandler, logoutHandler
                             onClick={dropdownHandler}
                         >
                             <img src="https://img.icons8.com/material/50/000000/616B7C/settings--v5.png" 
+                                alt='setting'
                                 className="header__container__menu__item__setting"/>
                         </button>
                         <div className={dropdownVisible? 'header__container__menu__item__setting-box__dropdown' : 'header__container__menu__item__setting-box__dropdown hide'}>
