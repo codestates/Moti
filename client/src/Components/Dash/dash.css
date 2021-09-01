@@ -67,7 +67,7 @@ body {
 .single-content{
     position: relative;
     display: flex;
-    width: 90vw;
+    width: 85vw;
     margin-bottom: 32px;
     min-height: 80px;
 }
@@ -104,6 +104,18 @@ body {
     font-size: 12px;
 }
 
+.single-content-box {
+    position: relative;
+}
+
+.single-content-like{
+    position: absolute;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    top: 0vh;
+    right: -8vw;
+}
+
 @media screen and (min-width: 768px) {
     .single-content__image{
         width: 50vw;
@@ -120,6 +132,14 @@ body {
     .single-content__explain{
         font-size: 16px;
     }
+
+    .single-content-like {
+        right: -5vw;
+        width: 30px;
+        height: auto;
+        filter: invert(92%) sepia(0%) saturate(1251%) hue-rotate(140deg) brightness(82%) contrast(103%);
+    }
+
 }
 
 @media screen and (min-width: 1024px) {
@@ -195,5 +215,11 @@ body {
 
     .single-content__explain{
         font-size: 16px;
+    }
+
+    .single-content-like {
+        right: -3vw;
+        width: 24px;
+        height: auto;
     }
 }
