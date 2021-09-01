@@ -6,6 +6,7 @@ import SignUp from './Pages/SignUp';
 import Mypage from './Pages/Mypage';
 import Dashboard from './Pages/Dashboard';
 import Notfound from './Pages/Notfound';
+import { useHistory } from 'react-router-dom';
 
 import './App.css';
 import axios from 'axios';
@@ -13,6 +14,7 @@ import axios from 'axios';
 axios.defaults.withCredentials = true;
 
 function App() {
+  const history = useHistory();
   const [userInfo, setUserInfo] = useState( JSON.parse(window.localStorage.getItem("userInfo"))|| {
     isLogin : false,
     isSocial: false,
@@ -25,6 +27,9 @@ function App() {
 
   useEffect( () => {
     window.localStorage.setItem('userInfo',JSON.stringify(userInfo));
+    if(!(userInfo.isLogin)){
+      history.push("/")
+    }
   }, [userInfo])
 
   const loginHandler = (accessToken, advice, author, username, profile, isSocial) => {
@@ -37,7 +42,6 @@ function App() {
       username : username,
       profile : profile
     })
-    console.log(JSON.parse(window.localStorage.getItem("userInfo")));
   }
   
   const logoutHandler = () => {
