@@ -31,10 +31,6 @@ function Header({profileHandler, accessTokenHandler, loginHandler, logoutHandler
             <Link to='/mypage' className="header__container__logo">
                 <img src={moti} alt={moti}/>
             </Link>
-                {/* <div className="haeder__icon">
-                      <i className={click? "fas fa-times" : "fas fa-bars"}/>
-                    </div>
-                     <ul className={click? "header__menu active" : "header__menu"}> */} {/* 반응형 haeder를 위한 구상*/}
                  <ul className="header__container__menu">
                     <li className="header__container__menu__item">
                        <Link to='/dashboard'>
@@ -43,7 +39,10 @@ function Header({profileHandler, accessTokenHandler, loginHandler, logoutHandler
                     </li>
                     <li className="header__container__menu__item">
                         <Link to='/mypage' className="header__container__menu__item__profilebox">
-                          <img src={typeof(userInfo.profile)==='string'? userInfo.profile :'data:image/png;base64, '+ Buffer(userInfo.profile, 'binary').toString('base64')} alt="profile" className="header__container__menu__item__profilebox__profile" />
+                          <img src={typeof(userInfo.profile)==='string'
+                            ?
+                            userInfo.profile :'data:image/png;base64, '+ 
+                            Buffer(userInfo.profile, 'binary').toString('base64')} alt="profile" className="header__container__menu__item__profilebox__profile" />
                         </Link>
                     </li>
                     <li className="header__container__menu__item header__container__menu__item__setting-box">
