@@ -68,26 +68,21 @@ export default function SignUpContainer () {
     
     const mailAuthorization = () => {
         if(!(errorVisible.email) && !!(signupInfo.email)){
-            console.log('email here');
-            console.log(signupInfo.email)
             axios
                 .post(process.env.REACT_APP_URL+'/user/getemailcode',{
                     email:signupInfo.email
                 })
                 .then( res => {
-                    console.log(res)
                     setEmailCheckCode(res.data.data.emailcode);
                     setSendEmail(true);
                 })
                 .catch( error => {
-                    console.log(error)
+                    console.log('email send fail')
                 })
         }
     }
 
     const mailAuthorizationCheck = () => {
-        //setEmailCheckSuccess(true)
-        //실패시 setErrorVisible({...errorVisible, emailCheck(true)})
         axios
             .post(process.env.REACT_APP_URL+'/user/emailveri',{
                 emailcode:emailCheckCode
@@ -97,12 +92,11 @@ export default function SignUpContainer () {
                 }
             })
             .then( res => {
-                console.log(res);
                 setErrorVisible({...errorVisible, emailCheck:false})
                 setEmailCheckSuccess(true);
             })
             .catch( error => {
-                console.log(error);
+                console.log('email authorization check fail');
                 setErrorVisible({...errorVisible, emailCheck:true})
             })
 

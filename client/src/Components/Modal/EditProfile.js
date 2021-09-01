@@ -1,8 +1,6 @@
 import React, {useState} from "react"
 import axios from 'axios'
 
-const defaultImage = require('../../assets/bros_blank.jpg')
-
 export default function EditProfile ({profileHandler, accessTokenHandler, loginHandler, userInfo, modalState, modalHandler }) {
     let currentProfileImage
     if(typeof(userInfo.profile)==='string'){
@@ -60,21 +58,12 @@ export default function EditProfile ({profileHandler, accessTokenHandler, loginH
     }
 
     const onSubmitHandler = (e) => {
-        // put 성공시 setSubmitSuccess(true);, userinfo 변경(이미지 변경시 이미지만, 프로필 변경시 프로필만), currentInput 초기화
-        // put 실패시 setSubmitError(true);
+
         let tmpAccessToken = 'Bearer ' + userInfo.accessToken;
         const formData = new FormData();
+
         formData.append("picture",currentInput.imageFile);
         formData.append("username",currentInput.username);
-
-        // if(!!(currentInput.imageFile) && !!(currentInput.username)){
-        //     formData.append("picture",currentInput.imageFile);
-        //     formData.append("username",currentInput.username);
-        // }else if (!!(currentInput.imageFile)){
-        //     formData.append("picture",currentInput.imageFile);
-        // }else {
-        //     formData.append("username",currentInput.username);
-        // }
 
         if(!!(currentInput.imageFile) || !!(currentInput.username)){
             axios
@@ -91,10 +80,9 @@ export default function EditProfile ({profileHandler, accessTokenHandler, loginH
                         accessTokenHandler(res.headers.accessToken)
                     }
                     profileHandler(currentInput.previewUrl, currentInput.username);
-                    console.log(res)
                 })
                 .catch((error)=>{
-                    console.log('error')
+                    console.log('profile change fail')
                 })
         }
     }
@@ -111,6 +99,7 @@ export default function EditProfile ({profileHandler, accessTokenHandler, loginH
                 <div className='header__setting-modal__profile__edit-image__input'>
                     <img 
                         className='header__setting-modal__profile__edit-image__input__image' 
+                        alt='user profile'
                         src={!!(currentInput.imageFile)? currentInput.previewUrl : currentProfileImage}
                     />
                     <div className='header__setting-modal__profile__edit-image__input__btn'>
@@ -125,6 +114,7 @@ export default function EditProfile ({profileHandler, accessTokenHandler, loginH
                                 accept='image/jpg, image/png, image/jpeg'
                                 name='profileImage'
                                 onChange={imageFileHandler('imageFile')}
+                                disabled = {userInfo.isSocial? 'disabled' : ''}
                             />
                             </label>
                         
@@ -132,6 +122,7 @@ export default function EditProfile ({profileHandler, accessTokenHandler, loginH
                         <button 
                             className='header__setting-modal__profile__edit-image__input__btn__delete'
                             onClick={deleteImage}
+                            disabled = {userInfo.isSocial? 'disabled' : ''}
                         >
                             이미지 삭제
                         </button>
@@ -145,12 +136,14 @@ export default function EditProfile ({profileHandler, accessTokenHandler, loginH
                 <input
                     className='header__setting-modal__profile__edit-username__input'
                     onChange={handleInputValue('username')}
+                    disabled = {userInfo.isSocial? 'disabled' : ''}
                 />
             </div>
             <div className='header__setting-modal__profile__btn'>
                 <button
                     className='header__setting-modal__profile__btn__submit'
                     onClick={onSubmitHandler}
+                    disabled = {userInfo.isSocial? 'disabled' : ''}
                 >
                     적용
                 </button>
@@ -169,6 +162,11 @@ export default function EditProfile ({profileHandler, accessTokenHandler, loginH
                     className={submitSuccess? 'header__setting-modal__profile__error__success' : 'header__setting-modal__profile__error__success hide'}
                 >
                     개인 정보가 변경되었습니다.
+                </div>
+                <div
+                    className={userInfo.isSocial? 'header__setting-modal__profile__error__error error' : 'header__setting-modal__profile__error__error error hide'}
+                >
+                    소셜 로그인 유저는 프로필을 변경할 수 없습니다.
                 </div>
             </div>
         </div>

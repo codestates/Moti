@@ -1,4 +1,4 @@
-import  React , {useEffect} from "react";
+import  React from "react";
 import { useHistory } from "react-router-dom";
 import LoginContainer from '../Components/LoginContainer'
 
@@ -11,7 +11,6 @@ function Login ({ loginHandler}) {
         history.push('/mypage')
     }
 
-    // console.log(JSON.parse(window.localStorage.getItem("userInfo")));
     return (
         <div className='login'>
             <div className='login__tittle'>
