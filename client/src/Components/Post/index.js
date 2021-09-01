@@ -159,7 +159,7 @@ function Post({accessTokenHandler}) {
 
  return(
      <div className="post">
-         <SearchEmotion setemotionState = {setemotionState} />
+         <SearchEmotion emotionState={emotionState} setemotionState = {setemotionState} />
          <SendPost accessToken={accessToken} getAllpost={getAllpost} accessTokenHandler={accessTokenHandler}/>
             {allpost ? allpost.map((post,idx) => {
                 return  ( 
