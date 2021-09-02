@@ -171,6 +171,7 @@ body {
     text-align: center;
     width: 110px;
     border: 1.5px solid rgba(105,105,105,0.7);
+    background-color: rgb(239, 239, 239);
     border-radius: 6px;
     font-size: 15px;
     margin-right: 0.5rem;
