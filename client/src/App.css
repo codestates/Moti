@@ -1,38 +1,574 @@
-.App {
-  text-align: center;
+* {
+  box-sizing: border-box;
+  margin:0;
+  padding:0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body{
+  width:100vw;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* Reset */
+p {
+  font-size: 16px;
+  line-height: 1.5;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+ul,
+ol,
+li,
+dl,
+dt,
+dd {
+  list-style-type: none;
+  padding-left: 0;
+  margin-left: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button:focus,
+button:active,
+input:focus,
+input:active {
+  outline: none;
+  box-shadow: none;
+}
+
+button {
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+button,
+input,
+textarea {
+  font-family: 'Orienta', sans-serif;
+}
+
+.hide{
+  display : none;
+}
+
+.error{
+  color:rgb(190, 79, 79);
+  font-size: small;
+  position : absolute;
+}
+
+/* mobile */
+
+/* login */
+
+.login {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  background-image: url('assets/login-background.jpeg');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.login__tittle {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.login__tittle__wanna-rest {
+  font-size: 45px;
+  color: #FFEBEB;
+  font-family: Oranienbaum, sans-serif;
+  letter-spacing: 0.2rem;
+  margin-bottom: 8px;
+}
+
+.login__tittle__moti {
+  font-size: 45px;
+  color: #FFFFFF;
+  font-family: Ubuntu, sans-serif;
+  letter-spacing: 0.2rem;
+}
+
+.login__box {
+  position: relative;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.35);
+  border-radius: 10px;
+  width: 80vw;
+  height: 50vh;
 }
 
-.App-link {
-  color: #61dafb;
+.login__box__input {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 3px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.login__box__input__id,
+.login__box__input__password{
+  position: relative;
+}
+
+.login__box__input__id__input,
+.login__box__input__password__input {
+  background: transparent;
+  width: 60vw;
+  height: 5vh;
+  border: none;
+  border-bottom: 2px solid rgba(85, 66, 66, 0.35);
+  color: #667286;
+  margin-bottom: 8px;
+  font-size: medium;
+}
+
+.login__box__input__id__image,
+.login__box__input__password__image {
+  height: auto;
+  position: absolute;
+  top: 0.6vh;
+  right: 2vw;
+  filter: invert(27%) sepia(4%) saturate(2403%) hue-rotate(320deg) brightness(93%) contrast(89%);
+}
+
+.login__box__input__id__image {
+  width: 18px;
+}
+
+.login__box__input__password__image {
+  width: 18px;
+}
+
+.login__box__btn {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 3vh;
+}
+
+.login__box__btn__sign-in,
+.login__box__btn__sign-up {
+  width: 60vw;
+  height: 5vh;
+  border: 1px solid rgba(158, 129, 119, 0.6);
+  border-radius: 8px;
+}
+
+.login__box__btn__sign-in {
+  background-color: rgba(255, 255, 255, 0.5);
+  transition: all 0.3s ease-in-out;
+  color: #95685A;
+  font-size: 14px;
+  margin-bottom: 1vh;
+}
+
+.login__box__btn__sign-in:hover{
+  transition: all 0.3s ease-in-out;
+  background-color: rgb(255, 255, 255);
+}
+
+.login__box__btn__sign-up {
+  background-color: rgba(154, 93, 73, 0.6);
+  transition: all 0.3s ease-in-out;
+  color: #FFFFFF;
+  font-size: 14px;
+}
+
+.login__box__btn__sign-up:hover{
+  transition: all 0.3s ease-in-out;
+  background-color: rgb(154, 93, 73);
+}
+
+.login__box__error {
+  position:absolute;
+  top: 34vh;
+  font-size: small;
+}
+
+.login__box__social {
+  display: flex;
+  align-items: center;
+  transition: translateY(10%);
+}
+
+.login__box__social__text {
+  font-family: Orienta, sans-serif;
+  color: rgba(65, 45, 38, 0.6);
+  margin-right: 8px;
+}
+
+.login__box__social__btn {
+  background: transparent;
+  width: 32px;
+  height: 35px;
+}
+
+/*  sign up */
+
+.signup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+  background-image: url('assets/login-background.jpeg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+}
+
+.signup__box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255,255,255,0.35);
+  border-radius: 10px;
+  width: 80vw;
+  height: 80vh;
+}
+
+.signup__box__tittle {
+  font-size: 26px;
+  margin-bottom: 3vh;
+  color: #95685A;
+}
+
+.signup__box__input {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-bottom: 2vh;
+}
+
+.signup__box__input__email,
+.signup__box__input__user-name,
+.signup__box__input__password,
+.signup__box__input__password-check{
+  position: relative;
+}
+
+.signup__box__input__email{
+  margin-bottom: 1rem;
+}
+
+.signup__box__input input {
+  width: 63vw;
+  height: 5vh;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid rgba(85, 66, 66, 0.35);
+  color: #667286;
+  margin-bottom: 8px;
+  font-size: medium;
+}
+
+.signup__box__input__email-box__mail-authorization{
+  position: absolute;
+  width: 22vw;
+  height: 25px;
+  top: 5.5vh;
+  right: 1vw;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 1px solid rgba(158,129,119,0.6);
+  background-color: rgba(255,255,255,0.5);
+  color: #95685A;
+  transition: all 0.3s ease-in-out;
+  font-size: small;
+}
+
+.signup__box__input__email-box__mail-authorization:hover{
+  transition:all 0.3s ease-in-out;
+  background-color: rgb(255, 255, 255);
+}
+
+.signup__box__input__email__send {
+  position : absolute;
+  width: 37vw;
+  top: 5vh;
+  font-size: small;
+}
+
+.signup__box__input__password{
+  margin-bottom: 1rem;
+}
+
+.signup__box__btn-area__btn {
+  width: 60vw;
+  height: 5vh;
+  border-radius: 8px;
+  border: 1px solid rgba(158,129,119,0.6);
+  background-color: rgba(255,255,255,0.5);
+  color: #95685A;
+  transition: all 0.3s ease-in-out;
+  font-size: medium;
+}
+
+.signup__box__btn-area__btn:hover{
+  transition:all 0.3s ease-in-out;
+  background-color: rgb(255, 255, 255);
+}
+
+.signup__box__input__user-name__image,
+.signup__box__input__email__image,
+.signup__box__input__password__image,
+.signup__box__input__password-check__image{
+  width: 20px;
+  height: auto;
+  position: absolute;
+  top: 0.6vh;
+  right: 2.5vw;
+  filter: invert(27%) sepia(4%) saturate(2403%) hue-rotate(320deg) brightness(93%) contrast(89%);
+}
+
+.signup__box__input__email__error,
+.signup__box__input__password__error,
+.signup__box__input__password-check__error{
+  top: 5vh;
+}
+
+.signup__box__input__email__error{
+  width: 37vw;
+}
+
+.signup__box__btn-area{
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.signup__box__btn-area__error{
+  position: absolute;
+  top: 5vh;
+}
+
+/* tablet */
+
+@media screen and (min-width: 768px) {
+  /* login */
+  .login__tittle {
+    margin-bottom: 2.5rem;
   }
-  to {
-    transform: rotate(360deg);
+
+  .login__tittle__wanna-rest {
+    font-size: 70px;
+    letter-spacing: 0.4rem;
   }
+
+  .login__tittle__moti {
+    font-size: 70px;
+    letter-spacing: 0.3rem;
+  }
+
+  .login__box {
+    width: 75vw;
+  }
+
+  .login__box__input {
+    margin-bottom: 12px;
+  }
+
+  .login__box__input__id__input,
+  .login__box__input__password__input{
+    width: 55vw;
+  }
+
+  
+
+  .login__box__input__id__image {
+    width: 20px;
+  }
+  
+  .login__box__input__password__image {
+    width: 22px;
+  }
+
+  .login__box__btn__sign-in,
+  .login__box__btn__sign-up {
+    width: 55vw;
+    height: 5vh;
+    border: 1px solid rgba(158, 129, 119, 0.6);
+    border-radius: 8px;
+  }
+
+  /* sign up */
+
+  .signup__box__tittle {
+    font-size : 36px;
+    margin-bottom: 60px;
+  }
+
+  .signup__box__input__email-box__mail-authorization{
+    right: 10px;
+    width: 100px;
+    height: 27px;
+    font-size: medium;
+  }
+
+}
+
+/*  desktop */
+
+@media screen and (min-width: 1024px) {
+  /* login */
+
+  .login__tittle {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 200px;
+    margin-bottom: 100px;
+  }
+
+  .login__tittle__wanna-rest {
+    font-size: 90px;
+    letter-spacing: 0.8rem;
+    margin-right: 56px;
+    margin-left: 56px;
+  }
+
+  .login__tittle__moti {
+    font-size: 94px;
+    letter-spacing: 0.8rem;
+    margin-right: 56px;
+  }
+
+  .login__box {
+    width: 526px;
+    height: 360px;
+  }
+
+  .login__box__input {
+    margin-bottom: 26px;
+    margin-top: 30px;
+    gap: 0.3rem;
+  }
+  
+  .login__box__input__id__input,
+  .login__box__input__password__input {
+    width: 370px;
+    height: 45px;
+  }
+
+  .login__box__input__id__image,
+  .login__box__input__password__image {
+    top: 10px;
+    right: 20px;
+  }
+
+  .login__box__btn {
+    flex-direction: row;
+    margin-bottom: 55px;
+    gap: 1rem;
+  }
+
+  .login__box__btn__sign-in,
+  .login__box__btn__sign-up {
+    width: 175px;
+    height:47px;
+    font-size: medium;
+    border: 2px solid rgba(158, 129, 119, 0.6);
+  }
+
+  .login__box__btn__sign-in {
+    margin-right: 8px;
+  }
+
+  .login__box__error {
+    top: 250px;
+  }
+
+  .login__box__social__text {
+    font-size: 18px;
+  }
+
+  /* signup not modified */
+  
+  .signup__box {
+    width: 526px;
+    height:720px;
+  }
+  
+  .signup__box__tittle {
+    margin-top: 30px;
+  }
+  
+  .signup__box__input__email{
+    margin-bottom: 10px;
+  }
+
+  .signup__box__input input {
+    width: 370px;
+    height: 45px;
+    margin-bottom: 25px;
+  }
+
+  .signup__box__input__email-box__mail-authorization{
+    width: 80px;
+    height: 30px;
+    top: 50px;
+    right: 10px;
+    border: 2px solid rgba(158,129,119,0.6);
+    font-size: medium;
+  }
+  
+  .signup__box__input__email__send {
+    top: 48px;
+    width: none;
+  }
+
+  .signup__box__input__password {
+    margin-bottom: none;
+  }
+
+  .signup__box__btn-area__btn {
+    width: 370px;
+    height: 47px;
+    border: 2px solid rgba(158,129,119,0.6);
+  }
+  
+  .signup__box__input__password__image,
+  .signup__box__input__password-check__image,
+  .signup__box__input__email__image,
+  .signup__box__input__user-name__image{
+    width: 20px;
+    height: auto;
+    top: 10px;
+    right: 20px;
+  }
+
+  .signup__box__input__email__image {
+    width: 18px;
+  }
+  
+  .signup__box__input__user-name__image {
+    width: 23px;
+  }
+  
+  .signup__box__input__email__error,
+  .signup__box__input__password__error,
+  .signup__box__input__password-check__error{
+    top: 48px;
+  }
+  
+  .signup__box__btn-area__error{
+    position: absolute;
+    top: 50px;
+  }
+  
 }
